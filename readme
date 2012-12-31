@@ -14,6 +14,8 @@ Features:
 *You can add your own shape if desired!
 *No images! Everything is drawn with code!
 
+![screenshot](https://github.com/Marxon13/M13Checkbox/blob/master/Screenshot.png?raw=true "screenshot")
+
 Initialization:
 ----------
 * <code>- (id)init</code>:Creates a checkbox with the default height, and no text.
