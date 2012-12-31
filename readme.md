@@ -14,7 +14,7 @@ Features:
 *You can add your own shape if desired!
 *No images! Everything is drawn with code!
 
-![screenshot](https://github.com/Marxon13/M13Checkbox/blob/master/Screenshot.png?raw=true "screenshot")
+![screenshot](https://raw.github.com/Marxon13/M13Checkbox/master/Screenshot.png "screenshot") 
 
 Initialization:
 ----------
