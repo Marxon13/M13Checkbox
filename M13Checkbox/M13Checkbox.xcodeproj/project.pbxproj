@@ -1,0 +1,328 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CAFF137A169139E8005B0C2B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAFF1379169139E8005B0C2B /* UIKit.framework */; };
+		CAFF137C169139E8005B0C2B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAFF137B169139E8005B0C2B /* Foundation.framework */; };
+		CAFF137E169139E8005B0C2B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAFF137D169139E8005B0C2B /* CoreGraphics.framework */; };
+		CAFF1384169139E8005B0C2B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CAFF1382169139E8005B0C2B /* InfoPlist.strings */; };
+		CAFF1386169139E8005B0C2B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFF1385169139E8005B0C2B /* main.m */; };
+		CAFF138A169139E8005B0C2B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFF1389169139E8005B0C2B /* AppDelegate.m */; };
+		CAFF138C169139E8005B0C2B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CAFF138B169139E8005B0C2B /* Default.png */; };
+		CAFF138E169139E8005B0C2B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAFF138D169139E8005B0C2B /* Default@2x.png */; };
+		CAFF1390169139E8005B0C2B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CAFF138F169139E8005B0C2B /* Default-568h@2x.png */; };
+		CAFF1393169139E8005B0C2B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFF1392169139E8005B0C2B /* ViewController.m */; };
+		CAFF1396169139E8005B0C2B /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAFF1394169139E8005B0C2B /* ViewController_iPhone.xib */; };
+		CAFF1399169139E8005B0C2B /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAFF1397169139E8005B0C2B /* ViewController_iPad.xib */; };
+		CAFF13A2169139F1005B0C2B /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFF13A1169139F1005B0C2B /* M13Checkbox.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CAFF1375169139E8005B0C2B /* M13Checkbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = M13Checkbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAFF1379169139E8005B0C2B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		CAFF137B169139E8005B0C2B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CAFF137D169139E8005B0C2B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		CAFF1381169139E8005B0C2B /* M13Checkbox-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "M13Checkbox-Info.plist"; sourceTree = "<group>"; };
+		CAFF1383169139E8005B0C2B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CAFF1385169139E8005B0C2B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CAFF1387169139E8005B0C2B /* M13Checkbox-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "M13Checkbox-Prefix.pch"; sourceTree = "<group>"; };
+		CAFF1388169139E8005B0C2B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		CAFF1389169139E8005B0C2B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		CAFF138B169139E8005B0C2B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		CAFF138D169139E8005B0C2B /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		CAFF138F169139E8005B0C2B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		CAFF1391169139E8005B0C2B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		CAFF1392169139E8005B0C2B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		CAFF1395169139E8005B0C2B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
+		CAFF1398169139E8005B0C2B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
+		CAFF13A0169139F1005B0C2B /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13Checkbox.h; sourceTree = "<group>"; };
+		CAFF13A1169139F1005B0C2B /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13Checkbox.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CAFF1372169139E8005B0C2B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAFF137A169139E8005B0C2B /* UIKit.framework in Frameworks */,
+				CAFF137C169139E8005B0C2B /* Foundation.framework in Frameworks */,
+				CAFF137E169139E8005B0C2B /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CAFF136A169139E8005B0C2B = {
+			isa = PBXGroup;
+			children = (
+				CAFF137F169139E8005B0C2B /* M13Checkbox */,
+				CAFF1378169139E8005B0C2B /* Frameworks */,
+				CAFF1376169139E8005B0C2B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CAFF1376169139E8005B0C2B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CAFF1375169139E8005B0C2B /* M13Checkbox.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CAFF1378169139E8005B0C2B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CAFF1379169139E8005B0C2B /* UIKit.framework */,
+				CAFF137B169139E8005B0C2B /* Foundation.framework */,
+				CAFF137D169139E8005B0C2B /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CAFF137F169139E8005B0C2B /* M13Checkbox */ = {
+			isa = PBXGroup;
+			children = (
+				CAFF139F169139F1005B0C2B /* Classes */,
+				CAFF1388169139E8005B0C2B /* AppDelegate.h */,
+				CAFF1389169139E8005B0C2B /* AppDelegate.m */,
+				CAFF1391169139E8005B0C2B /* ViewController.h */,
+				CAFF1392169139E8005B0C2B /* ViewController.m */,
+				CAFF1394169139E8005B0C2B /* ViewController_iPhone.xib */,
+				CAFF1397169139E8005B0C2B /* ViewController_iPad.xib */,
+				CAFF1380169139E8005B0C2B /* Supporting Files */,
+			);
+			path = M13Checkbox;
+			sourceTree = "<group>";
+		};
+		CAFF1380169139E8005B0C2B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CAFF1381169139E8005B0C2B /* M13Checkbox-Info.plist */,
+				CAFF1382169139E8005B0C2B /* InfoPlist.strings */,
+				CAFF1385169139E8005B0C2B /* main.m */,
+				CAFF1387169139E8005B0C2B /* M13Checkbox-Prefix.pch */,
+				CAFF138B169139E8005B0C2B /* Default.png */,
+				CAFF138D169139E8005B0C2B /* Default@2x.png */,
+				CAFF138F169139E8005B0C2B /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CAFF139F169139F1005B0C2B /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				CAFF13A0169139F1005B0C2B /* M13Checkbox.h */,
+				CAFF13A1169139F1005B0C2B /* M13Checkbox.m */,
+			);
+			name = Classes;
+			path = ../../Classes;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CAFF1374169139E8005B0C2B /* M13Checkbox */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CAFF139C169139E8005B0C2B /* Build configuration list for PBXNativeTarget "M13Checkbox" */;
+			buildPhases = (
+				CAFF1371169139E8005B0C2B /* Sources */,
+				CAFF1372169139E8005B0C2B /* Frameworks */,
+				CAFF1373169139E8005B0C2B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = M13Checkbox;
+			productName = M13Checkbox;
+			productReference = CAFF1375169139E8005B0C2B /* M13Checkbox.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CAFF136C169139E8005B0C2B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Brandon McQuilkin";
+			};
+			buildConfigurationList = CAFF136F169139E8005B0C2B /* Build configuration list for PBXProject "M13Checkbox" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CAFF136A169139E8005B0C2B;
+			productRefGroup = CAFF1376169139E8005B0C2B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CAFF1374169139E8005B0C2B /* M13Checkbox */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CAFF1373169139E8005B0C2B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAFF1384169139E8005B0C2B /* InfoPlist.strings in Resources */,
+				CAFF138C169139E8005B0C2B /* Default.png in Resources */,
+				CAFF138E169139E8005B0C2B /* Default@2x.png in Resources */,
+				CAFF1390169139E8005B0C2B /* Default-568h@2x.png in Resources */,
+				CAFF1396169139E8005B0C2B /* ViewController_iPhone.xib in Resources */,
+				CAFF1399169139E8005B0C2B /* ViewController_iPad.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CAFF1371169139E8005B0C2B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAFF1386169139E8005B0C2B /* main.m in Sources */,
+				CAFF138A169139E8005B0C2B /* AppDelegate.m in Sources */,
+				CAFF1393169139E8005B0C2B /* ViewController.m in Sources */,
+				CAFF13A2169139F1005B0C2B /* M13Checkbox.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CAFF1382169139E8005B0C2B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CAFF1383169139E8005B0C2B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CAFF1394169139E8005B0C2B /* ViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CAFF1395169139E8005B0C2B /* en */,
+			);
+			name = ViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		CAFF1397169139E8005B0C2B /* ViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CAFF1398169139E8005B0C2B /* en */,
+			);
+			name = ViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CAFF139A169139E8005B0C2B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CAFF139B169139E8005B0C2B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CAFF139D169139E8005B0C2B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "M13Checkbox/M13Checkbox-Prefix.pch";
+				INFOPLIST_FILE = "M13Checkbox/M13Checkbox-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		CAFF139E169139E8005B0C2B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "M13Checkbox/M13Checkbox-Prefix.pch";
+				INFOPLIST_FILE = "M13Checkbox/M13Checkbox-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CAFF136F169139E8005B0C2B /* Build configuration list for PBXProject "M13Checkbox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAFF139A169139E8005B0C2B /* Debug */,
+				CAFF139B169139E8005B0C2B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CAFF139C169139E8005B0C2B /* Build configuration list for PBXNativeTarget "M13Checkbox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAFF139D169139E8005B0C2B /* Debug */,
+				CAFF139E169139E8005B0C2B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CAFF136C169139E8005B0C2B /* Project object */;
+}
