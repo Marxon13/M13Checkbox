@@ -313,7 +313,7 @@
     }
 }
 
-- (void)setState:(M13CheckboxState)state // deprecated
+- (void)setState:(M13CheckboxState)state __attribute((deprecated("use setCheckState method")))
 {
     [self setCheckState:state];
 }
@@ -323,7 +323,7 @@
     [checkView setNeedsDisplay];
 }
 
-- (void)toggleState // deprecated
+- (void)toggleState __attribute((deprecated("use toggleCheckState method")))
 {
     [self toggleCheckState];
 }

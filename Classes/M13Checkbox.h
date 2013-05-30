@@ -50,9 +50,9 @@ typedef enum {
 - (id)initWithTitle:(NSString *)title andHeight:(CGFloat)height;//set the frame with the specified height, width will expand to fit text
 
 - (void)setTitle:(NSString *)title;
-- (void)setState:(M13CheckboxState)state;// deprecated
+- (void)setState:(M13CheckboxState)state __attribute((deprecated("use setCheckState method"))); 
 - (void)setCheckState:(M13CheckboxState)state;//Change state programitically
-- (void)toggleState; // deprecated
+- (void)toggleState __attribute((deprecated("use toggleCheckState method")));
 - (void)toggleCheckState;
 - (void)autoFitFontToHeight;//If you change the font, run this to change the font size to fit the frame.
 - (void)autoFitWidthToText;
