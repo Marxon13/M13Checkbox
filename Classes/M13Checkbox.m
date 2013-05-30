@@ -313,20 +313,25 @@
     }
 }
 
-- (void)setState:(M13CheckboxState)state
+- (void)setState:(M13CheckboxState)state // deprecated
 {
-    _checkState = state;
+    [self setCheckState:state];
+}
+
+- (void)setCheckState:(M13CheckboxState)checkState{
+    _checkState = checkState;
     [checkView setNeedsDisplay];
 }
 
-- (void)toggleState
+- (void)toggleState // deprecated
 {
-    if (_checkState == M13CheckboxStateChecked) {
-        _checkState = M13CheckboxStateUnchecked;
-    } else if (_checkState == M13CheckboxStateUnchecked) {
-        _checkState = M13CheckboxStateChecked;
-    }
-    [checkView setNeedsDisplay];
+    [self toggleCheckState];
+}
+
+- (void)toggleCheckState
+{
+
+    self.checkState = !self.checkState;
 }
 
 - (void)setEnabled:(BOOL)enabled
