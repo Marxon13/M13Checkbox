@@ -313,6 +313,10 @@
     }
 }
 
+- (void) setCheckState:(M13CheckboxState)checkState{
+    [self setState:checkState];
+}
+
 - (void)setState:(M13CheckboxState)state
 {
     _checkState = state;
