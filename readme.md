@@ -54,11 +54,15 @@ All Properties follow the UIAppearance protocol.
 Extra Methods:
 -------------
 * <code>- (void)setTitle:(NSString *)title</code>: Sets the title of the titleLabel, and resizes the width of the contra's frame to fit that text.
-* <code>- (void)setState:(M13CheckboxState)state</code>: Sets the state of the checkbox to the state given.
-* <code>- (void)toggleState</code>: Toggles the state between M13CheckboxStateUnchecked, and M13CheckboxStateChecked
+* <code>- (void)setCheckState:(M13CheckboxState)state</code>: Sets the state of the checkbox to the state given.
+* <code>- (void)toggleCheckState</code>: Toggles the state between M13CheckboxStateUnchecked, and M13CheckboxStateChecked
 * <code>- (void)autoFitFontToHeight</code>: Changes the font size, so it fills the height of the frame.
 * <code>- (void)autoFitWidthToText</code>: Changes the width of the frame to fit the titleLabel's text.
 * <code>- (UIBezierPath *)getDefaultShape</code>: Override this method to specify your own shape to draw instead of the checkmark. All distances should be specified as percentages of the height of the frame.
+
+Special Thanks:
+--------
+Thanks to [Jeff Wolski](https://github.com/jefmwols) for adding KVO compliance.
 
 License:
 --------
