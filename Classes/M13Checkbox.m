@@ -161,12 +161,12 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        _flat = NO;
-        _strokeColor = [UIColor colorWithRed: 0.167 green: 0.198 blue: 0.429 alpha: 1];
+        _flat = YES;
+        _strokeColor = [UIColor colorWithRed:0.02 green:0.47 blue:1 alpha:1];
         _strokeWidth = kBoxStrokeWidth * self.frame.size.height;
-        _checkColor = [UIColor colorWithRed:0.0 green:0.129 blue:0.252 alpha:1.0];
-        _tintColor = [UIColor colorWithRed: 0.616 green: 0.82 blue: 0.982 alpha: 1];
-        _uncheckedColor = [UIColor colorWithRed:0.925 green:0.925 blue:0.925 alpha:1.0];
+        _checkColor = [UIColor colorWithRed:0.02 green:0.47 blue:1 alpha:1];
+        _tintColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+        _uncheckedColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
         _radius = kBoxRadius * self.frame.size.height;
         _checkAlignment = M13CheckboxAlignmentRight;
         _checkState = M13CheckboxStateUnchecked;
@@ -197,12 +197,12 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         // Initialization code
-        _flat = NO;
-        _strokeColor = [UIColor colorWithRed: 0.167 green: 0.198 blue: 0.429 alpha: 1];
+        _flat = YES;
+        _strokeColor = [UIColor colorWithRed:0.02 green:0.47 blue:1 alpha:1];
         _strokeWidth = kBoxStrokeWidth * self.frame.size.height;
-        _checkColor = [UIColor colorWithRed:0.0 green:0.129 blue:0.252 alpha:1.0];
-        _tintColor = [UIColor colorWithRed: 0.616 green: 0.82 blue: 0.982 alpha: 1];
-        _uncheckedColor = [UIColor colorWithRed:0.925 green:0.925 blue:0.925 alpha:1.0];
+        _checkColor = [UIColor colorWithRed:0.02 green:0.47 blue:1 alpha:1];
+        _tintColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+        _uncheckedColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
         _radius = kBoxRadius * self.frame.size.height;
         _checkAlignment = M13CheckboxAlignmentRight;
         _checkState = M13CheckboxStateUnchecked;

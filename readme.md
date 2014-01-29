@@ -1,3 +1,5 @@
+<img src="https://raw.github.com/Marxon13/M13Checkbox/master/ReadmeResources/M13CheckboxBanner.png">
+
 M13Checkbox
 ============
 
@@ -14,7 +16,52 @@ Features:
 *You can add your own shape if desired!
 *No images! Everything is drawn with code!
 
-![screenshot](https://raw.github.com/Marxon13/M13Checkbox/master/Screenshot.png "screenshot") 
+Examples:
+----------
+
+***Default***
+
+<img src="https://raw.github.com/Marxon13/M13Checkbox/master/ReadmeResources/DefaultCheck.png">
+
+***Resizable***
+
+<img src="https://raw.github.com/Marxon13/M13Checkbox/master/ReadmeResources/ResizeableCheck.png">
+
+***Supports Titles***
+
+<img src="https://raw.github.com/Marxon13/M13Checkbox/master/ReadmeResources/AddTitleCheck.png">
+
+***Custom Size With Text***
+
+<img src="https://raw.github.com/Marxon13/M13Checkbox/master/ReadmeResources/CustomHeightCheck.png">
+
+***Text Alignment***
+
+<img src="https://raw.github.com/Marxon13/M13Checkbox/master/ReadmeResources/AlignmentCheck.png">
+
+***Supports a Mixed State***
+
+<img src="https://raw.github.com/Marxon13/M13Checkbox/master/ReadmeResources/MixedStateCheck.png">
+
+***OS X Styling***
+
+<img src="https://raw.github.com/Marxon13/M13Checkbox/master/ReadmeResources/OSXCheck.png">
+
+***Custom Stroke***
+
+<img src="https://raw.github.com/Marxon13/M13Checkbox/master/ReadmeResources/CustomStrokeCheck.png">
+
+***Custom Colors***
+
+<img src="https://raw.github.com/Marxon13/M13Checkbox/master/ReadmeResources/CustomColorsCheck.png">
+
+***Custom Corner Radius***
+
+<img src="https://raw.github.com/Marxon13/M13Checkbox/master/ReadmeResources/CustomRadiusCheck.png">
+
+***Control Disabling***
+
+<img src="https://raw.github.com/Marxon13/M13Checkbox/master/ReadmeResources/DisabledCheck.png">
 
 Initialization:
 ----------

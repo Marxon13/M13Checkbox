@@ -23,6 +23,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
 	// Do any additional setup after loading the view, typically from a nib.
     
     //Create just a box with the default size
@@ -56,17 +57,21 @@
     mixed.frame = CGRectMake(self.view.frame.size.width * 0.25, leftAlignment.frame.origin.y + leftAlignment.frame.size.height + 8, mixed.frame.size.width, mixed.frame.size.height);
     [self.view addSubview:mixed];
     
-    //Flat
-    M13Checkbox *flat = [[M13Checkbox alloc] initWithTitle:@"Flat"];
-    flat.flat = YES;
-    flat.frame = CGRectMake(self.view.frame.size.width * 0.25, mixed.frame.origin.y + mixed.frame.size.height + 8, flat.frame.size.width, flat.frame.size.height);
-    [self.view addSubview:flat];
+    //OSX-Style
+    M13Checkbox *osx = [[M13Checkbox alloc] initWithTitle:@"OSX Style"];
+    osx.flat = NO;
+    osx.frame = CGRectMake(self.view.frame.size.width * 0.25, mixed.frame.origin.y + mixed.frame.size.height + 8, osx.frame.size.width, osx.frame.size.height);
+    osx.strokeColor = [UIColor colorWithRed: 0.167 green: 0.198 blue: 0.429 alpha: 1];
+    osx.checkColor = [UIColor colorWithRed:0.0 green:0.129 blue:0.252 alpha:1.0];
+    osx.tintColor = [UIColor colorWithRed: 0.616 green: 0.82 blue: 0.982 alpha: 1];
+    osx.uncheckedColor = [UIColor colorWithRed:0.925 green:0.925 blue:0.925 alpha:1.0];
+    [self.view addSubview:osx];
     
     //Custom Stroke
     M13Checkbox *stroke = [[M13Checkbox alloc] initWithTitle:@"Custom Stroke" andHeight:30];
     stroke.strokeColor = [UIColor redColor];
     stroke.strokeWidth = 3.0;
-    stroke.frame = CGRectMake(self.view.frame.size.width * 0.25, flat.frame.origin.y + flat.frame.size.height + 8, stroke.frame.size.width, stroke.frame.size.height);
+    stroke.frame = CGRectMake(self.view.frame.size.width * 0.25, osx.frame.origin.y + osx.frame.size.height + 8, stroke.frame.size.width, stroke.frame.size.height);
     [self.view addSubview:stroke];
     
     //Custom Check Color

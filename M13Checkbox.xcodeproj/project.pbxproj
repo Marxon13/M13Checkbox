@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA6976891898A400008B576C /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = CA6976881898A400008B576C /* M13Checkbox.m */; };
 		CAFF137A169139E8005B0C2B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAFF1379169139E8005B0C2B /* UIKit.framework */; };
 		CAFF137C169139E8005B0C2B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAFF137B169139E8005B0C2B /* Foundation.framework */; };
 		CAFF137E169139E8005B0C2B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAFF137D169139E8005B0C2B /* CoreGraphics.framework */; };
@@ -19,10 +20,11 @@
 		CAFF1393169139E8005B0C2B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFF1392169139E8005B0C2B /* ViewController.m */; };
 		CAFF1396169139E8005B0C2B /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAFF1394169139E8005B0C2B /* ViewController_iPhone.xib */; };
 		CAFF1399169139E8005B0C2B /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAFF1397169139E8005B0C2B /* ViewController_iPad.xib */; };
-		CAFF13A2169139F1005B0C2B /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = CAFF13A1169139F1005B0C2B /* M13Checkbox.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CA6976871898A400008B576C /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M13Checkbox.h; path = Classes/M13Checkbox.h; sourceTree = SOURCE_ROOT; };
+		CA6976881898A400008B576C /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = M13Checkbox.m; path = Classes/M13Checkbox.m; sourceTree = SOURCE_ROOT; };
 		CAFF1375169139E8005B0C2B /* M13Checkbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = M13Checkbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAFF1379169139E8005B0C2B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CAFF137B169139E8005B0C2B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -40,8 +42,6 @@
 		CAFF1392169139E8005B0C2B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		CAFF1395169139E8005B0C2B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
 		CAFF1398169139E8005B0C2B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
-		CAFF13A0169139F1005B0C2B /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13Checkbox.h; sourceTree = "<group>"; };
-		CAFF13A1169139F1005B0C2B /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13Checkbox.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,8 +117,8 @@
 		CAFF139F169139F1005B0C2B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				CAFF13A0169139F1005B0C2B /* M13Checkbox.h */,
-				CAFF13A1169139F1005B0C2B /* M13Checkbox.m */,
+				CA6976871898A400008B576C /* M13Checkbox.h */,
+				CA6976881898A400008B576C /* M13Checkbox.m */,
 			);
 			name = Classes;
 			path = ../../Classes;
@@ -191,10 +191,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA6976891898A400008B576C /* M13Checkbox.m in Sources */,
 				CAFF1386169139E8005B0C2B /* main.m in Sources */,
 				CAFF138A169139E8005B0C2B /* AppDelegate.m in Sources */,
 				CAFF1393169139E8005B0C2B /* ViewController.m in Sources */,
-				CAFF13A2169139F1005B0C2B /* M13Checkbox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +321,7 @@
 				CAFF139E169139E8005B0C2B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
