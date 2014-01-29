@@ -54,12 +54,12 @@
     }
     
     if (self.selected) {
-        float r, g, b, a;
+        CGFloat r, g, b, a;
         [fillColor getRed:&r green:&g blue:&b alpha:&a];
     }
     
     if (!checkbox.enabled) {
-        float r, g, b, a;
+        CGFloat r, g, b, a;
         [fillColor getRed:&r green:&g blue:&b alpha:&a];
         fillColor = [UIColor colorWithRed:(r + .2) green:(g + .2) blue:(b + .2) alpha:a];
         [checkbox.strokeColor getRed:&r green:&g blue:&b alpha:&a];
@@ -81,7 +81,7 @@
         [boxPath stroke];
     } else {
         //Create colors based off of tint color
-        float r, g, b, a;
+        CGFloat r, g, b, a;
         [fillColor getRed:&r green:&g blue:&b alpha:&a];
         UIColor *topColor = [UIColor colorWithRed:(r + 0.20) green:(g + 0.20) blue:(b + 0.20) alpha:a];
         UIColor *bottomColor = [UIColor colorWithRed:(r + 0.15) green:(g + 0.15) blue:(b + 0.15) alpha:a];
