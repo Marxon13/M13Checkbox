@@ -25,7 +25,7 @@
 //Custom Checkbox View
 @interface CheckView : UIView
 
-@property (nonatomic, retain) M13Checkbox *checkbox;
+@property (nonatomic, weak) M13Checkbox *checkbox;
 @property (nonatomic, assign) BOOL selected;
 
 @end
