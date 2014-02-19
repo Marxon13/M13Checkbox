@@ -15,4 +15,6 @@
 
 @interface ViewController : UIViewController
 
+- (IBAction)checkChangedValue:(id)sender;
+
 @end

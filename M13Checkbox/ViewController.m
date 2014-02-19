@@ -29,6 +29,7 @@
     //Create just a box with the default size
     M13Checkbox *allDefaults = [[M13Checkbox alloc] init];
     allDefaults.frame = CGRectMake(self.view.frame.size.width * 0.25, 25, allDefaults.frame.size.width, allDefaults.frame.size.height);
+    [allDefaults addTarget:self action:@selector(checkChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:allDefaults];
     
     //Custom Frame
@@ -116,6 +117,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)checkChangedValue:(id)sender
+{
+    NSLog(@"Changed Value");
 }
 
 @end
