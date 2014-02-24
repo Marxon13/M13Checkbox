@@ -341,7 +341,7 @@
         _titleLabel.textColor = labelColor;
     } else {
         labelColor = _titleLabel.textColor;
-        float r, g, b, a;
+        CGFloat r, g, b, a;
         [labelColor getRed:&r green:&g blue:&b alpha:&a];
         r = floorf(r * 100.0 + 0.5) / 100.0;
         g = floorf(g * 100.0 + 0.5) / 100.0;
