@@ -398,7 +398,7 @@
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     checkView.selected = NO;
-    [self toggleState];
+    [self toggleCheckState];
     [self sendActionsForControlEvents:UIControlEventValueChanged];
     [super endTrackingWithTouch:touch withEvent:event];
 }
