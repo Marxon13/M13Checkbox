@@ -54,7 +54,7 @@
     
     //Mixed
     M13Checkbox *mixed = [[M13Checkbox alloc] initWithTitle:@"M13CheckboxStateMixed"];
-    [mixed setState:M13CheckboxStateMixed];
+    [mixed setCheckState:M13CheckboxStateMixed];
     mixed.frame = CGRectMake(self.view.frame.size.width * 0.25, leftAlignment.frame.origin.y + leftAlignment.frame.size.height + 8, mixed.frame.size.width, mixed.frame.size.height);
     [self.view addSubview:mixed];
     
