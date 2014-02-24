@@ -234,7 +234,8 @@
     if (self) {
         _titleLabel.text = title;
         [self autoFitFontToHeight];
-        CGSize labelSize = [title sizeWithFont:_titleLabel.font];
+        CGSize labelSize = [title sizeWithAttributes:@{ NSFontAttributeName: _titleLabel.font }];
+        
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, labelSize.width + (self.frame.size.height * kCheckBoxSpacing) + ((kBoxSize + kCheckHorizontalExtention) * self.frame.size.height), self.frame.size.height);
         [self layoutSubviews];
     }
@@ -247,7 +248,7 @@
     if (self) {
         _titleLabel.text = title;
         [self autoFitFontToHeight];
-        CGSize labelSize = [title sizeWithFont:_titleLabel.font];
+        CGSize labelSize = [title sizeWithAttributes:@{ NSFontAttributeName: _titleLabel.font }];
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, labelSize.width + (self.frame.size.height * kCheckBoxSpacing) + ((kBoxSize + kCheckHorizontalExtention) * self.frame.size.height), self.frame.size.height);
         [self layoutSubviews];
     }
@@ -288,7 +289,7 @@
         fontSize -= 1;
         UIFont *font = [UIFont fontWithName:_titleLabel.font.fontName size:fontSize];
         //Get size
-        CGSize labelSize = [@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" sizeWithFont:font];
+        CGSize labelSize = [@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" sizeWithAttributes:@{ NSFontAttributeName: font }];
         tempHeight = labelSize.height;
     } while (tempHeight >= height);
     
@@ -297,7 +298,7 @@
 
 - (void)autoFitWidthToText
 {
-    CGSize labelSize = [_titleLabel.text sizeWithFont:_titleLabel.font];
+    CGSize labelSize = [_titleLabel.text sizeWithAttributes:@{ NSFontAttributeName: _titleLabel.font }];
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, labelSize.width + (self.frame.size.height * kCheckBoxSpacing) + ((kBoxSize + kCheckHorizontalExtention) * self.frame.size.height), self.frame.size.height);
     [self layoutSubviews];
 }
@@ -361,7 +362,7 @@
 {
     _titleLabel.text = title;
     [self autoFitFontToHeight];
-    CGSize labelSize = [title sizeWithFont:_titleLabel.font];
+    CGSize labelSize = [title sizeWithAttributes:@{ NSFontAttributeName: _titleLabel.font }];
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, labelSize.width + (self.frame.size.height * kCheckBoxSpacing) + ((kBoxSize + kCheckHorizontalExtention) * self.frame.size.height), self.frame.size.height);
     [self layoutSubviews];
 }
