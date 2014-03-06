@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A393D8B18BB9D02003E2F9E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A393D8A18BB9D02003E2F9E /* Images.xcassets */; };
 		CA6976891898A400008B576C /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = CA6976881898A400008B576C /* M13Checkbox.m */; };
 		CAFF137A169139E8005B0C2B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAFF1379169139E8005B0C2B /* UIKit.framework */; };
 		CAFF137C169139E8005B0C2B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAFF137B169139E8005B0C2B /* Foundation.framework */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A393D8A18BB9D02003E2F9E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CA6976871898A400008B576C /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M13Checkbox.h; path = Classes/M13Checkbox.h; sourceTree = SOURCE_ROOT; };
 		CA6976881898A400008B576C /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = M13Checkbox.m; path = Classes/M13Checkbox.m; sourceTree = SOURCE_ROOT; };
 		CAFF1375169139E8005B0C2B /* M13Checkbox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = M13Checkbox.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,6 +97,7 @@
 				CAFF1392169139E8005B0C2B /* ViewController.m */,
 				CAFF1394169139E8005B0C2B /* ViewController_iPhone.xib */,
 				CAFF1397169139E8005B0C2B /* ViewController_iPad.xib */,
+				1A393D8A18BB9D02003E2F9E /* Images.xcassets */,
 				CAFF1380169139E8005B0C2B /* Supporting Files */,
 			);
 			path = M13Checkbox;
@@ -177,6 +180,7 @@
 			files = (
 				CAFF1384169139E8005B0C2B /* InfoPlist.strings in Resources */,
 				CAFF138C169139E8005B0C2B /* Default.png in Resources */,
+				1A393D8B18BB9D02003E2F9E /* Images.xcassets in Resources */,
 				CAFF138E169139E8005B0C2B /* Default@2x.png in Resources */,
 				CAFF1390169139E8005B0C2B /* Default-568h@2x.png in Resources */,
 				CAFF1396169139E8005B0C2B /* ViewController_iPhone.xib in Resources */,
@@ -283,9 +287,12 @@
 		CAFF139D169139E8005B0C2B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "M13Checkbox/M13Checkbox-Prefix.pch";
 				INFOPLIST_FILE = "M13Checkbox/M13Checkbox-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -294,9 +301,12 @@
 		CAFF139E169139E8005B0C2B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "M13Checkbox/M13Checkbox-Prefix.pch";
 				INFOPLIST_FILE = "M13Checkbox/M13Checkbox-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

@@ -1,0 +1,8 @@
+M13Checkbox.xcodeproj/*.pbxuser
+M13Checkbox.xcodeproj/*.mode*
+M13Checkbox.xcodeproj/*.perspectivev3
+M13Checkbox.xcodeproj/*.xcworkspace/
+M13Checkbox.xcodeproj/xcuserdata/
+M13Checkbox.xcworkspace/
+Pods/
+Podfile.lock
