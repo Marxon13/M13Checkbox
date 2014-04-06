@@ -11,10 +11,10 @@ Features:
 * Many customizable settings to make it easy to seamlessly integrate with your app.
 * All appearance settings follow the UIAppearance protocol.
 * Can be a standalone checkbox, or add a title.
-* Easy setup for any string. Just initialize with a string, and M13Checkbox will figure out the width for you.
-* The height can be changed.
-*You can add your own shape if desired!
-*No images! Everything is drawn with code!
+* Easy resizing. Use the provided methods to resize the control's width to the content, and change the font size based on the height of the checkbox.
+* Resizeable!
+* You can add your own shape if desired!
+* No images! Everything is drawn with code!
 
 Examples:
 ----------
@@ -34,6 +34,10 @@ Examples:
 ***Custom Size With Text***
 
 <img src="https://raw.github.com/Marxon13/M13Checkbox/master/ReadmeResources/CustomHeightCheck.png">
+
+***Custom Size and Multiline Text***
+
+<img src="https://raw.github.com/Marxon13/M13Checkbox/master/ReadmeResources/CustomFrameAndText.png">
 
 ***Text Alignment***
 
@@ -68,7 +72,7 @@ Initialization:
 * <code>- (id)init</code>:Creates a checkbox with the default height, and no text.
 * <code>- (id)initWithFrame:(CGRect)frame</code>: Creates a checkbox with the specified frame, and no text. The box will just fill the height of the frame.
 * <code>- (id)initWithTitle:(NSString *)title</code>: Creates a checkbox with the default height, and the specified text. The width of the frame will be changed to make the text fit.
-* <code>- (id)initWithTitle:(NSString *)title andHeight:(CGFloat)height</code>: Creates a checkbox with the height specified, and the given text. The width of the frame will be changed to make the text fit.
+* <code>- (id)initWithFrame:(CGRect)frame title:(NSString *)title</code>: Creates a checkbox with the default, and the given text. The width of the frame will be changed to make the text fit.
 
 Properties:
 -----------
@@ -100,16 +104,11 @@ All Properties follow the UIAppearance protocol.
 
 Extra Methods:
 -------------
-* <code>- (void)setTitle:(NSString *)title</code>: Sets the title of the titleLabel, and resizes the width of the contra's frame to fit that text.
 * <code>- (void)setCheckState:(M13CheckboxState)state</code>: Sets the state of the checkbox to the state given.
 * <code>- (void)toggleCheckState</code>: Toggles the state between M13CheckboxStateUnchecked, and M13CheckboxStateChecked
 * <code>- (void)autoFitFontToHeight</code>: Changes the font size, so it fills the height of the frame.
 * <code>- (void)autoFitWidthToText</code>: Changes the width of the frame to fit the titleLabel's text.
 * <code>- (UIBezierPath *)getDefaultShape</code>: Override this method to specify your own shape to draw instead of the checkmark. All distances should be specified as percentages of the height of the frame.
-
-Special Thanks:
---------
-Thanks to [Jeff Wolski](https://github.com/jefmwols) for adding KVO compliance.
 
 License:
 --------
