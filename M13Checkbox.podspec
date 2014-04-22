@@ -26,7 +26,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   s.author             = { "Brandon McQuilkin" => "marxon13@yahoo.com" }
 
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios, '6.0'
 
   s.source = { :git => "https://github.com/Marxon13/M13Checkbox.git", :tag => "1.1.0"}
 
