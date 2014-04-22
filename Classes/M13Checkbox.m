@@ -182,7 +182,13 @@
 {
     self = [self initWithFrame:CGRectMake(0, 0, 100.0, M13CheckboxDefaultHeight) title:title checkHeight:M13CheckboxDefaultHeight];
     if (self) {
-        CGSize labelSize = [title sizeWithAttributes:@{ NSFontAttributeName: _titleLabel.font }];
+        CGSize labelSize;
+        if ([title respondsToSelector:@selector(sizeWithAttributes:)]) {
+            labelSize = [title sizeWithAttributes:@{ NSFontAttributeName: _titleLabel.font }];
+        } else {
+            labelSize = [title sizeWithFont:_titleLabel.font];
+        }
+        
         self.frame = CGRectMake(
                                 self.frame.origin.x,
                                 self.frame.origin.y,
@@ -304,7 +310,13 @@
         fontSize -= 1;
         UIFont *font = [UIFont fontWithName:_titleLabel.font.fontName size:fontSize];
         //Get size
-        CGSize labelSize = [@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" sizeWithAttributes:@{ NSFontAttributeName: font }];
+        CGSize labelSize;
+        NSString *text = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        if ([text respondsToSelector:@selector(sizeWithAttributes:)]) {
+            labelSize = [text sizeWithAttributes:@{ NSFontAttributeName: font }];
+        } else {
+            labelSize = [text sizeWithFont:font];
+        }
         tempHeight = labelSize.height;
     } while (tempHeight >= height);
     
@@ -313,7 +325,13 @@
 
 - (void)autoFitWidthToText
 {
-    CGSize labelSize = [_titleLabel.text sizeWithAttributes:@{ NSFontAttributeName: _titleLabel.font }];
+    CGSize labelSize;
+    if ([_titleLabel.text respondsToSelector:@selector(sizeWithAttributes:)]) {
+        labelSize = [_titleLabel.text sizeWithAttributes:@{ NSFontAttributeName: _titleLabel.font }];
+    } else {
+        labelSize = [_titleLabel.text sizeWithFont:_titleLabel.font];
+    }
+    
     self.frame = CGRectMake(
                             self.frame.origin.x,
                             self.frame.origin.y,
@@ -328,9 +346,9 @@
     if (_checkAlignment == M13CheckboxAlignmentRight) {
         checkView.frame = CGRectIntegral(CGRectMake(
                                                     (_titleLabel.text.length == 0 ? 0 : self.frame.size.width - ((kBoxSize + kCheckHorizontalExtention) * [self heightForCheckbox])),
-                                     (self.frame.size.height - ((kBoxSize + kCheckHorizontalExtention) * [self heightForCheckbox])) / 2.0,
-                                     ((kBoxSize + kCheckHorizontalExtention) * [self heightForCheckbox]),
-                                     [self heightForCheckbox]));
+                                                    (self.frame.size.height - ((kBoxSize + kCheckHorizontalExtention) * [self heightForCheckbox])) / 2.0,
+                                                    ((kBoxSize + kCheckHorizontalExtention) * [self heightForCheckbox]),
+                                                    [self heightForCheckbox]));
         _titleLabel.frame = CGRectIntegral(CGRectMake(
                                                       0,
                                                       0,
@@ -338,10 +356,10 @@
                                                       self.frame.size.height));
     } else {
         checkView.frame = CGRectIntegral(CGRectMake(
-                                     0,
-                                     (self.frame.size.height - ((kBoxSize + kCheckHorizontalExtention) * [self heightForCheckbox])) / 2.0,
-                                     ((kBoxSize + kCheckHorizontalExtention) * [self heightForCheckbox]),
-                                     [self heightForCheckbox]));
+                                                    0,
+                                                    (self.frame.size.height - ((kBoxSize + kCheckHorizontalExtention) * [self heightForCheckbox])) / 2.0,
+                                                    ((kBoxSize + kCheckHorizontalExtention) * [self heightForCheckbox]),
+                                                    [self heightForCheckbox]));
         _titleLabel.frame = CGRectIntegral(CGRectMake(
                                                       checkView.frame.size.width + ([self heightForCheckbox] * kCheckBoxSpacing),
                                                       0,
