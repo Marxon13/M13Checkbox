@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.summary      = "A customizable checkbox for iOS that mimics the checkbox found on OS X, and Safari."
 
   s.description  = <<-DESC
-                   A customizable checkbox for iOS that mimics the checkbox found on OS X, and Safari.
+                   A customizable checkbox for iOS that mimics the checkbox found on OS X, and Safari. M13Checkbox is a subclass of UIControl, and conforms to all of its protocols.
                    DESC
 
   s.homepage     = "https://github.com/Marxon13/M13Checkbox"
