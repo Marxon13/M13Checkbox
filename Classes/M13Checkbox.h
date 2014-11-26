@@ -40,7 +40,14 @@ typedef enum {
 
 @protocol M13CheckboxDelegate <NSObject>
 @optional
+/**
+ Called when checkbox is will be clicked.
+*/
 - (void)didStartClickCheckBox:(M13Checkbox *)checkBox;
+
+/**
+ Called when checkbox has been clicked.
+ */
 - (void)didEndClickCheckBox:(M13Checkbox *)checkBox;
 
 @end
