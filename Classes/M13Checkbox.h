@@ -17,6 +17,8 @@
 #define kBoxRadius 0.1875
 #define kBoxStrokeWidth 0.05
 
+@class M13Checkbox;
+
 /**
  The posible states of the checkbox.
  */
@@ -36,6 +38,12 @@ typedef enum {
 
 #define M13CheckboxHeightAutomatic CGFLOAT_MAX
 
+@protocol M13CheckboxDelegate <NSObject>
+@optional
+- (void)didStartClickCheckBox:(M13Checkbox *)checkBox;
+- (void)didEndClickCheckBox:(M13Checkbox *)checkBox;
+
+@end
 /**
  A custom checkbox control for iOS.
  */
@@ -183,5 +191,7 @@ typedef enum {
  The corner radius of the box.
  */
 @property (nonatomic, assign) CGFloat radius UI_APPEARANCE_SELECTOR; 
+
+@property (nonatomic, weak) id<M13CheckboxDelegate> delegate;
 
 @end
