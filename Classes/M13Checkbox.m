@@ -440,6 +440,9 @@
     checkView.selected = YES;
     [checkView setNeedsDisplay];
     
+    if (_delegate && [_delegate respondsToSelector:@selector(didStartClickCheckBox::)]) {
+        [_delegate didStartClickCheckBox:self];
+    }
     return YES;
 }
 
@@ -455,6 +458,10 @@
     [self toggleCheckState];
     [self sendActionsForControlEvents:UIControlEventValueChanged];
     [super endTrackingWithTouch:touch withEvent:event];
+    
+    if (_delegate && [_delegate respondsToSelector:@selector(didEndClickCheckBox:)]) {
+        [_delegate didEndClickCheckBox:self];
+    }
 }
 
 - (void)cancelTrackingWithEvent:(UIEvent *)event
