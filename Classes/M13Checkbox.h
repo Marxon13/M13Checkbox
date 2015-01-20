@@ -36,10 +36,14 @@ typedef enum {
 
 #define M13CheckboxHeightAutomatic CGFLOAT_MAX
 
+@protocol M13CheckboxDelegate;
+
 /**
  A custom checkbox control for iOS.
  */
 @interface M13Checkbox : UIControl
+
+@property (nonatomic, assign) id<M13CheckboxDelegate> delegate;
 
 /**@name Properties*/
 /**
@@ -183,5 +187,15 @@ typedef enum {
  The corner radius of the box.
  */
 @property (nonatomic, assign) CGFloat radius UI_APPEARANCE_SELECTOR; 
+
+@end
+
+
+
+@protocol M13CheckboxDelegate
+
+@optional
+
+- (void)checkboxWasToggled:(M13Checkbox *)checkbox;
 
 @end
