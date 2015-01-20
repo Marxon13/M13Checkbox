@@ -385,6 +385,7 @@
 - (void)toggleCheckState
 {
     self.checkState = !self.checkState;
+    [self.delegate checkboxWasToggled:self];
 }
 
 - (void)setEnabled:(BOOL)enabled
