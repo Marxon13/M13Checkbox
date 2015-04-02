@@ -379,6 +379,9 @@
 
 - (void)setCheckState:(M13CheckboxState)checkState{
     _checkState = checkState;
+    if (self.delegate) {
+        [self.delegate m13CheckboxStateChangeTo:self.checkState];
+    }
     [checkView setNeedsDisplay];
 }
 
