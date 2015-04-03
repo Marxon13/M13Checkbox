@@ -55,7 +55,7 @@ typedef enum {
  */
 @property (nonatomic, assign) M13CheckboxAlignment checkAlignment UI_APPEARANCE_SELECTOR;
 /**
- A manual setting to set the height of the checkbox. If set to M13CheckHeightAutomatic, the check will fill the height of the control.
+ A manual setting to set the height of the checkbox. If set to M13CheckboxHeightAutomatic, the check will fill the height of the control.
  */
 @property (nonatomic, assign) CGFloat checkHeight UI_APPEARANCE_SELECTOR;
 /**
