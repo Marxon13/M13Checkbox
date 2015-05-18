@@ -20,19 +20,20 @@
 /**
  The posible states of the checkbox.
  */
-typedef enum {
+typedef NS_ENUM(NSInteger, M13CheckboxState) {
     M13CheckboxStateUnchecked = NO, //Default
     M13CheckboxStateChecked = YES,
     M13CheckboxStateMixed
-} M13CheckboxState;
+};
+
 
 /**
  Where the box is located in comparison to the text.
  */
-typedef enum {
+typedef NS_ENUM(NSInteger, M13CheckboxAlignment) {
     M13CheckboxAlignmentLeft,
     M13CheckboxAlignmentRight //Default
-} M13CheckboxAlignment;
+};
 
 #define M13CheckboxHeightAutomatic CGFLOAT_MAX
 
