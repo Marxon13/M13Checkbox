@@ -186,10 +186,11 @@
         if ([title respondsToSelector:@selector(sizeWithAttributes:)]) {
             labelSize = [title sizeWithAttributes:@{ NSFontAttributeName: _titleLabel.font }];
         } else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            labelSize = [title sizeWithFont:_titleLabel.font];
-#pragma clang diagnostic pop
+
+            NSDictionary *attributes = @{NSFontAttributeName: _titleLabel.font};
+            labelSize = [_titleLabel.text sizeWithAttributes:attributes];
+            labelSize =CGSizeMake(ceilf(labelSize.width), ceilf(labelSize.height));
+
         }
         
         self.frame = CGRectMake(
@@ -318,10 +319,12 @@
         if ([text respondsToSelector:@selector(sizeWithAttributes:)]) {
             labelSize = [text sizeWithAttributes:@{ NSFontAttributeName: font }];
         } else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            labelSize = [text sizeWithFont:font];
-#pragma clang diagnostic pop
+
+            NSDictionary *attributes = @{NSFontAttributeName: font};
+            labelSize = [text sizeWithAttributes:attributes];
+            labelSize =CGSizeMake(ceilf(labelSize.width), ceilf(labelSize.height));
+
+
         }
         tempHeight = labelSize.height;
     } while (tempHeight >= height);
@@ -335,10 +338,10 @@
     if ([_titleLabel.text respondsToSelector:@selector(sizeWithAttributes:)]) {
         labelSize = [_titleLabel.text sizeWithAttributes:@{ NSFontAttributeName: _titleLabel.font }];
     } else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        labelSize = [_titleLabel.text sizeWithFont:_titleLabel.font];
-#pragma clang diagnostic pop
+    
+        NSDictionary *attributes = @{NSFontAttributeName: _titleLabel.font};
+        labelSize = [_titleLabel.text sizeWithAttributes:attributes];
+        labelSize =CGSizeMake(ceilf(labelSize.width), ceilf(labelSize.height));
     }
     
     self.frame = CGRectMake(
