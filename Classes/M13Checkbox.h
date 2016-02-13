@@ -28,6 +28,20 @@ typedef NS_ENUM(NSInteger, M13CheckboxState) {
 
 
 /**
+ *  Call back delegate functions
+ */
+@protocol M13CheckboxDelegate <NSObject>
+@required
+/**
+ *  Calls back the delegate when the state change
+ *
+ *  @param state new state;
+ */
+- (void)m13CheckboxStateChangeTo:(M13CheckboxState)state;
+
+@end
+
+/**
  Where the box is located in comparison to the text.
  */
 typedef NS_ENUM(NSInteger, M13CheckboxAlignment) {
@@ -43,6 +57,10 @@ typedef NS_ENUM(NSInteger, M13CheckboxAlignment) {
 @interface M13Checkbox : UIControl
 
 /**@name Properties*/
+/**
+*  Call back delegate
+*/
+@property (weak, nonatomic) id<M13CheckboxDelegate> delegate;
 /**
  The label that displays the text for the checkbox.
  */
