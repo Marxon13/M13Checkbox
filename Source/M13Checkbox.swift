@@ -164,7 +164,8 @@ public class M13Checkbox: UIControl {
         let newActions = [
             "opacity": NSNull(),
             "strokeEnd": NSNull(),
-            "transform": NSNull()
+            "transform": NSNull(),
+            "fillColor": NSNull()
         ]
         
         // Setup the unselected box layer
@@ -252,6 +253,9 @@ public class M13Checkbox: UIControl {
      - parameter animated: Whether or not to animate the change.
      */
     public func setCheckState(checkState: CheckState, animated: Bool) {
+        if _checkState == checkState {
+            return 
+        }
         _checkState = checkState
         
         switch checkState {
@@ -269,8 +273,6 @@ public class M13Checkbox: UIControl {
             } else {
                 resetLayers()
                 updateColorsForAnimation(stateChangeAnimation)
-                checkmarkLayer.opacity = 0.0
-                selectedBoxLayer.opacity = 0.0
             }
             break
         case .Mixed:

@@ -14,6 +14,11 @@
 		EA67202F1C7D0349008054BA /* M13Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA67202E1C7D0349008054BA /* M13Checkbox.swift */; };
 		EA6720311C7DFC3D008054BA /* M13Checkbox+IB.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6720301C7DFC3D008054BA /* M13Checkbox+IB.swift */; };
 		EA6720331C7DFDD9008054BA /* M13CheckboxPathManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6720321C7DFDD9008054BA /* M13CheckboxPathManager.swift */; };
+		EA86104C1C8F4F0000F9FDBA /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA86104B1C8F4F0000F9FDBA /* DemoViewController.swift */; };
+		EA86104F1C8F4FA900F9FDBA /* SegmentedControlCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA86104E1C8F4FA900F9FDBA /* SegmentedControlCollectionViewCell.swift */; };
+		EA8610511C8F4FE300F9FDBA /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8610501C8F4FE300F9FDBA /* BaseCollectionViewCell.swift */; };
+		EA8610531C8F588E00F9FDBA /* SliderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8610521C8F588E00F9FDBA /* SliderCollectionViewCell.swift */; };
+		EA8610551C8F5E9F00F9FDBA /* SelectionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8610541C8F5E9F00F9FDBA /* SelectionCollectionViewCell.swift */; };
 		EACEC0EE1C80FD3D0005A8EA /* M13CheckboxAnimationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACEC0ED1C80FD3D0005A8EA /* M13CheckboxAnimationManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +32,11 @@
 		EA67202E1C7D0349008054BA /* M13Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = M13Checkbox.swift; path = Source/M13Checkbox.swift; sourceTree = SOURCE_ROOT; };
 		EA6720301C7DFC3D008054BA /* M13Checkbox+IB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "M13Checkbox+IB.swift"; path = "Source/M13Checkbox+IB.swift"; sourceTree = SOURCE_ROOT; };
 		EA6720321C7DFDD9008054BA /* M13CheckboxPathManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = M13CheckboxPathManager.swift; path = Source/M13CheckboxPathManager.swift; sourceTree = SOURCE_ROOT; };
+		EA86104B1C8F4F0000F9FDBA /* DemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
+		EA86104E1C8F4FA900F9FDBA /* SegmentedControlCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControlCollectionViewCell.swift; sourceTree = "<group>"; };
+		EA8610501C8F4FE300F9FDBA /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		EA8610521C8F588E00F9FDBA /* SliderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderCollectionViewCell.swift; sourceTree = "<group>"; };
+		EA8610541C8F5E9F00F9FDBA /* SelectionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionCollectionViewCell.swift; sourceTree = "<group>"; };
 		EACEC0ED1C80FD3D0005A8EA /* M13CheckboxAnimationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = M13CheckboxAnimationManager.swift; path = Source/M13CheckboxAnimationManager.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -62,6 +72,8 @@
 			children = (
 				EA67202D1C7D02F8008054BA /* Source */,
 				EA6720191C7D0296008054BA /* AppDelegate.swift */,
+				EA86104B1C8F4F0000F9FDBA /* DemoViewController.swift */,
+				EA86104D1C8F4F8900F9FDBA /* Cells */,
 				EA67201F1C7D0296008054BA /* Main.storyboard */,
 				EA6720221C7D0296008054BA /* Assets.xcassets */,
 				EA6720241C7D0296008054BA /* LaunchScreen.storyboard */,
@@ -79,6 +91,17 @@
 				EA6720301C7DFC3D008054BA /* M13Checkbox+IB.swift */,
 			);
 			name = Source;
+			sourceTree = "<group>";
+		};
+		EA86104D1C8F4F8900F9FDBA /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				EA86104E1C8F4FA900F9FDBA /* SegmentedControlCollectionViewCell.swift */,
+				EA8610521C8F588E00F9FDBA /* SliderCollectionViewCell.swift */,
+				EA8610541C8F5E9F00F9FDBA /* SelectionCollectionViewCell.swift */,
+				EA8610501C8F4FE300F9FDBA /* BaseCollectionViewCell.swift */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,8 +176,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA67202F1C7D0349008054BA /* M13Checkbox.swift in Sources */,
+				EA8610511C8F4FE300F9FDBA /* BaseCollectionViewCell.swift in Sources */,
+				EA8610531C8F588E00F9FDBA /* SliderCollectionViewCell.swift in Sources */,
+				EA8610551C8F5E9F00F9FDBA /* SelectionCollectionViewCell.swift in Sources */,
 				EACEC0EE1C80FD3D0005A8EA /* M13CheckboxAnimationManager.swift in Sources */,
 				EA6720311C7DFC3D008054BA /* M13Checkbox+IB.swift in Sources */,
+				EA86104C1C8F4F0000F9FDBA /* DemoViewController.swift in Sources */,
+				EA86104F1C8F4FA900F9FDBA /* SegmentedControlCollectionViewCell.swift in Sources */,
 				EA67201A1C7D0296008054BA /* AppDelegate.swift in Sources */,
 				EA6720331C7DFDD9008054BA /* M13CheckboxPathManager.swift in Sources */,
 			);
