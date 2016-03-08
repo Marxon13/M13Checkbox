@@ -29,6 +29,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XTB-bm-XDV">
+                                <rect key="frame" x="0.0" y="250" width="600" height="350"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="350" id="NOX-U1-ZXm"/>
+                                    <constraint firstAttribute="width" constant="300" id="Tlc-A5-Cue"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Tlc-A5-Cue"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact">
+                                    <mask key="constraints">
+                                        <exclude reference="NOX-U1-ZXm"/>
+                                        <include reference="Tlc-A5-Cue"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <segue destination="eeR-FI-F2L" kind="embed" id="H3p-Yn-1Kf"/>
+                                </connections>
+                            </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lyr-ql-eDx" customClass="M13Checkbox" customModule="M13Checkbox" customModuleProvider="target">
                                 <rect key="frame" x="285" y="120" width="30" height="30"/>
                                 <color key="tintColor" red="0.223007977" green="0.82969284060000004" blue="0.87480789420000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -50,24 +71,21 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XTB-bm-XDV">
-                                <rect key="frame" x="0.0" y="250" width="600" height="350"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="350" id="NOX-U1-ZXm"/>
-                                </constraints>
-                                <connections>
-                                    <segue destination="eeR-FI-F2L" kind="embed" id="H3p-Yn-1Kf"/>
-                                </connections>
-                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="XTB-bm-XDV" firstAttribute="top" secondItem="gtP-cW-6wj" secondAttribute="top" id="0U9-Jk-ujz"/>
+                            <constraint firstItem="lyr-ql-eDx" firstAttribute="centerY" secondItem="gtP-cW-6wj" secondAttribute="centerY" id="91H-ph-FAH"/>
                             <constraint firstItem="gex-gV-rMe" firstAttribute="top" secondItem="XTB-bm-XDV" secondAttribute="bottom" id="ExQ-9j-XqN"/>
+                            <constraint firstAttribute="trailing" secondItem="XTB-bm-XDV" secondAttribute="trailing" id="Gct-91-Fve"/>
                             <constraint firstItem="XTB-bm-XDV" firstAttribute="top" secondItem="lyr-ql-eDx" secondAttribute="bottom" constant="100" id="LYq-K3-j81">
                                 <variation key="heightClass=compact" constant="20"/>
                                 <variation key="widthClass=compact" constant="40"/>
                             </constraint>
+                            <constraint firstItem="lyr-ql-eDx" firstAttribute="leading" secondItem="gtP-cW-6wj" secondAttribute="leading" constant="60" id="O2z-lE-Y5G"/>
+                            <constraint firstItem="XTB-bm-XDV" firstAttribute="leading" secondItem="lyr-ql-eDx" secondAttribute="trailing" constant="60" id="j5e-VG-tFd"/>
                             <constraint firstAttribute="trailing" secondItem="XTB-bm-XDV" secondAttribute="trailing" id="sRf-sd-eEo"/>
+                            <constraint firstItem="gex-gV-rMe" firstAttribute="top" secondItem="XTB-bm-XDV" secondAttribute="bottom" id="utC-Wh-dgX"/>
                             <constraint firstItem="lyr-ql-eDx" firstAttribute="top" secondItem="LI1-py-okc" secondAttribute="bottom" constant="100" id="v5y-EA-6g6">
                                 <variation key="heightClass=compact" constant="20"/>
                                 <variation key="widthClass=compact" constant="40"/>
@@ -75,6 +93,32 @@
                             <constraint firstItem="lyr-ql-eDx" firstAttribute="centerX" secondItem="gtP-cW-6wj" secondAttribute="centerX" id="wgN-fy-p1x"/>
                             <constraint firstItem="XTB-bm-XDV" firstAttribute="leading" secondItem="gtP-cW-6wj" secondAttribute="leading" id="zhI-gS-ExS"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="91H-ph-FAH"/>
+                                <exclude reference="O2z-lE-Y5G"/>
+                                <exclude reference="0U9-Jk-ujz"/>
+                                <exclude reference="Gct-91-Fve"/>
+                                <exclude reference="j5e-VG-tFd"/>
+                                <exclude reference="utC-Wh-dgX"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact">
+                            <mask key="constraints">
+                                <include reference="91H-ph-FAH"/>
+                                <include reference="O2z-lE-Y5G"/>
+                                <exclude reference="v5y-EA-6g6"/>
+                                <exclude reference="wgN-fy-p1x"/>
+                                <include reference="0U9-Jk-ujz"/>
+                                <include reference="Gct-91-Fve"/>
+                                <exclude reference="LYq-K3-j81"/>
+                                <include reference="j5e-VG-tFd"/>
+                                <exclude reference="sRf-sd-eEo"/>
+                                <exclude reference="zhI-gS-ExS"/>
+                                <exclude reference="ExQ-9j-XqN"/>
+                                <include reference="utC-Wh-dgX"/>
+                            </mask>
+                        </variation>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="600"/>
