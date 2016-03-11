@@ -3,7 +3,8 @@ use_frameworks!
 
 target 'M13Checkbox' do
 
-pod "MSColorPicker"
+pod "Color-Picker-for-iOS"
+pod "PBDCarouselCollectionViewLayout"
 
 end
 

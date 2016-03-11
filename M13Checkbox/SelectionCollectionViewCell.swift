@@ -16,4 +16,8 @@ class SelectionCollectionViewCell: BaseCollectionViewCell {
         selectionButton?.layer.borderColor = selectionButton?.tintColor.CGColor
         selectionButton?.layer.borderWidth = 1.0
     }
+    
+    override func prepareForReuse() {
+        selectionButton?.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
+    }
 }

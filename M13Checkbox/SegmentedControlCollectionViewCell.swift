@@ -10,4 +10,8 @@ import UIKit
 
 class SegmentedControlCollectionViewCell: BaseCollectionViewCell { 
     @IBOutlet weak var segmentedControl: UISegmentedControl?
+    
+    override func prepareForReuse() {
+        segmentedControl?.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
+    }
 }
