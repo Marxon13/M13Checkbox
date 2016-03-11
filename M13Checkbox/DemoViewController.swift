@@ -87,7 +87,7 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
             guard let cell = cell as? SelectionCollectionViewCell else {
                 fatalError()
             }
-
+            
             cell.iconView?.image = UIImage(named: "Animation")
             cell.titleLabel?.text = "Animation"
             cell.bodyLabel?.text = "Several animations are available for switching between states."
@@ -433,6 +433,28 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
     
     func selectedAnimation(animation: M13Checkbox.Animation) {
         checkbox?.stateChangeAnimation = animation
+        
+        if let cell = collectionView?.cellForItemAtIndexPath(NSIndexPath(forItem: 1, inSection: 0)) as? SelectionCollectionViewCell {
+            switch animation {
+            case .Stroke:
+                cell.selectionButton?.setTitle("Stroke", forState: .Normal)
+            case .Fill:
+                cell.selectionButton?.setTitle("Fill", forState: .Normal)
+            case .Bounce:
+                cell.selectionButton?.setTitle("Bounce", forState: .Normal)
+            case .Expand:
+                cell.selectionButton?.setTitle("Expand", forState: .Normal)
+            case .Flat:
+                cell.selectionButton?.setTitle("Flat", forState: .Normal)
+            case .Spiral:
+                cell.selectionButton?.setTitle("Spiral", forState: .Normal)
+            case .Fade:
+                cell.selectionButton?.setTitle("fade", forState: .Normal)
+            case .Dot:
+                cell.selectionButton?.setTitle("Dot", forState: .Normal)
+            }
+        }
+        
         collectionView?.reloadItemsAtIndexPaths([NSIndexPath(forItem: 2, inSection: 0)])
     }
     

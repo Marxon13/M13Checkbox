@@ -61,7 +61,7 @@ public class M13Checkbox: UIControl {
     /**
      The possible animations for switching to and from the unchecked state.
      */
-    public enum Animation: RawRepresentable {
+    public enum Animation: RawRepresentable, Hashable {
         /// Animates the stroke of the box and the check as if they were drawn.
         case Stroke
         /// Animates the checkbox with a bouncey fill effect.
@@ -80,6 +80,8 @@ public class M13Checkbox: UIControl {
         case Dot(AnimationStyle)
         
         public init?(rawValue: Int) {
+            // Map the integer values to the animation types.
+            // This is only for interface builder support. I would like this to be removed eventually.
             switch rawValue {
             case 0:
                 self = .Stroke
@@ -108,6 +110,8 @@ public class M13Checkbox: UIControl {
         }
         
         public var rawValue: Int {
+            // Map the animation types to integer values.
+            // This is only for interface builder support. I would like this to be removed eventually.
             switch self {
             case .Stroke:
                 return 0
@@ -126,6 +130,10 @@ public class M13Checkbox: UIControl {
             case let .Dot(style):
                 return style == .Stroke ? 70 : 71
             }
+        }
+        
+        public var hashValue: Int {
+            return self.rawValue
         }
     }
     
@@ -154,6 +162,7 @@ public class M13Checkbox: UIControl {
         sharedSetup()
     }
     
+    /// The setup shared between initalizers.
     private func sharedSetup() {
         
         // Add the layers.
@@ -161,17 +170,18 @@ public class M13Checkbox: UIControl {
         layer.addSublayer(selectedBoxLayer)
         layer.addSublayer(checkmarkLayer)
         
+        // Disable som implicit animations.
         let newActions = [
             "opacity": NSNull(),
             "strokeEnd": NSNull(),
             "transform": NSNull(),
-            "fillColor": NSNull()
+            "fillColor": NSNull(),
+            "path": NSNull(),
+            "lineWidth": NSNull()
         ]
         
         // Setup the unselected box layer
         unselectedBoxLayer.lineWidth = boxLineWidth
-        unselectedBoxLayer.strokeColor = secondaryTintColor?.CGColor
-        unselectedBoxLayer.fillColor = nil
         unselectedBoxLayer.lineCap = kCALineCapRound
         unselectedBoxLayer.rasterizationScale = UIScreen.mainScreen().scale
         unselectedBoxLayer.shouldRasterize = true
@@ -179,27 +189,22 @@ public class M13Checkbox: UIControl {
         
         // Setup the selected box layer.
         selectedBoxLayer.lineWidth = boxLineWidth
-        selectedBoxLayer.fillColor = nil
         selectedBoxLayer.lineCap = kCALineCapRound
-        selectedBoxLayer.strokeColor = tintColor.CGColor
         selectedBoxLayer.rasterizationScale = UIScreen.mainScreen().scale
         selectedBoxLayer.shouldRasterize = true
-        selectedBoxLayer.opacity = 0.0
         selectedBoxLayer.actions = newActions
         
         // Setup the checkmark layer.
         checkmarkLayer.lineWidth = checkmarkLineWidth
-        checkmarkLayer.strokeColor = tintColor.CGColor
-        checkmarkLayer.fillColor = nil
         checkmarkLayer.lineCap = kCALineCapRound
         checkmarkLayer.lineJoin = kCALineJoinRound
         checkmarkLayer.rasterizationScale = UIScreen.mainScreen().scale
         checkmarkLayer.shouldRasterize = true
-        checkmarkLayer.opacity = 0.0
         checkmarkLayer.actions = newActions
         
+        // Set up the inital state.
         setNeedsLayout()
-        updateColorsForAnimation(stateChangeAnimation)
+        resetLayers()
     }
     
     //----------------------------
@@ -254,17 +259,16 @@ public class M13Checkbox: UIControl {
      */
     public func setCheckState(checkState: CheckState, animated: Bool) {
         if _checkState == checkState {
-            return 
+            return
         }
-        _checkState = checkState
         
+        // Update the view's appearance, animating if necessary.
         switch checkState {
         case .Checked:
             if animated {
                 addFromUncheckedAnimation()
             } else {
                 resetLayers()
-                updateColorsForAnimation(stateChangeAnimation)
             }
             break
         case .Unchecked:
@@ -272,16 +276,19 @@ public class M13Checkbox: UIControl {
                 addToUncheckedAnimation()
             } else {
                 resetLayers()
-                updateColorsForAnimation(stateChangeAnimation)
             }
             break
         case .Mixed:
             if animated {
                 
             } else {
-                resetLayers()            }
+                resetLayers()
+            }
             break
         }
+        
+        // Set the state.
+        _checkState = checkState
     }
     
     /**
@@ -321,8 +328,9 @@ public class M13Checkbox: UIControl {
     public var stateChangeAnimation: Animation = .Stroke {
         didSet {
             setNeedsLayout()
-            updateColorsForAnimation(stateChangeAnimation)
+            resetLayers()
             
+            // TODO: - Add support for missing animations.
             if markType == .Radio && stateChangeAnimation == .Spiral {
                 stateChangeAnimation = .Stroke
                 print("WARNING: The spiral animation is currently unsupported with a radio mark.")
@@ -336,8 +344,6 @@ public class M13Checkbox: UIControl {
         if animationDuration == 0.0 {
             return
         }
-        
-        resetLayers()
         
         switch stateChangeAnimation {
         case .Stroke:
@@ -477,8 +483,6 @@ public class M13Checkbox: UIControl {
         if animationDuration == 0.0 {
             return
         }
-        
-        resetLayers()
         
         switch stateChangeAnimation {
         case .Stroke:
@@ -623,17 +627,184 @@ public class M13Checkbox: UIControl {
     }
     
     private func resetLayers() {
-        unselectedBoxLayer.opacity = 1.0
-        unselectedBoxLayer.transform = CATransform3DIdentity
-        unselectedBoxLayer.strokeEnd = 1.0
         
-        checkmarkLayer.opacity = 1.0
-        checkmarkLayer.transform = CATransform3DIdentity
-        checkmarkLayer.strokeEnd = 1.0
+        updateColors()
+        setNeedsLayout()
         
-        selectedBoxLayer.opacity = 1.0
-        selectedBoxLayer.transform = CATransform3DIdentity
-        checkmarkLayer.strokeEnd = 1.0
+        switch stateChangeAnimation {
+        case .Stroke:
+            resetLayerPropertiesForStyle(.Stroke)
+            break
+        case .Fill:
+            resetLayerPropertiesForStyle(.Fill)
+            break
+            
+        default:
+            
+            break
+        }
+    }
+    
+    private func resetLayerPropertiesForStyle(style: AnimationStyle) {
+        switch style {
+        case .Stroke:
+            switch checkState {
+            case .Unchecked:
+                selectedBoxLayer.opacity = 0.0
+                selectedBoxLayer.strokeEnd = 0.0
+                selectedBoxLayer.transform = CATransform3DIdentity
+                checkmarkLayer.opacity = 0.0
+                checkmarkLayer.strokeEnd = 0.0
+                checkmarkLayer.transform = CATransform3DIdentity
+                break
+            default:
+                selectedBoxLayer.opacity = 1.0
+                selectedBoxLayer.strokeEnd = 1.0
+                selectedBoxLayer.transform = CATransform3DIdentity
+                checkmarkLayer.opacity = 1.0
+                checkmarkLayer.strokeEnd = 1.0
+                checkmarkLayer.transform = CATransform3DIdentity
+                break
+            }
+            break
+        case .Fill:
+            switch checkState {
+            case .Unchecked:
+                selectedBoxLayer.opacity = 0.0
+                selectedBoxLayer.strokeEnd = 1.0
+                selectedBoxLayer.transform = CATransform3DIdentity
+                checkmarkLayer.opacity = 0.0
+                checkmarkLayer.strokeEnd = 1.0
+                checkmarkLayer.transform = CATransform3DIdentity
+                break
+            default:
+                selectedBoxLayer.opacity = 1.0
+                selectedBoxLayer.strokeEnd = 1.0
+                selectedBoxLayer.transform = CATransform3DIdentity
+                checkmarkLayer.opacity = 1.0
+                checkmarkLayer.strokeEnd = 1.0
+                checkmarkLayer.transform = CATransform3DIdentity
+                break
+            }
+            break
+        }
+    }
+    
+    //----------------------------
+    // MARK: - Layer Management
+    //----------------------------
+    
+    /**
+    Sets the colors of the layers based on the animaitons that will be preformed.
+    */
+    private func updateColors() {
+        
+        // Unselected layer
+        switch stateChangeAnimation {
+        case .Dot:
+            unselectedBoxLayer.strokeColor = nil
+            unselectedBoxLayer.fillColor = secondaryTintColor?.CGColor
+            break
+        default:
+            unselectedBoxLayer.strokeColor = secondaryTintColor?.CGColor
+            unselectedBoxLayer.fillColor = nil
+            break
+        }
+        
+        // Selected and checkmark layers
+        switch stateChangeAnimation {
+        case .Stroke, .Spiral:
+            switch pathManager.markType {
+            case .Checkmark:
+                updateColorsForStyle(.Stroke)
+                break
+            case .Radio:
+                updateRadioColorForStyle(.Fill)
+                break
+            }
+            break
+        case let .Bounce(style):
+            switch pathManager.markType {
+            case .Checkmark:
+                updateColorsForStyle(style)
+                break
+            case .Radio:
+                updateRadioColorForStyle(style)
+                break
+            }
+            break
+        case let .Expand(style):
+            switch pathManager.markType {
+            case .Checkmark:
+                updateColorsForStyle(style)
+                break
+            case .Radio:
+                updateRadioColorForStyle(style)
+                break
+            }
+            break
+        case let .Flat(style):
+            updateColorsForStyle(style)
+            break
+        case let .Fade(style):
+            switch pathManager.markType {
+            case .Checkmark:
+                updateColorsForStyle(style)
+                break
+            case .Radio:
+                updateRadioColorForStyle(style)
+                break
+            }
+        case .Fill:
+            switch pathManager.markType {
+            case .Checkmark:
+                updateColorsForStyle(.Fill)
+                break
+            case .Radio:
+                updateRadioColorForStyle(.Fill)
+                checkmarkLayer.fillColor = secondaryCheckmarkTintColor?.CGColor
+                checkmarkLayer.strokeColor = nil
+                break
+            }
+            break
+        case let .Dot(style):
+            updateColorsForStyle(style)
+            break
+        }
+    }
+    
+    func updateColorsForStyle(style: AnimationStyle) {
+        switch style {
+        case .Stroke:
+            selectedBoxLayer.strokeColor = tintColor.CGColor
+            selectedBoxLayer.fillColor = UIColor.redColor().CGColor
+            checkmarkLayer.strokeColor = tintColor.CGColor
+            checkmarkLayer.fillColor = nil
+            break
+        case .Fill:
+            selectedBoxLayer.strokeColor = tintColor.CGColor
+            selectedBoxLayer.fillColor = tintColor.CGColor
+            checkmarkLayer.strokeColor = secondaryCheckmarkTintColor?.CGColor
+            checkmarkLayer.fillColor = nil
+            break
+        }
+    }
+    
+    func updateRadioColorForStyle(style: AnimationStyle) {
+        switch style {
+        case .Stroke:
+            selectedBoxLayer.strokeColor = tintColor.CGColor
+            selectedBoxLayer.fillColor = nil
+            checkmarkLayer.strokeColor = tintColor.CGColor
+            checkmarkLayer.fillColor = nil
+            break
+        case .Fill:
+            selectedBoxLayer.strokeColor = tintColor.CGColor
+            selectedBoxLayer.fillColor = nil
+            checkmarkLayer.strokeColor = nil
+            checkmarkLayer.fillColor = tintColor.CGColor
+            break
+        }
     }
     
     //----------------------------
@@ -671,14 +842,14 @@ public class M13Checkbox: UIControl {
     /// The color of the checkbox's tint color when not in the unselected state. The tint color is is the main color used when not in the unselected state.
     @IBInspectable public var secondaryTintColor: UIColor? = UIColor.lightGrayColor() {
         didSet {
-            updateColorsForAnimation(stateChangeAnimation)
+            updateColors()
         }
     }
     
     /// The color of the checkmark when it is displayed against a filled background.
     @IBInspectable public var secondaryCheckmarkTintColor: UIColor? = UIColor.whiteColor() {
         didSet {
-            updateColorsForAnimation(stateChangeAnimation)
+            updateColors()
         }
     }
     
@@ -701,12 +872,13 @@ public class M13Checkbox: UIControl {
         set {
             pathManager.markType = newValue
             
+            // TODO: - Add support for missing animations.
             if markType == .Radio && stateChangeAnimation == .Spiral {
                 pathManager.markType = .Checkmark
                 print("WARNING: The spiral animation is currently unsupported with a radio mark.")
             }
             
-            updateColorsForAnimation(stateChangeAnimation)
+            updateColors()
             setNeedsLayout()
         }
     }
@@ -774,120 +946,7 @@ public class M13Checkbox: UIControl {
     
     public override func tintColorDidChange() {
         super.tintColorDidChange()
-        updateColorsForAnimation(stateChangeAnimation)
-    }
-    
-    /**
-     Sets the colors of the layers based on the animaitons that will be preformed.
-     */
-    private func updateColorsForAnimation(animation: Animation) {
-        
-        // Unselected layer
-        switch animation {
-        case .Dot:
-            unselectedBoxLayer.strokeColor = nil
-            unselectedBoxLayer.fillColor = secondaryTintColor?.CGColor
-            break
-        default:
-            unselectedBoxLayer.strokeColor = secondaryTintColor?.CGColor
-            unselectedBoxLayer.fillColor = nil
-            break
-        }
-        
-        // Selected and checkmark layers
-        switch animation {
-        case .Stroke, .Spiral:
-            switch pathManager.markType {
-            case .Checkmark:
-                updateColorsForStyle(.Stroke)
-                break
-            case .Radio:
-                updateRadioColorForStyle(.Fill)
-                break
-            }
-            break
-        case let .Bounce(style):
-            switch pathManager.markType {
-            case .Checkmark:
-                updateColorsForStyle(style)
-                break
-            case .Radio:
-                updateRadioColorForStyle(style)
-                break
-            }
-            break
-        case let .Expand(style):
-            switch pathManager.markType {
-            case .Checkmark:
-                updateColorsForStyle(style)
-                break
-            case .Radio:
-                updateRadioColorForStyle(style)
-                break
-            }
-            break
-        case let .Flat(style):
-            updateColorsForStyle(style)
-            break
-        case let .Fade(style):
-            switch pathManager.markType {
-            case .Checkmark:
-                updateColorsForStyle(style)
-                break
-            case .Radio:
-                updateRadioColorForStyle(style)
-                break
-            }
-        case .Fill:
-            switch pathManager.markType {
-            case .Checkmark:
-                updateColorsForStyle(.Fill)
-                break
-            case .Radio:
-                updateRadioColorForStyle(.Fill)
-                checkmarkLayer.fillColor = secondaryCheckmarkTintColor?.CGColor
-                checkmarkLayer.strokeColor = nil
-                break
-            }
-            break
-        case let .Dot(style):
-            updateColorsForStyle(style)
-            break
-        }
-    }
-    
-    func updateColorsForStyle(style: AnimationStyle) {
-        switch style {
-        case .Stroke:
-            selectedBoxLayer.strokeColor = tintColor.CGColor
-            selectedBoxLayer.fillColor = nil
-            checkmarkLayer.strokeColor = tintColor.CGColor
-            checkmarkLayer.fillColor = nil
-            break
-        case .Fill:
-            selectedBoxLayer.strokeColor = tintColor.CGColor
-            selectedBoxLayer.fillColor = tintColor.CGColor
-            checkmarkLayer.strokeColor = secondaryCheckmarkTintColor?.CGColor
-            checkmarkLayer.fillColor = nil
-            break
-        }
-    }
-    
-    func updateRadioColorForStyle(style: AnimationStyle) {
-        switch style {
-        case .Stroke:
-            selectedBoxLayer.strokeColor = tintColor.CGColor
-            selectedBoxLayer.fillColor = nil
-            checkmarkLayer.strokeColor = tintColor.CGColor
-            checkmarkLayer.fillColor = nil
-            break
-        case .Fill:
-            selectedBoxLayer.strokeColor = tintColor.CGColor
-            selectedBoxLayer.fillColor = nil
-            checkmarkLayer.strokeColor = nil
-            checkmarkLayer.fillColor = tintColor.CGColor
-            break
-        }
+        updateColors()
     }
     
     //----------------------------
