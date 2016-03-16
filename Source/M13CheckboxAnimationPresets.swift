@@ -8,97 +8,111 @@
 
 import UIKit
 
+//----------------------------
+// MARK: - Constants
+//----------------------------
+
+/**
+Defines a preset of what color to show.
+*/
+internal enum ColorPreset {
+    case None
+    case Main
+    case Secondary
+}
+
+/**
+ A structure to store the properties of the control's layers before and after animations.
+ */
+internal struct LayerPropertiesPreset {
+    let opacity: Float
+    let strokeEnd: CGFloat
+    let transform: CATransform3D
+    let fill: ColorPreset
+    let stroke: ColorPreset
+    let lineWidth: Bool
+}
+
+/**
+ A structure to store the presets of multiple layers.
+ */
+internal struct AnimationPropertiesPreset {
+    let unselectedBoxLayer: LayerPropertiesPreset
+    let selectedBoxLayer: LayerPropertiesPreset
+    let markLayer: LayerPropertiesPreset
+}
+
+/**
+ A structure to store the unselected and selected presets for animations.
+ */
+internal struct AnimationEndPoint {
+    let unselected: AnimationPropertiesPreset
+    let selected: AnimationPropertiesPreset
+}
+
+
+//----------------------------
+// MARK: - Preset
+//----------------------------
+
 internal class M13CheckboxAnimationPresets {
-    
-    //----------------------------
-    // MARK: - Constants
-    //----------------------------
-    
-    /**
-     A structure to store the properties of the control's layers before and after animations.
-     */
-    internal struct LayerPropertiesPreset {
-        let opacity: CGFloat
-        let strokeEnd: CGFloat
-        let transform: CATransform3D
-        let fill: Bool
-        let stroke: Bool
-        let lineWidth: Bool
-    }
-    
-    /**
-     A structure to store the presets of multiple layers.
-     */
-    internal struct AnimationPropertiesPreset {
-        let unselectedBoxLayer: LayerPropertiesPreset
-        let selectedBoxLayer: LayerPropertiesPreset
-        let markLayer: LayerPropertiesPreset
-    }
-    
-    /**
-     A structure to store the start and end presets for animations.
-     */
-    internal struct AnimationEndPoint {
-        let start: AnimationPropertiesPreset
-        let end: AnimationPropertiesPreset
-    }
     
     //----------------------------
     // MARK: - Properties
     //----------------------------
     
-    /// Contains the start and end presets for all layers for all animations.
-    internal static let animationPresets: [M13Checkbox.Animation: AnimationEndPoint] = [
+    /// Contains the unselected and selected presets for all layers for all animations.
+    internal let animationPresets: [M13Checkbox.Animation: AnimationEndPoint] = [
         
         //----------------------------
         // MARK: - Stroke
         //----------------------------
         
         .Stroke: AnimationEndPoint(
-            start: AnimationPropertiesPreset(
+            unselected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 0.0,
                     strokeEnd: 0.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 0.0,
                     strokeEnd: 0.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true)
             ),
-            end: AnimationPropertiesPreset(
+            selected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true)
             )
         ),
@@ -108,50 +122,50 @@ internal class M13CheckboxAnimationPresets {
         //----------------------------
         
         .Fill: AnimationEndPoint(
-            start: AnimationPropertiesPreset(
+            unselected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DMakeScale(0.0, 0.0, 0.0),
-                    fill: true,
-                    stroke: true,
+                    fill: .Main,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 0.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Secondary,
                     lineWidth: true)
             ),
-            end: AnimationPropertiesPreset(
+            selected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: true,
-                    stroke: true,
+                    fill: .Main,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Secondary,
                     lineWidth: true)
             )
         ),
@@ -161,99 +175,99 @@ internal class M13CheckboxAnimationPresets {
         //----------------------------
         
         .Bounce(.Stroke): AnimationEndPoint(
-            start: AnimationPropertiesPreset(
+            unselected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 0.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DMakeScale(0.0, 0.0, 0.0),
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true)
             ),
-            end: AnimationPropertiesPreset(
+            selected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true)
             )
         ),
         
         .Bounce(.Fill): AnimationEndPoint(
-            start: AnimationPropertiesPreset(
+            unselected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 0.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: true,
-                    stroke: true,
+                    fill: .Main,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DMakeScale(0.0, 0.0, 0.0),
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Secondary,
                     lineWidth: true)
             ),
-            end: AnimationPropertiesPreset(
+            selected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: true,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .Main,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Secondary,
                     lineWidth: true)
             )
         ),
@@ -263,99 +277,99 @@ internal class M13CheckboxAnimationPresets {
         //----------------------------
         
         .Expand(.Stroke): AnimationEndPoint(
-            start: AnimationPropertiesPreset(
+            unselected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DMakeScale(0.0, 0.0, 0.0),
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DMakeScale(0.0, 0.0, 0.0),
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true)
             ),
-            end: AnimationPropertiesPreset(
+            selected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true)
             )
         ),
         
         .Expand(.Fill): AnimationEndPoint(
-            start: AnimationPropertiesPreset(
+            unselected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DMakeScale(0.0, 0.0, 0.0),
-                    fill: true,
-                    stroke: true,
+                    fill: .Main,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DMakeScale(0.0, 0.0, 0.0),
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Secondary,
                     lineWidth: true)
             ),
-            end: AnimationPropertiesPreset(
+            selected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: true,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: true,
-                    stroke: true,
+                    fill: .Main,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Secondary,
                     lineWidth: true)
             )
         ),
@@ -365,99 +379,99 @@ internal class M13CheckboxAnimationPresets {
         //----------------------------
         
         .Flat(.Stroke): AnimationEndPoint(
-            start: AnimationPropertiesPreset(
+            unselected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 0.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: false)
             ),
-            end: AnimationPropertiesPreset(
+            selected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true)
             )
         ),
         
         .Flat(.Fill): AnimationEndPoint(
-            start: AnimationPropertiesPreset(
+            unselected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 0.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: true,
-                    stroke: true,
+                    fill: .Main,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Secondary,
                     lineWidth: false)
             ),
-            end: AnimationPropertiesPreset(
+            selected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: true,
-                    stroke: true,
+                    fill: .Main,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Secondary,
                     lineWidth: true)
             )
         ),
@@ -467,50 +481,50 @@ internal class M13CheckboxAnimationPresets {
         //----------------------------
         
         .Spiral: AnimationEndPoint(
-            start: AnimationPropertiesPreset(
+            unselected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 0.0,
                     strokeEnd: 0.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 0.0,
                     strokeEnd: 0.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true)
             ),
-            end: AnimationPropertiesPreset(
+            selected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true)
             )
         ),
@@ -520,99 +534,99 @@ internal class M13CheckboxAnimationPresets {
         //----------------------------
         
         .Fade(.Stroke): AnimationEndPoint(
-            start: AnimationPropertiesPreset(
+            unselected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 0.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 0.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true)
             ),
-            end: AnimationPropertiesPreset(
+            selected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true)
             )
         ),
         
         .Fade(.Fill): AnimationEndPoint(
-            start: AnimationPropertiesPreset(
+            unselected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 0.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: true,
-                    stroke: true,
+                    fill: .Main,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 0.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Secondary,
                     lineWidth: true)
             ),
-            end: AnimationPropertiesPreset(
+            selected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: true,
-                    stroke: true,
+                    fill: .Main,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Secondary,
                     lineWidth: true)
             )
         ),
@@ -622,99 +636,99 @@ internal class M13CheckboxAnimationPresets {
         //----------------------------
         
         .Dot(.Stroke): AnimationEndPoint(
-            start: AnimationPropertiesPreset(
+            unselected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DMakeScale(0.0, 0.0, 0.0),
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 0.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true)
             ),
-            end: AnimationPropertiesPreset(
+            selected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 0.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true)
             )
         ),
         
         .Dot(.Fill): AnimationEndPoint(
-            start: AnimationPropertiesPreset(
+            unselected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DMakeScale(0.0, 0.0, 0.0),
-                    fill: true,
-                    stroke: true,
+                    fill: .Main,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 0.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Secondary,
                     lineWidth: true)
             ),
-            end: AnimationPropertiesPreset(
+            selected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Main,
                     lineWidth: true),
                 selectedBoxLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: true,
-                    stroke: true,
+                    fill: .Main,
+                    stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
                     opacity: 1.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
-                    fill: false,
-                    stroke: true,
+                    fill: .None,
+                    stroke: .Secondary,
                     lineWidth: true)
             )
         )
