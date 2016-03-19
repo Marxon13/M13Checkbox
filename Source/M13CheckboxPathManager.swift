@@ -18,6 +18,8 @@ internal class M13CheckboxPathManager {
     /// The maximum width or height the path will be generated with.
     var size: CGFloat = 0.0
     
+    private let leftArmAngle: CGFloat = CGFloat(M_PI_4)
+    
     /// The line width of the created checkmark.
     var checkmarkLineWidth: CGFloat = 1.0
     
@@ -34,6 +36,28 @@ internal class M13CheckboxPathManager {
     var markType: M13Checkbox.MarkType = .Checkmark
     
     //----------------------------
+    // MARK: - Calculations
+    //----------------------------
+    
+    private var longCheckTopPoint: CGPoint {
+        let circleRadius: CGFloat = (size - boxLineWidth) / 2.0
+        return CGPoint(
+            x: circleRadius * cos(CGFloat(leftArmAngle)),
+            y: circleRadius * sin(CGFloat(leftArmAngle))
+        )
+    }
+    
+    private var regularCheckTopPoint: CGPoint {
+        
+        // TODO: Reduce
+        let Psi = CGFloat(M_PI - M_PI_2) - leftArmAngle
+        let v =
+        
+        
+        return CGPointZero
+    }
+    
+    //----------------------------
     // MARK: - Generation
     //----------------------------
     
@@ -44,10 +68,10 @@ internal class M13CheckboxPathManager {
     func pathForBox() -> UIBezierPath {
         switch boxType {
         case .Circle:
-            let radius = size / 2.0
+            let radius = (size - boxLineWidth) / 2.0
             // Create a circle that starts in the top right hand corner.
             return UIBezierPath(arcCenter: CGPointMake(radius, radius),
-                radius: radius - (boxLineWidth / 2.0),
+                radius: radius,
                 startAngle: CGFloat(-M_PI_4),
                 endAngle: CGFloat((2 * M_PI) - M_PI_4),
                 clockwise: true)
@@ -144,17 +168,24 @@ internal class M13CheckboxPathManager {
     private func pathForCheckmark() -> UIBezierPath {
         let path = UIBezierPath()
         
-        // Add the three points. Draw based on scale to draw at any size.
-        path.moveToPoint(CGPoint(x: size / 3.1578, y: size / 2.0))
-        path.addLineToPoint(CGPoint(x: size / 2.0618, y: size / 1.57894))
-        path.addLineToPoint(CGPoint(x: size / 1.3953, y: size / 2.7272))
-        
         // Scale up the checkmark if a square box type.
         if boxType == .Square {
+            // Add the three points. Draw based on scale to draw at any size.
+            path.moveToPoint(CGPoint(x: size / 3.1578, y: size / 2.0))
+            path.addLineToPoint(CGPoint(x: size / 2.0618, y: size / 1.57894))
+            path.addLineToPoint(CGPoint(x: size / 1.3953, y: size / 2.7272))
             // Scale
             path.applyTransform(CGAffineTransformMakeScale(1.5, 1.5))
             // Recenter
             path.applyTransform(CGAffineTransformMakeTranslation(-size / 4.0, -size / 4.0))
+        } else {
+            // Add the three points. Draw based on scale to draw at any size.
+            path.moveToPoint(CGPoint(x: size / 3.1578, y: size / 2.0))
+            path.addLineToPoint(CGPoint(x: size / 2.0618, y: size / 1.57894))
+            path.addLineToPoint(CGPoint(x: size / 1.3953, y: size / 2.7272))
+            
+            print(size)
+            print("A: ", CGPoint(x: size / 3.1578, y: size / 2.0), " B: ", CGPoint(x: size / 2.0618, y: size / 1.57894), " C: ", CGPoint(x: size / 1.3953, y: size / 2.7272))
         }
         
         return path
@@ -176,12 +207,11 @@ internal class M13CheckboxPathManager {
     func pathForLongCheckmark() -> UIBezierPath {
         let path = UIBezierPath()
         
-        // Add the three points. Draw based on scale to draw at any size.
-        path.moveToPoint(CGPoint(x: size / 3.1578, y: size / 2.0))
-        path.addLineToPoint(CGPoint(x: size / 2.0618, y: size / 1.57894))
-        
         // Scale up the checkmark if a square box type.
         if boxType == .Square {
+            // Add the three points. Draw based on scale to draw at any size.
+            path.moveToPoint(CGPoint(x: size / 3.1578, y: size / 2.0))
+            path.addLineToPoint(CGPoint(x: size / 2.0, y: size / 1.57894))
             // Add last point
             path.addLineToPoint(CGPoint(x: size / 1.2053, y: size / 4.5272))
             // Scale
@@ -189,8 +219,12 @@ internal class M13CheckboxPathManager {
             // Recenter
             path.applyTransform(CGAffineTransformMakeTranslation(-size / 4.0, -size / 4.0))
         } else {
+            // Add the three points. Draw based on scale to draw at any size.
+            let circleRadius: CGFloat = (size - boxLineWidth) / 2.0
+            path.moveToPoint(CGPoint(x: size / 3.1578, y: size / 2.0))
+            path.addLineToPoint(CGPoint(x: size / 2.0, y: size / 1.57894))
             // Add last point
-            path.addLineToPoint(CGPoint(x: size / 1.1553, y: size / 5.9272))
+            path.addLineToPoint(CGPoint(x: circleRadius * cos(CGFloat(M_PI_4)), y: circleRadius * sin(CGFloat(M_PI_4))))
         }
         
         return path
@@ -215,7 +249,7 @@ internal class M13CheckboxPathManager {
         // Left point
         path.moveToPoint(CGPoint(x: size / 3.1578, y: size / 2.0))
         // Middle point
-        path.addLineToPoint(CGPoint(x: size / 2.0618, y: size / 2.0))
+        path.addLineToPoint(CGPoint(x: size / 2.0, y: size / 2.0))
         // Right point
         path.addLineToPoint(CGPoint(x: size / 1.3953, y: size / 2.0))
         

@@ -423,9 +423,10 @@ public class M13Checkbox: UIControl {
             morphAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
             let opacityAnimation = animationManager.opacityAnimation(false)
             
-            let lineWidthAnimation = animationManager.quickLineWidthAnimation(pathManager.checkmarkLineWidth, reverse: false)
-            morphAnimation.beginTime = CACurrentMediaTime() + lineWidthAnimation.duration
-            morphAnimation.duration = morphAnimation.duration - lineWidthAnimation.duration
+            let quickOpacityAnimation = animationManager.quickOpacityAnimation(false)
+            quickOpacityAnimation.duration = quickOpacityAnimation.duration * 4.0
+            morphAnimation.beginTime = CACurrentMediaTime() + quickOpacityAnimation.duration
+            morphAnimation.duration = morphAnimation.duration - quickOpacityAnimation.duration
             
             CATransaction.begin()
             CATransaction.setCompletionBlock({ () -> Void in
@@ -434,7 +435,7 @@ public class M13Checkbox: UIControl {
             
             selectedBoxLayer.addAnimation(opacityAnimation, forKey: "opacity")
             checkmarkLayer.addAnimation(morphAnimation, forKey: "path")
-            checkmarkLayer.addAnimation(lineWidthAnimation, forKey: "lineWidth")
+            checkmarkLayer.addAnimation(quickOpacityAnimation, forKey: "opacity")
             
             CATransaction.commit()
             break
@@ -451,7 +452,7 @@ public class M13Checkbox: UIControl {
             
             let checkQuickOpacityAnimation = animationManager.quickOpacityAnimation(false)
             checkQuickOpacityAnimation.duration = 0.001
-            checkQuickOpacityAnimation.beginTime = CACurrentMediaTime() + boxStrokeAnimation.duration + checkQuickOpacityAnimation.duration
+            checkQuickOpacityAnimation.beginTime = CACurrentMediaTime() + boxStrokeAnimation.duration
             
             let checkStrokeAnimation = animationManager.strokeAnimation(false)
             checkStrokeAnimation.duration = checkStrokeAnimation.duration / 4.0
@@ -473,9 +474,9 @@ public class M13Checkbox: UIControl {
             
             selectedBoxLayer.addAnimation(quickOpacityAnimation, forKey: "opacity")
             selectedBoxLayer.addAnimation(boxStrokeAnimation, forKey: "strokeEnd")
+            checkmarkLayer.addAnimation(checkQuickOpacityAnimation, forKey: "opacity")
             checkmarkLayer.addAnimation(checkStrokeAnimation, forKey: "strokeEnd")
             checkmarkLayer.addAnimation(checkMorphAnimation, forKey: "path")
-            checkmarkLayer.addAnimation(checkQuickOpacityAnimation, forKey: "opacity")
             
             CATransaction.commit()
             break
@@ -602,8 +603,10 @@ public class M13Checkbox: UIControl {
             morphAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
             let opacityAnimation = animationManager.opacityAnimation(true)
             
-            let lineWidthAnimation = animationManager.quickLineWidthAnimation(pathManager.checkmarkLineWidth, reverse: true)
-            morphAnimation.duration = morphAnimation.duration - lineWidthAnimation.duration
+            let quickOpacityAnimation = animationManager.quickOpacityAnimation(true)
+            quickOpacityAnimation.duration = quickOpacityAnimation.duration * 4.0
+            morphAnimation.duration = morphAnimation.duration - quickOpacityAnimation.duration
+            quickOpacityAnimation.beginTime = CACurrentMediaTime() + morphAnimation.duration
             
             CATransaction.begin()
             CATransaction.setCompletionBlock({ () -> Void in
@@ -612,7 +615,7 @@ public class M13Checkbox: UIControl {
             
             selectedBoxLayer.addAnimation(opacityAnimation, forKey: "opacity")
             checkmarkLayer.addAnimation(morphAnimation, forKey: "path")
-            checkmarkLayer.addAnimation(lineWidthAnimation, forKey: "lineWidth")
+            checkmarkLayer.addAnimation(quickOpacityAnimation, forKey: "opacity")
             
             CATransaction.commit()
             break

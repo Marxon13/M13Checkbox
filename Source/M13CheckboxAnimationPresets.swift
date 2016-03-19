@@ -395,12 +395,12 @@ internal class M13CheckboxAnimationPresets {
                     stroke: .Main,
                     lineWidth: true),
                 markLayer: LayerPropertiesPreset(
-                    opacity: 1.0,
+                    opacity: 0.0,
                     strokeEnd: 1.0,
                     transform: CATransform3DIdentity,
                     fill: .None,
                     stroke: .Main,
-                    lineWidth: false)
+                    lineWidth: true)
             ),
             selected: AnimationPropertiesPreset(
                 unselectedBoxLayer: LayerPropertiesPreset(
