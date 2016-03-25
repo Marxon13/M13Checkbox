@@ -270,7 +270,10 @@
     //Add the subviews
     [self addSubview:checkView];
     [self addSubview:_titleLabel];
-    
+
+    UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    recognizer.minimumPressDuration = 0.;
+    [self addGestureRecognizer:recognizer];
 }
 
 - (CGFloat)heightForCheckbox
@@ -435,36 +438,26 @@
     return checkView.frame;
 }
 
-#pragma mark - UIControl overrides
+#pragma mark - UIGestureRecognizer action
 
-- (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
+- (void)handleLongPress:(UIGestureRecognizer *)recognizer
 {
-    [super beginTrackingWithTouch:touch withEvent:event];
-    checkView.selected = YES;
+    if (UIGestureRecognizerStateBegan == recognizer.state)
+    {
+        checkView.selected = YES;
+    }
+    else
+    {
+        checkView.selected = NO;
+
+        if (UIGestureRecognizerStateEnded == recognizer.state)
+        {
+            [self toggleCheckState];
+            [self sendActionsForControlEvents:UIControlEventValueChanged];
+        }
+    }
+
     [checkView setNeedsDisplay];
-    
-    return YES;
-}
-
-- (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
-{
-    [super continueTrackingWithTouch:touch withEvent:event];
-    return YES;
-}
-
-- (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
-{
-    checkView.selected = NO;
-    [self toggleCheckState];
-    [self sendActionsForControlEvents:UIControlEventValueChanged];
-    [super endTrackingWithTouch:touch withEvent:event];
-}
-
-- (void)cancelTrackingWithEvent:(UIEvent *)event
-{
-    checkView.selected = NO;
-    [checkView setNeedsDisplay];
-    [super cancelTrackingWithEvent:event];
 }
 
 @end
