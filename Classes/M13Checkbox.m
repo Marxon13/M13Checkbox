@@ -13,6 +13,8 @@
 
 #import "M13Checkbox.h"
 
+#import <UIKit/UIGestureRecognizerSubclass.h>
+
 #define kBoxSize .875
 #define kCheckHorizontalExtention .125
 #define kCheckVerticalExtension .125
@@ -117,6 +119,37 @@
     
     //Cleanup
     CGColorSpaceRelease(colorSpace);
+}
+
+@end
+
+@interface M13GestureRecognizer : UILongPressGestureRecognizer
+
+@end
+
+@implementation M13GestureRecognizer
+
+- (instancetype)initWithTarget:(id)target action:(SEL)action
+{
+    self = [super initWithTarget:target action:action];
+    if (self)
+    {
+        self.minimumPressDuration = 0.;
+    }
+
+    return self;
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *anyTouch = [touches anyObject];
+    CGPoint touchPoint = [anyTouch locationInView:self.view];
+    if (!CGRectContainsPoint(self.view.bounds, touchPoint))
+    {
+        self.state = UIGestureRecognizerStateFailed;
+    }
+
+    [super touchesEnded:touches withEvent:event];
 }
 
 @end
@@ -271,8 +304,7 @@
     [self addSubview:checkView];
     [self addSubview:_titleLabel];
 
-    UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-    recognizer.minimumPressDuration = 0.;
+    M13GestureRecognizer *recognizer = [[M13GestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     [self addGestureRecognizer:recognizer];
 }
 
