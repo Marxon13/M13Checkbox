@@ -142,6 +142,7 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    // Override `-touchesEnded:withEvent:` to check whether the touch is outside of the M13Checkbox's bounds, and fail to recognize if so.
     UITouch *anyTouch = [touches anyObject];
     CGPoint touchPoint = [anyTouch locationInView:self.view];
     if (!CGRectContainsPoint(self.view.bounds, touchPoint))
@@ -149,6 +150,7 @@
         self.state = UIGestureRecognizerStateFailed;
     }
 
+    // If `self.state` is not yet set, the superclass implementation of this method will set it as it sees fit.
     [super touchesEnded:touches withEvent:event];
 }
 
@@ -474,7 +476,7 @@
 
 - (void)handleLongPress:(UIGestureRecognizer *)recognizer
 {
-    if (UIGestureRecognizerStateBegan == recognizer.state)
+    if (UIGestureRecognizerStateBegan == recognizer.state || UIGestureRecognizerStateChanged == recognizer.state)
     {
         checkView.selected = YES;
     }
