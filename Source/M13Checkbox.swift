@@ -132,6 +132,28 @@ public class M13Checkbox: UIControl {
             }
         }
         
+        /// The manager for the specific animation type.
+        private var manager: M13CheckboxManager {
+            switch self {
+            case .Stroke:
+                return M13CheckboxStrokeManager()
+            case .Fill:
+                return M13CheckboxFillManager()
+            case let .Bounce(style):
+                return M13CheckboxBounceManager(style: style)
+            case let .Expand(style):
+                return M13CheckboxExpandManager(style: style)
+            case let .Flat(style):
+                return M13CheckboxFlatManager(style: style)
+            case .Spiral:
+                return M13CheckboxSpiralManager()
+            case let .Fade(style):
+                return M13CheckboxFadeManager(style: style)
+            case let .Dot(style):
+                return M13CheckboxDotManager(style: style)
+            }
+        }
+        
         public var hashValue: Int {
             return self.rawValue
         }
@@ -149,6 +171,14 @@ public class M13Checkbox: UIControl {
     }
     
     //----------------------------
+    // MARK: - Properties
+    //----------------------------
+    
+    /// The manager that manages display and animations of the checkbox.
+    /// The default animation is a stroke.
+    private var manager: M13CheckboxManager = M13CheckboxStrokeManager()
+    
+    //----------------------------
     // MARK: - Initalization
     //----------------------------
     
@@ -164,47 +194,12 @@ public class M13Checkbox: UIControl {
     
     /// The setup shared between initalizers.
     private func sharedSetup() {
-        
-        // Add the layers.
-        layer.addSublayer(unselectedBoxLayer)
-        layer.addSublayer(selectedBoxLayer)
-        layer.addSublayer(checkmarkLayer)
-        
-        // Disable som implicit animations.
-        let newActions = [
-            "opacity": NSNull(),
-            "strokeEnd": NSNull(),
-            "transform": NSNull(),
-            "fillColor": NSNull(),
-            "path": NSNull(),
-            "lineWidth": NSNull()
-        ]
-        
-        // Setup the unselected box layer
-        unselectedBoxLayer.lineWidth = boxLineWidth
-        unselectedBoxLayer.lineCap = kCALineCapRound
-        unselectedBoxLayer.rasterizationScale = UIScreen.mainScreen().scale
-        unselectedBoxLayer.shouldRasterize = true
-        unselectedBoxLayer.actions = newActions
-        
-        // Setup the selected box layer.
-        selectedBoxLayer.lineWidth = boxLineWidth
-        selectedBoxLayer.lineCap = kCALineCapRound
-        selectedBoxLayer.rasterizationScale = UIScreen.mainScreen().scale
-        selectedBoxLayer.shouldRasterize = true
-        selectedBoxLayer.actions = newActions
-        
-        // Setup the checkmark layer.
-        checkmarkLayer.lineWidth = checkmarkLineWidth
-        checkmarkLayer.lineCap = kCALineCapRound
-        checkmarkLayer.lineJoin = kCALineJoinRound
-        checkmarkLayer.rasterizationScale = UIScreen.mainScreen().scale
-        checkmarkLayer.shouldRasterize = true
-        checkmarkLayer.actions = newActions
-        
         // Set up the inital state.
-        setNeedsLayout()
-        resetLayers()
+        for aLayer in manager.layersToDisplay {
+            layer.addSublayer(aLayer)
+        }
+        manager.tintColor = tintColor
+        manager.resetLayersForState(.Unchecked)
     }
     
     //----------------------------
@@ -240,12 +235,10 @@ public class M13Checkbox: UIControl {
     // MARK: - State
     //----------------------------
     
-    private var _checkState: CheckState = .Unchecked
-    
     /// The current state of the checkbox.
     public var checkState: CheckState {
         get {
-            return _checkState
+            return manager.state
         }
         set {
             setCheckState(newValue, animated: false)
@@ -257,28 +250,15 @@ public class M13Checkbox: UIControl {
      - parameter checkState: The new state of the checkbox.
      - parameter animated: Whether or not to animate the change.
      */
-    public func setCheckState(checkState: CheckState, animated: Bool) {
-        if _checkState == checkState {
+    public func setCheckState(newState: CheckState, animated: Bool) {
+        if checkState == newState {
             return
         }
         
-        // Set the state.
-        _checkState = checkState
-        
         if animated {
-            switch checkState {
-            case .Checked:
-                addFromUncheckedAnimation()
-                break
-            case .Unchecked:
-                addToUncheckedAnimation()
-                break
-            case .Mixed:
-                
-                break
-            }
+            manager.animate(checkState, toState: newState)
         } else {
-            resetLayers()
+            manager.resetLayersForState(checkState)
         }
     }
     
@@ -308,436 +288,55 @@ public class M13Checkbox: UIControl {
     /// The duration of the animation that occurs when the checkbox switches states. The default is 0.3 seconds.
     @IBInspectable public var animationDuration: NSTimeInterval {
         get {
-            return animationManager.animationDuration
+            return manager.animations.animationDuration
         }
         set {
-            animationManager.animationDuration = newValue
+            manager.animations.animationDuration = newValue
         }
     }
     
     /// The type of animation to preform when changing from the unchecked state to any other state.
     public var stateChangeAnimation: Animation = .Stroke {
         didSet {
-            setNeedsLayout()
-            resetLayers()
+            
+            // Remove the sublayers
+            if let layers = layer.sublayers {
+                for sublayer in layers {
+                    sublayer.removeAllAnimations()
+                    sublayer.removeFromSuperlayer()
+                }
+            }
+            
+            // Set the manager
+            let newManager = stateChangeAnimation.manager
+            
+            newManager.tintColor = tintColor
+            newManager.secondaryTintColor = secondaryTintColor
+            newManager.secondaryCheckmarkTintColor = secondaryCheckmarkTintColor
+            newManager.hideBox = hideBox
+            
+            newManager.paths.boxLineWidth = manager.paths.boxLineWidth
+            newManager.paths.boxType = manager.paths.boxType
+            newManager.paths.checkmarkLineWidth = manager.paths.checkmarkLineWidth
+            newManager.paths.cornerRadius = manager.paths.cornerRadius
+            newManager.paths.markType = manager.paths.markType
+            
+            newManager.animations.animationDuration = manager.animations.animationDuration
+            
+            // Set up the inital state.
+            for aLayer in newManager.layersToDisplay {
+                layer.addSublayer(aLayer)
+            }
+            
+            // Layout and reset
+            newManager.resetLayersForState(checkState)
+            manager = newManager
             
             // TODO: - Add support for missing animations.
             if markType == .Radio && stateChangeAnimation == .Spiral {
                 stateChangeAnimation = .Stroke
                 print("WARNING: The spiral animation is currently unsupported with a radio mark.")
             }
-        }
-    }
-    
-    /// Creates and adds an animaiton to transition from the unselectedState
-    private func addFromUncheckedAnimation() {
-        // Check if we need to animate.
-        if animationDuration == 0.0 {
-            return
-        }
-        
-        switch stateChangeAnimation {
-        case .Stroke:
-            
-            let strokeAnimation = animationManager.strokeAnimation(false)
-            let quickOpacityAnimation = animationManager.quickOpacityAnimation(false)
-            
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({ () -> Void in
-                self.resetLayers()
-            })
-            
-            switch pathManager.markType {
-            case .Checkmark:
-                checkmarkLayer.addAnimation(strokeAnimation, forKey: "strokeEnd")
-                checkmarkLayer.addAnimation(quickOpacityAnimation, forKey: "opacity")
-                break
-            case .Radio:
-                let opacityAnimation = animationManager.opacityAnimation(false)
-                checkmarkLayer.addAnimation(opacityAnimation, forKey: "opacity")
-                break
-            }
-            
-            selectedBoxLayer.addAnimation(strokeAnimation, forKey: "strokeEnd")
-            selectedBoxLayer.addAnimation(quickOpacityAnimation, forKey: "opacity")
-
-            CATransaction.commit()
-            
-            break
-            
-        case .Fill:
-            
-            let wiggleAnimation = animationManager.fillAnimation(1, amplitude: 0.18, reverse: false)
-            let opacityAnimation = animationManager.opacityAnimation(false)
-            
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({ () -> Void in
-                self.resetLayers()
-            })
-            
-            selectedBoxLayer.addAnimation(wiggleAnimation, forKey: "transform")
-            checkmarkLayer.addAnimation(opacityAnimation, forKey: "opacity")
-            
-            CATransaction.commit()
-            break
-            
-        case .Bounce:
-            let amplitude: CGFloat = boxType == .Square ? 0.20 : 0.35
-            let wiggleAnimation = animationManager.fillAnimation(1, amplitude: amplitude, reverse: false)
-            
-            let opacityAnimation = animationManager.opacityAnimation(false)
-            opacityAnimation.duration = opacityAnimation.duration / 1.4
-            
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({ () -> Void in
-                self.resetLayers()
-            })
-            
-            selectedBoxLayer.addAnimation(opacityAnimation, forKey: "opacity")
-            checkmarkLayer.addAnimation(wiggleAnimation, forKey: "transform")
-            
-            CATransaction.commit()
-            break
-            
-        case .Expand:
-            
-            let boxAnimation = animationManager.fillAnimation(1, amplitude: 0.18, reverse: false)
-            let amplitude: CGFloat = boxType == .Square ? 0.20 : 0.35
-            let checkAnimation = animationManager.fillAnimation(1, amplitude: amplitude, reverse: false)
-            
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({ () -> Void in
-                self.resetLayers()
-            })
-            
-            selectedBoxLayer.addAnimation(boxAnimation, forKey: "transform")
-            checkmarkLayer.addAnimation(checkAnimation, forKey: "transform")
-            
-            CATransaction.commit()
-            break
-            
-        case .Flat:
-            checkmarkLayer.path = pathManager.pathForMixedMark().CGPath
-            
-            let morphAnimation = animationManager.morphAnimation(pathManager.pathForMixedMark(), toPath: pathManager.pathForMark())
-            morphAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-            let opacityAnimation = animationManager.opacityAnimation(false)
-            
-            let quickOpacityAnimation = animationManager.quickOpacityAnimation(false)
-            quickOpacityAnimation.duration = quickOpacityAnimation.duration * 4.0
-            morphAnimation.beginTime = CACurrentMediaTime() + quickOpacityAnimation.duration
-            morphAnimation.duration = morphAnimation.duration - quickOpacityAnimation.duration
-            
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({ () -> Void in
-                self.resetLayers()
-            })
-            
-            selectedBoxLayer.addAnimation(opacityAnimation, forKey: "opacity")
-            checkmarkLayer.addAnimation(morphAnimation, forKey: "path")
-            checkmarkLayer.addAnimation(quickOpacityAnimation, forKey: "opacity")
-            
-            CATransaction.commit()
-            break
-            
-        case .Spiral:
-            
-            // Temporarily set the path of the checkmark to the long checkmark
-            checkmarkLayer.path = pathManager.pathForLongCheckmark().bezierPathByReversingPath().CGPath
-            
-            let quickOpacityAnimation = animationManager.quickOpacityAnimation(false)
-            
-            let boxStrokeAnimation = animationManager.strokeAnimation(false)
-            boxStrokeAnimation.duration = boxStrokeAnimation.duration / 2.0
-            
-            let checkQuickOpacityAnimation = animationManager.quickOpacityAnimation(false)
-            checkQuickOpacityAnimation.duration = 0.001
-            checkQuickOpacityAnimation.beginTime = CACurrentMediaTime() + boxStrokeAnimation.duration
-            
-            let checkStrokeAnimation = animationManager.strokeAnimation(false)
-            checkStrokeAnimation.duration = checkStrokeAnimation.duration / 4.0
-            checkStrokeAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-            checkStrokeAnimation.fillMode = kCAFillModeBackwards
-            checkStrokeAnimation.beginTime = CACurrentMediaTime() + boxStrokeAnimation.duration
-            
-            let checkMorphAnimation = animationManager.morphAnimation(pathManager.pathForLongCheckmark(), toPath: pathManager.pathForMark())
-            checkMorphAnimation.duration = checkMorphAnimation.duration / 4.0
-            checkMorphAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-            checkMorphAnimation.beginTime = CACurrentMediaTime() + boxStrokeAnimation.duration + checkStrokeAnimation.duration
-            checkMorphAnimation.removedOnCompletion = false
-            checkMorphAnimation.fillMode = kCAFillModeForwards
-            
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({ () -> Void in
-                self.resetLayers()
-            })
-            
-            selectedBoxLayer.addAnimation(quickOpacityAnimation, forKey: "opacity")
-            selectedBoxLayer.addAnimation(boxStrokeAnimation, forKey: "strokeEnd")
-            checkmarkLayer.addAnimation(checkQuickOpacityAnimation, forKey: "opacity")
-            checkmarkLayer.addAnimation(checkStrokeAnimation, forKey: "strokeEnd")
-            checkmarkLayer.addAnimation(checkMorphAnimation, forKey: "path")
-            
-            CATransaction.commit()
-            break
-            
-        case .Fade:
-            let opacityAnimation = animationManager.opacityAnimation(false)
-            
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({ () -> Void in
-                self.resetLayers()
-            })
-            
-            selectedBoxLayer.addAnimation(opacityAnimation, forKey: "opacity")
-            checkmarkLayer.addAnimation(opacityAnimation, forKey: "opacity")
-            
-            CATransaction.commit()
-            break
-            
-        case let .Dot(style):
-            let scaleAnimation = animationManager.fillAnimation(1, amplitude: 0.18, reverse: false)
-            
-            let opacityAnimation = animationManager.opacityAnimation(false)
-            
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({ () -> Void in
-                self.resetLayers()
-            })
-            
-            if style == .Stroke {
-                let quickOpacityAnimation = animationManager.quickOpacityAnimation(true)
-                quickOpacityAnimation.beginTime = CACurrentMediaTime()
-                unselectedBoxLayer.addAnimation(quickOpacityAnimation, forKey: "opacity")
-            }
-            selectedBoxLayer.addAnimation(scaleAnimation, forKey: "transform")
-            checkmarkLayer.addAnimation(opacityAnimation, forKey: "opacity")
-            
-            CATransaction.commit()
-            break
-        }
-    }
-    
-    /// Creates and adds an animation to transition to the unchecked state.
-    private func addToUncheckedAnimation() {
-        // Check if we need to animate.
-        if animationDuration == 0.0 {
-            return
-        }
-        
-        switch stateChangeAnimation {
-        case .Stroke:
-            let strokeAnimation = animationManager.strokeAnimation(true)
-            let quickOpacityAnimation = animationManager.quickOpacityAnimation(true)
-            
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({ () -> Void in
-                self.resetLayers()
-            })
-            
-            switch pathManager.markType {
-            case .Checkmark:
-                checkmarkLayer.addAnimation(strokeAnimation, forKey: "strokeEnd")
-                checkmarkLayer.addAnimation(quickOpacityAnimation, forKey: "opacity")
-                break
-            case .Radio:
-                let opacityAnimation = animationManager.opacityAnimation(true)
-                checkmarkLayer.addAnimation(opacityAnimation, forKey: "opacity")
-                break
-            }
-            selectedBoxLayer.addAnimation(strokeAnimation, forKey: "strokeEnd")
-            selectedBoxLayer.addAnimation(quickOpacityAnimation, forKey: "opacity")
-            
-            CATransaction.commit()
-            break
-            
-        case .Fill:
-            let wiggleAnimation = animationManager.fillAnimation(1, amplitude: 0.18, reverse: true)
-            let opacityAnimation = animationManager.opacityAnimation(true)
-            
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({ () -> Void in
-                self.resetLayers()
-            })
-            
-            selectedBoxLayer.addAnimation(wiggleAnimation, forKey: "transform")
-            checkmarkLayer.addAnimation(opacityAnimation, forKey: "opacity")
-            
-            CATransaction.commit()
-            break
-            
-        case .Bounce:
-            let amplitude: CGFloat = boxType == .Square ? 0.20 : 0.35
-            let wiggleAnimation = animationManager.fillAnimation(1, amplitude: amplitude, reverse: true)
-            let opacityAnimation = animationManager.opacityAnimation(true)
-            
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({ () -> Void in
-                self.resetLayers()
-            })
-            
-            selectedBoxLayer.addAnimation(opacityAnimation, forKey: "opacity")
-            checkmarkLayer.addAnimation(wiggleAnimation, forKey: "transform")
-            
-            CATransaction.commit()
-            break
-            
-        case .Expand:
-            let boxAnimation = animationManager.fillAnimation(1, amplitude: 0.18, reverse: true)
-            let amplitude: CGFloat = boxType == .Square ? 0.20 : 0.35
-            let checkAnimation = animationManager.fillAnimation(1, amplitude: amplitude, reverse: true)
-            
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({ () -> Void in
-                self.resetLayers()
-            })
-            
-            selectedBoxLayer.addAnimation(boxAnimation, forKey: "transform")
-            checkmarkLayer.addAnimation(checkAnimation, forKey: "transform")
-            
-            CATransaction.commit()
-            break
-            
-        case .Flat:
-            let morphAnimation = animationManager.morphAnimation(pathManager.pathForMark(), toPath: pathManager.pathForMixedMark())
-            morphAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-            let opacityAnimation = animationManager.opacityAnimation(true)
-            
-            let quickOpacityAnimation = animationManager.quickOpacityAnimation(true)
-            quickOpacityAnimation.duration = quickOpacityAnimation.duration * 4.0
-            morphAnimation.duration = morphAnimation.duration - quickOpacityAnimation.duration
-            quickOpacityAnimation.beginTime = CACurrentMediaTime() + morphAnimation.duration
-            
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({ () -> Void in
-                self.resetLayers()
-            })
-            
-            selectedBoxLayer.addAnimation(opacityAnimation, forKey: "opacity")
-            checkmarkLayer.addAnimation(morphAnimation, forKey: "path")
-            checkmarkLayer.addAnimation(quickOpacityAnimation, forKey: "opacity")
-            
-            CATransaction.commit()
-            break
-            
-        case .Spiral:
-            // Temporarily set the path of the checkmark to the long checkmark
-            checkmarkLayer.path = pathManager.pathForLongCheckmark().bezierPathByReversingPath().CGPath
-            
-            let checkMorphAnimation = animationManager.morphAnimation(pathManager.pathForMark(), toPath: pathManager.pathForLongCheckmark())
-            checkMorphAnimation.fillMode = kCAFillModeBackwards
-            checkMorphAnimation.duration = checkMorphAnimation.duration / 6.0
-            checkMorphAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-            
-            let checkStrokeAnimation = animationManager.strokeAnimation(true)
-            checkStrokeAnimation.beginTime = CACurrentMediaTime() + checkMorphAnimation.duration
-            checkStrokeAnimation.duration = checkStrokeAnimation.duration / 3.0
-            checkStrokeAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-            
-            let boxStrokeAnimation = animationManager.strokeAnimation(true)
-            boxStrokeAnimation.beginTime = CACurrentMediaTime() + checkMorphAnimation.duration + checkStrokeAnimation.duration
-            boxStrokeAnimation.duration = boxStrokeAnimation.duration / 2.0
-            boxStrokeAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-            
-            let quickOpacityAnimation = animationManager.quickOpacityAnimation(true)
-            
-            let checkQuickOpacityAnimation = animationManager.quickOpacityAnimation(true)
-            checkQuickOpacityAnimation.duration = 0.001
-            checkQuickOpacityAnimation.beginTime = CACurrentMediaTime() + checkMorphAnimation.duration + checkStrokeAnimation.duration
-            
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({ () -> Void in
-                self.resetLayers()
-            })
-            
-            selectedBoxLayer.addAnimation(quickOpacityAnimation, forKey: "opacity")
-            checkmarkLayer.addAnimation(checkMorphAnimation, forKey: "path")
-            checkmarkLayer.addAnimation(checkStrokeAnimation, forKey: "strokeEnd")
-            checkmarkLayer.addAnimation(checkQuickOpacityAnimation, forKey: "opacity")
-            selectedBoxLayer.addAnimation(boxStrokeAnimation, forKey: "strokeEnd")
-            
-            CATransaction.commit()
-            break
-            
-        case .Fade:
-            let opacityAnimation = animationManager.opacityAnimation(true)
-            
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({ () -> Void in
-                self.resetLayers()
-            })
-            
-            selectedBoxLayer.addAnimation(opacityAnimation, forKey: "opacity")
-            checkmarkLayer.addAnimation(opacityAnimation, forKey: "opacity")
-            
-            CATransaction.commit()
-            break
-            
-        case let .Dot(style):
-            
-            let scaleAnimation = animationManager.fillAnimation(1, amplitude: 0.18, reverse: true)
-            
-            let opacityAnimation = animationManager.opacityAnimation(true)
-            
-            CATransaction.begin()
-            CATransaction.setCompletionBlock({ () -> Void in
-                self.resetLayers()
-            })
-            
-            if style == .Stroke {
-                unselectedBoxLayer.opacity = 0.0
-                let quickOpacityAnimation = animationManager.quickOpacityAnimation(false)
-                quickOpacityAnimation.beginTime = CACurrentMediaTime() + scaleAnimation.duration - quickOpacityAnimation.duration
-                unselectedBoxLayer.addAnimation(quickOpacityAnimation, forKey: "opacity")
-            }
-            selectedBoxLayer.addAnimation(scaleAnimation, forKey: "transform")
-            checkmarkLayer.addAnimation(opacityAnimation, forKey: "opacity")
-            
-            CATransaction.commit()
-            break
-        }
-    }
-    
-    private func resetLayers() {
-        setNeedsLayout()
-        
-        // Get the preset for the curent animation and state.
-        if let animationEndPoint = M13CheckboxAnimationPresets().animationPresets[stateChangeAnimation] {
-            let animationPreset = checkState == .Unchecked ? animationEndPoint.unselected : animationEndPoint.selected
-            
-            // Update the unselected box layer
-            checkmarkLayer.removeAllAnimations()
-            reset(layer: checkmarkLayer, toPreset: animationPreset.markLayer)
-            selectedBoxLayer.removeAllAnimations()
-            reset(layer: selectedBoxLayer, toPreset: animationPreset.selectedBoxLayer)
-            unselectedBoxLayer.removeAllAnimations()
-            reset(layer: unselectedBoxLayer, toPreset: animationPreset.unselectedBoxLayer)
-        }
-    }
-    
-    private func reset(layer layer: CAShapeLayer, toPreset preset: LayerPropertiesPreset) {
-        layer.opacity = preset.opacity
-        layer.strokeEnd = preset.strokeEnd
-        layer.transform = preset.transform
-        
-        if layer == unselectedBoxLayer {
-            layer.fillColor = preset.fill == .Main ? secondaryTintColor?.CGColor : nil
-        } else {
-            layer.fillColor = preset.fill == .Main ? tintColor?.CGColor : nil
-        }
-        
-        if layer == unselectedBoxLayer {
-            layer.strokeColor = preset.stroke == .Main ? secondaryTintColor?.CGColor : nil
-        } else if layer == checkmarkLayer {
-            layer.strokeColor = preset.stroke == .Main ? tintColor.CGColor : preset.stroke == .Secondary ? secondaryCheckmarkTintColor?.CGColor : nil
-        } else {
-            layer.strokeColor = preset.stroke == .Main ? tintColor?.CGColor : nil
-        }
-        
-        if layer == checkmarkLayer {
-            layer.lineWidth = preset.lineWidth ? checkmarkLineWidth : 0.0
-        } else {
-            layer.lineWidth = preset.lineWidth ? boxLineWidth : 0.0
         }
     }
     
@@ -774,45 +373,51 @@ public class M13Checkbox: UIControl {
     //----------------------------
     
     /// The color of the checkbox's tint color when not in the unselected state. The tint color is is the main color used when not in the unselected state.
-    @IBInspectable public var secondaryTintColor: UIColor? = UIColor.lightGrayColor() {
-        didSet {
-            resetLayers()
+    @IBInspectable public var secondaryTintColor: UIColor? {
+        get {
+            return manager.secondaryTintColor
+        }
+        set {
+            manager.secondaryTintColor = newValue
         }
     }
     
     /// The color of the checkmark when it is displayed against a filled background.
-    @IBInspectable public var secondaryCheckmarkTintColor: UIColor? = UIColor.whiteColor() {
-        didSet {
-            resetLayers()
+    @IBInspectable public var secondaryCheckmarkTintColor: UIColor? {
+        get {
+            return manager.secondaryCheckmarkTintColor
+        }
+        set {
+            manager.secondaryCheckmarkTintColor = newValue
         }
     }
     
     /// The stroke width of the checkmark.
     @IBInspectable public var checkmarkLineWidth: CGFloat {
         get {
-            return pathManager.checkmarkLineWidth
+            return manager.paths.checkmarkLineWidth
         }
         set {
-            pathManager.checkmarkLineWidth = newValue
-            checkmarkLayer.lineWidth = checkmarkLineWidth
+            manager.paths.checkmarkLineWidth = newValue
+            manager.resetLayersForState(checkState)
         }
     }
     
     // The type of mark to display.
     @IBInspectable public var markType: MarkType {
         get {
-            return pathManager.markType
+            return manager.paths.markType
         }
         set {
-            pathManager.markType = newValue
+            manager.paths.markType = newValue
             
             // TODO: - Add support for missing animations.
             if markType == .Radio && stateChangeAnimation == .Spiral {
-                pathManager.markType = .Checkmark
+                manager.paths.markType = .Checkmark
                 print("WARNING: The spiral animation is currently unsupported with a radio mark.")
             }
             
-            resetLayers()
+            manager.resetLayersForState(checkState)
             setNeedsLayout()
         }
     }
@@ -820,67 +425,48 @@ public class M13Checkbox: UIControl {
     /// The stroke width of the box.
     @IBInspectable public var boxLineWidth: CGFloat {
         get {
-            return pathManager.boxLineWidth
+            return manager.paths.boxLineWidth
         }
         set {
-            pathManager.boxLineWidth = newValue
-            unselectedBoxLayer.lineWidth = boxLineWidth
-            selectedBoxLayer.lineWidth = boxLineWidth
+            manager.paths.boxLineWidth = newValue
+            manager.resetLayersForState(checkState)
         }
     }
     
     @IBInspectable public var cornerRadius: CGFloat {
         get {
-            return pathManager.cornerRadius
+            return manager.paths.cornerRadius
         }
         set {
-            pathManager.cornerRadius = newValue
-            if boxType == .Square {
-                setNeedsLayout()
-            }
+            manager.paths.cornerRadius = newValue
+            setNeedsLayout()
         }
     }
-    
-    /// Whether or not the checkbox is flat, without a glossy overlay. Defaults to true.
-    @IBInspectable public var flat: Bool = true
     
     /// The shape of the checkbox
     public var boxType: BoxType {
         get {
-            return pathManager.boxType
+            return manager.paths.boxType
         }
         set {
-            pathManager.boxType = newValue
+            manager.paths.boxType = newValue
             setNeedsLayout()
         }
     }
     
     /// Wether or not to hide the checkbox.
-    @IBInspectable public var hideBox: Bool = false {
-        didSet {
-            selectedBoxLayer.hidden = hideBox
-            unselectedBoxLayer.hidden = hideBox
+    @IBInspectable public var hideBox: Bool {
+        get {
+            return manager.hideBox
+        }
+        set {
+            manager.hideBox = newValue
         }
     }
     
-    /// The layer that draws the box when in the unselected state.
-    private var unselectedBoxLayer: CAShapeLayer = CAShapeLayer()
-    
-    /// The layer that draws the box when in the selected or mixed state.
-    private var selectedBoxLayer: CAShapeLayer = CAShapeLayer()
-    
-    /// The layer that draws the checkmark.
-    private var checkmarkLayer: CAShapeLayer = CAShapeLayer()
-    
-    /// The path manager.
-    private var pathManager: M13CheckboxPathManager = M13CheckboxPathManager()
-    
-    /// The animation manager.
-    private var animationManager: M13CheckboxAnimationManager = M13CheckboxAnimationManager()
-    
     public override func tintColorDidChange() {
         super.tintColorDidChange()
-        resetLayers()
+        manager.tintColor = tintColor
     }
     
     //----------------------------
@@ -890,22 +476,8 @@ public class M13Checkbox: UIControl {
     public override func layoutSubviews() {
         super.layoutSubviews()
         // Update size
-        pathManager.size = min(frame.size.width, frame.size.height)
-        // Update bounds
-        unselectedBoxLayer.frame = self.bounds
-        selectedBoxLayer.frame = self.bounds
-        checkmarkLayer.frame = self.bounds
-        // Update paths
-        selectedBoxLayer.path = pathManager.pathForBox().CGPath
-        checkmarkLayer.path = pathManager.pathForMark().CGPath
-        switch stateChangeAnimation {
-        case .Dot:
-            unselectedBoxLayer.path = pathManager.pathForDot().CGPath
-            break
-        default:
-            unselectedBoxLayer.path = pathManager.pathForBox().CGPath
-            break
-        }
-        
+        manager.paths.size = min(frame.size.width, frame.size.height)
+        // Layout
+        manager.layoutLayers()
     }
 }

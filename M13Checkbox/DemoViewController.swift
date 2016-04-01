@@ -79,7 +79,7 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
             }
             cell.segmentedControl?.enabled = true
             
-            cell.segmentedControl?.addTarget(self, action: "updateCheckboxState:", forControlEvents: .ValueChanged)
+            cell.segmentedControl?.addTarget(self, action: #selector(DemoViewController.updateCheckboxState(_:)), forControlEvents: .ValueChanged)
             
         } else if indexPath.item == 1 {
             // Animated cell
@@ -108,12 +108,12 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
             case .Spiral:
                 cell.selectionButton?.setTitle("Spiral", forState: .Normal)
             case .Fade:
-                cell.selectionButton?.setTitle("fade", forState: .Normal)
+                cell.selectionButton?.setTitle("Fade", forState: .Normal)
             case .Dot:
                 cell.selectionButton?.setTitle("Dot", forState: .Normal)
             }
             
-            cell.selectionButton?.addTarget(self, action: "updateAnimation:", forControlEvents: .TouchUpInside)
+            cell.selectionButton?.addTarget(self, action: #selector(DemoViewController.updateAnimation(_:)), forControlEvents: .TouchUpInside)
             
         }  else if indexPath.item == 2 {
             // States cell
@@ -160,7 +160,7 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
                 }
             }
             
-            cell.segmentedControl?.addTarget(self, action: "updateAnimationStyle:", forControlEvents: .ValueChanged)
+            cell.segmentedControl?.addTarget(self, action: #selector(DemoViewController.updateAnimationStyle(_:)), forControlEvents: .ValueChanged)
             
         } else if indexPath.item == 3 {
             // Animated cell
@@ -179,7 +179,7 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
             if let duration = checkbox?.animationDuration {
                 cell.slider?.value = Float(duration)
             }
-            cell.slider?.addTarget(self, action: "updateAnimationDuration:", forControlEvents: .ValueChanged)
+            cell.slider?.addTarget(self, action: #selector(DemoViewController.updateAnimationDuration(_:)), forControlEvents: .ValueChanged)
         } else if indexPath.item == 4 {
             // States cell
             cell = collectionView.dequeueReusableCellWithReuseIdentifier("segmentedControlCell", forIndexPath: indexPath)
@@ -196,19 +196,19 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
             cell.segmentedControl?.insertSegmentWithTitle("Checkmark", atIndex: 0, animated: false)
             cell.segmentedControl?.insertSegmentWithTitle("Radio", atIndex: 1, animated: false)
             
-            if let state = checkbox?.boxType {
+            if let state = checkbox?.markType {
                 switch state {
-                case .Circle:
+                case .Checkmark:
                     cell.segmentedControl?.selectedSegmentIndex = 0
                     break
-                case .Square:
+                case .Radio:
                     cell.segmentedControl?.selectedSegmentIndex = 1
                     break
                 }
             }
             cell.segmentedControl?.enabled = true
             
-            cell.segmentedControl?.addTarget(self, action: "updateMarkType:", forControlEvents: .ValueChanged)
+            cell.segmentedControl?.addTarget(self, action: #selector(DemoViewController.updateMarkType(_:)), forControlEvents: .ValueChanged)
             
         }  else if indexPath.item == 5 {
             // States cell
@@ -238,7 +238,7 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
             }
             cell.segmentedControl?.enabled = true
             
-            cell.segmentedControl?.addTarget(self, action: "updateBoxShape:", forControlEvents: .ValueChanged)
+            cell.segmentedControl?.addTarget(self, action: #selector(DemoViewController.updateBoxShape(_:)), forControlEvents: .ValueChanged)
             
         } else if indexPath.item == 6 {
             // Animated cell
@@ -257,7 +257,7 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
             if let lineWidth = checkbox?.checkmarkLineWidth {
                 cell.slider?.value = Float(lineWidth)
             }
-            cell.slider?.addTarget(self, action: "updateMarkLineWidth:", forControlEvents: .ValueChanged)
+            cell.slider?.addTarget(self, action: #selector(DemoViewController.updateMarkLineWidth(_:)), forControlEvents: .ValueChanged)
         } else if indexPath.item == 7 {
             // Animated cell
             cell = collectionView.dequeueReusableCellWithReuseIdentifier("sliderCell", forIndexPath: indexPath)
@@ -275,7 +275,7 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
             if let lineWidth = checkbox?.boxLineWidth {
                 cell.slider?.value = Float(lineWidth)
             }
-            cell.slider?.addTarget(self, action: "updateBoxLineWidth:", forControlEvents: .ValueChanged)
+            cell.slider?.addTarget(self, action: #selector(DemoViewController.updateBoxLineWidth(_:)), forControlEvents: .ValueChanged)
         } else if indexPath.item == 8 {
             cell = collectionView.dequeueReusableCellWithReuseIdentifier("colorCell", forIndexPath: indexPath)
             guard let cell = cell as? ColorCollectionViewCell else {
@@ -288,16 +288,16 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
             cell.setNeedsLayout()
             
             cell.tintColorButton?.backgroundColor = checkbox?.tintColor
-            cell.tintColorButton?.addTarget(self, action: "updateColorPopover:", forControlEvents: .TouchUpInside)
+            cell.tintColorButton?.addTarget(self, action: #selector(DemoViewController.updateColorPopover(_:)), forControlEvents: .TouchUpInside)
             cell.tintColorButton?.tag = 0
             cell.secondaryTintColorButton?.backgroundColor = checkbox?.secondaryTintColor
-            cell.secondaryTintColorButton?.addTarget(self, action: "updateColorPopover:", forControlEvents: .TouchUpInside)
+            cell.secondaryTintColorButton?.addTarget(self, action: #selector(DemoViewController.updateColorPopover(_:)), forControlEvents: .TouchUpInside)
             cell.secondaryTintColorButton?.tag = 1
             cell.secondaryCheckTintColorButton?.backgroundColor = checkbox?.secondaryCheckmarkTintColor
-            cell.secondaryCheckTintColorButton?.addTarget(self, action: "updateColorPopover:", forControlEvents: .TouchUpInside)
+            cell.secondaryCheckTintColorButton?.addTarget(self, action: #selector(DemoViewController.updateColorPopover(_:)), forControlEvents: .TouchUpInside)
             cell.secondaryCheckTintColorButton?.tag = 2
             cell.backgroundColorButton?.backgroundColor = view.backgroundColor
-            cell.backgroundColorButton?.addTarget(self, action: "updateColorPopover:", forControlEvents: .TouchUpInside)
+            cell.backgroundColorButton?.addTarget(self, action: #selector(DemoViewController.updateColorPopover(_:)), forControlEvents: .TouchUpInside)
             cell.backgroundColorButton?.tag = 3
         }
         
@@ -364,7 +364,7 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
             if let colorControl = destination.view as? HRColorPickerView {
                 colorControl.tag = (sender as! UIButton).tag
                 colorControl.color = (sender as! UIButton).backgroundColor
-                colorControl.addTarget(self, action: "updateColor:", forControlEvents: .ValueChanged)
+                colorControl.addTarget(self, action: #selector(DemoViewController.updateColor(_:)), forControlEvents: .ValueChanged)
                 colorControl.colorMapView.layer.cornerRadius = 3.0
             }
             currentColorButton = sender as? UIButton
@@ -388,6 +388,22 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
     //----------------------------
     // MARK: - Actions
     //----------------------------
+    
+    @IBAction func checkboxValueChanged(sender: M13Checkbox) {
+        if let cell = collectionView?.cellForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0)) as? SegmentedControlCollectionViewCell {
+            switch sender.checkState {
+            case .Unchecked:
+                cell.segmentedControl?.selectedSegmentIndex = 0
+                break
+            case .Checked:
+                cell.segmentedControl?.selectedSegmentIndex = 1
+                break
+            case .Mixed:
+                cell.segmentedControl?.selectedSegmentIndex = 2
+                break
+            }
+        }
+    }
     
     func updateCheckboxState(sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
@@ -449,7 +465,7 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
             case .Spiral:
                 cell.selectionButton?.setTitle("Spiral", forState: .Normal)
             case .Fade:
-                cell.selectionButton?.setTitle("fade", forState: .Normal)
+                cell.selectionButton?.setTitle("Fade", forState: .Normal)
             case .Dot:
                 cell.selectionButton?.setTitle("Dot", forState: .Normal)
             }
