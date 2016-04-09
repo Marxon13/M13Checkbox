@@ -30,6 +30,7 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkbox?.hideBox = true
     }
     
     //----------------------------
