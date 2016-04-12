@@ -243,7 +243,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="Bounce" id="6Os-xJ-4PQ">
-                                            <rect key="frame" x="15" y="10" width="40" height="40"/>
+                                            <rect key="frame" x="15" y="9" width="40" height="40"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="tintColor" red="0.223007977" green="0.82969284060000004" blue="0.87480789420000005" alpha="1" colorSpace="calibratedRGB"/>
                                         </imageView>
