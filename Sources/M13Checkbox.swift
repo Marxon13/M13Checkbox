@@ -429,6 +429,7 @@ public class M13Checkbox: UIControl {
         }
     }
     
+    /// The corner radius of the box if the box type is square.
     @IBInspectable public var cornerRadius: CGFloat {
         get {
             return manager.paths.cornerRadius
@@ -439,7 +440,7 @@ public class M13Checkbox: UIControl {
         }
     }
     
-    /// The shape of the checkbox
+    /// The shape of the checkbox.
     public var boxType: BoxType {
         get {
             return manager.paths.boxType
