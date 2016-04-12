@@ -481,7 +481,7 @@ public class M13Checkbox: UIControl {
         manager.layoutLayers()
     }
     
-    public override func drawRect(rect: CGRect) {
+    /*public override func drawRect(rect: CGRect) {
         
         let intersectionRect = CGRect(x: manager.paths.checkmarkLongArmBoxIntersectionPoint.x - 1.0, y: manager.paths.checkmarkLongArmBoxIntersectionPoint.y - 1.0, width: 2.0, height: 2.0)
         print("intersection: ", intersectionRect)
@@ -509,5 +509,5 @@ public class M13Checkbox: UIControl {
         CGContextFillRect(context, shortEndRect)
         
         CGContextRestoreGState(context)
-    }
+    }*/
 }

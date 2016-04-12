@@ -17,19 +17,22 @@ internal class M13CheckboxPathPresets {
     //----------------------------
     
     /// Contains the geometry information needed to generate the checkmark, as well as generates the locations of the feature points.
-    struct CheckmarkPoints {
+    struct CheckmarkProperties {
         
         /// The angle between the x-axis, and the line created between the origin, and the location where the extended long arm of the checkmark meets the box. (Diagram: Θ)
-        var longArmBoxIntersectionAngle: CGFloat = 36.0 * CGFloat(M_PI / 180.0)
+        var longArmBoxIntersectionAngle: CGFloat = 40.0 * CGFloat(M_PI / 180.0)
         
         /// The distance from the center the long arm of the checkmark draws to, as a percentage of size. (Diagram: S)
-        var longArmRadius: CGFloat = 0.33
+        var longArmRadius: (circle: CGFloat, box: CGFloat) = (circle: 0.25, box: 0.375)
         
         /// The distance from the center of the middle/bottom point of the checkbox, as a percentage of size. (Diagram: T)
-        var middlePointRadius: CGFloat = 0.135
+        var middlePointRadius: (circle: CGFloat, box: CGFloat) = (circle: 0.135, box: 0.2025)
+        
+        /// The distance between the vertical center and the middle point of the checkbox.
+        var middlePointOffset: (circle: CGFloat, box: CGFloat) = (circle: -0.015, box: -0.0225)
         
         /// The distance from the center of the left most point of the checkmark, as a percentage of size.
-        var shortArmRadius: CGFloat = 0.185
+        var shortArmRadius: (circle: CGFloat, box: CGFloat) = (circle: 0.185, box: 0.2775)
     }
     
     //----------------------------
@@ -55,7 +58,7 @@ internal class M13CheckboxPathPresets {
     var markType: M13Checkbox.MarkType = .Checkmark
     
     /// The parameters that define the checkmark.
-    var checkmarkPoints: CheckmarkPoints = CheckmarkPoints()
+    var checkmarkProperties: CheckmarkProperties = CheckmarkProperties()
     
     //----------------------------
     // MARK: - Points of Intrest
@@ -65,33 +68,34 @@ internal class M13CheckboxPathPresets {
     var checkmarkLongArmBoxIntersectionPoint: CGPoint {
         
         let radius = (size - boxLineWidth) / 2.0
-        let theta = checkmarkPoints.longArmBoxIntersectionAngle
+        let theta = checkmarkProperties.longArmBoxIntersectionAngle
         
         if boxType == .Circle {
             // Basic trig to get the location of the point on the circle.
             return CGPoint(x: (size / 2.0) + (radius * cos(theta)), y: (size / 2.0) - (radius * sin(theta)))
         } else {
-            // We need to make sure the edge does not intersect the rounded corner.
+            // We need to differentiate between the box edges and the rounded corner.
             let lineOffset = boxLineWidth / 2.0
-            let boxRadius = (size / 2.0) - boxLineWidth
             let circleOrigin = CGPoint(x: size - lineOffset - cornerRadius, y: 0.0 + lineOffset + cornerRadius)
-            let edgePoints = CGPoint(x: (size / 2.0) + (boxRadius * cos(theta)), y: (size / 2.0) - (boxRadius * sin(theta)))
+            let edgeX = (size / 2.0) + (0.5 * (size - boxLineWidth) * (1.0 / tan(theta)))
+            let edgeY = (size / 2.0) - (0.5 * (size - boxLineWidth) * tan(theta));
             
-            if edgePoints.x <= circleOrigin.x {
+            if edgeX <= circleOrigin.x {
                 // On the top edge.
-                return CGPoint(x: edgePoints.x, y: lineOffset)
-            } else if edgePoints.y >= circleOrigin.y {
+                return CGPoint(x: edgeX, y: lineOffset)
+            } else if edgeY >= circleOrigin.y {
                 // On the right edge.
-                return CGPoint(x: size - lineOffset, y: edgePoints.y)
+                return CGPoint(x: size - lineOffset, y: edgeY)
             } else {
                 // On the corner
                 let a = size * (3.0 + cos(2.0 * theta) + sin(2.0 * theta))
-                let b = -2 * cornerRadius * (cos(theta) + sin(theta))
+                let b = -2.0 * cornerRadius * (cos(theta) + sin(theta))
                 let c = (((4.0 * cornerRadius) - size) * size) + (pow((-2.0 * cornerRadius) + size, 2.0) * sin(2.0 * theta))
-                let d = size * cos(theta) * (-cos(theta) + sin(theta))
+                let d = size * cos(theta) * (cos(theta) - sin(theta))
+                let e = 2.0 * cornerRadius * sin(theta) * (cos(theta) + sin(theta))
                 
                 let x = 0.25 * (a + (2.0 * (b + sqrt(c)) * cos(theta)))
-                let y = 0.5 * (d + (b * sin(theta)) + (sqrt(c) * sin(theta)))
+                let y = 0.50 * (d + e - (sqrt(c) * sin(theta)))
                 
                 return CGPoint(x: x, y: y)
             }
@@ -101,36 +105,46 @@ internal class M13CheckboxPathPresets {
     var checkmarkLongArmEndPoint: CGPoint {
         // Known variables
         let boxEndPoint = checkmarkLongArmBoxIntersectionPoint
-        let x1 = boxEndPoint.x
-        let y1 = boxEndPoint.y
+        let x2 = boxEndPoint.x
+        let y2 = boxEndPoint.y
         let midPoint = checkmarkMiddlePoint
-        let x2 = midPoint.x
-        let y2 = midPoint.y
-        let r = size * checkmarkPoints.longArmRadius
+        let x1 = midPoint.x
+        let y1 = midPoint.y
+        let r = boxType == .Circle ? size * checkmarkProperties.longArmRadius.circle : size * checkmarkProperties.longArmRadius.box
         
-        let a = (size * pow(x1, 2.0)) - (2.0 * size * x1 * x2) + (size * pow(x2, 2.0)) + (size * x1 * y1) - (size * x2 * y1) + (2 * x2 * pow(y1, 2.0)) - (size * x1 * y2) + (size * x2 * y2) - (2.0 * x1 * y1 * y2) - (1.0 * x2 * y1 * y2) + (2.0 * x1 * pow(y2, 2.0))
+        let a1 = (size * pow(x1, 2.0)) - (2.0 * size * x1 * x2) + (size * pow(x2, 2.0)) + (size * x1 * y1) - (size * x2 * y1)
+        let a2 = (2.0 * x2 * pow(y1, 2.0)) - (size * x1 * y2) + (size * x2 * y2) - (2.0 * x1 * y1 * y2) - (2.0 * x2 * y1 * y2) + (2.0 * x1 * pow(y2, 2.0))
         let b = -16.0 * (pow(x1, 2.0) - (2.0 * x1 * x2) + pow(x2, 2.0) + pow(y1, 2.0) - (2.0 * y1 * y2) + pow(y2, 2.0))
-        let c = (pow(r, 2.0) * (-pow(x1, 2.0) + (2.0 * x1 * x2) - pow(x2, 2.0))) + (pow(size, 2.0) * ((0.5 * pow(x1, 2.0)) - (x1 * x2) + (0.5 * pow(x2, 2.0))))
-        let d = (pow(x2, 2.0) * pow(y1, 2.0)) - (2.0 * x1 * x2 * y1 * y2) + (pow(x1, 2.0) * pow(y2, 2.0)) + (size * ((x1 * x2 * y1) - (pow(x2, 2.0) * y1) - (pow(x1, 2.0) * y2) + (x1 * x2 * y2)))
-        let e = (x1 * ((4.0 * y1) - (4.0 * y2)) * y2) + (x2 * y1 * ((-4.0 * y1) + (4.0 * y2))) + (size * ((-2.0 * pow(x1, 2.0)) + (x2 * ((-2.0 * x2) + (2.0 * y1) - (2.0 * y2))) + (x1 * ((4.0 * x2) - (2.0 * y1) + (2.0 * y2)))))
-        let f = pow(x1, 2.0) - (2.0 * x1 * x2) + pow(x2, 2.0) + pow(y1, 2.0) - (2.0 * y1 * y2) + pow(y2, 2.0)
-        let g = (0.5 * size * x1 * y1) - (0.5 * size * x2 * y1) - (x1 * x2 * y1) + (pow(x2, 2.0) * y1) + (0.5 * size * pow(y1, 2.0)) - (0.5 * size * x1 * y2) + (pow(x1, 2.0) * y2) + (0.5 * size * x2 * y2) - (x1 * x2 * y2) - (size * y1 * y2) + (0.5 * size * pow(y2, 2.0))
-        let h = (-4.0 * pow(x2, 2.0) * y1) - (4.0 * pow(x1, 2.0) * y2) + (x1 * x2 * ((4.0 * y1) + (4.0 * y2))) + (size * ((-2.0 * x1 * y1) + (2.0 * x2 * y1) - (2.0 * pow(y1, 2.0)) + (2.0 * x1 * y2) - (2.0 * x2 * y2) + (4.0 * y1 * y2) - (2.0 * pow(y2, 2.0))))
-        let i = (pow(x2, 2.0) * pow(y1, 2.0)) - (2.0 * x1 * x2 * y1 * y2) + (pow(x1, 2.0) * pow(y2, 2.0)) + (pow(r, 2.0) * ((-pow(y1, 2.0)) + (2.0 * y1 * y2) - pow(y2, 2.0)))
-        let j = (pow(size, 2.0) * ((0.5 * pow(y1, 2.0)) - (y1 * y2) + (0.5 * pow(y2, 2.0)))) + (size * ((x1 * (y1 - y2) * y2) + (x2 * y1 * (y2 - y1))))
+        let c1 = pow(r, 2.0) * ((-pow(x1, 2.0)) + (2.0 * x1 * x2) - pow(x2, 2.0))
+        let c2 = pow(size, 2.0) * ((0.5 * pow(x1, 2.0)) - (x1 * x2) + (0.5 * pow(x2, 2.0)))
+        let d1 = (pow(x2, 2.0) * pow(y1, 2.0)) - (2.0 * x1 * x2 * y1 * y2) + (pow(x1, 2.0) * pow(y2, 2.0))
+        let d2 = size * ((x1 * x2 * y1) - (pow(x2, 2.0) * y1) - (pow(x1, 2.0) * y2) + (x1 * x2 * y2))
+        let cd = c1 + c2 + d1 + d2
+        let e1 = (x1 * ((4.0 * y1) - (4.0 * y2)) * y2) + (x2 * y1 * ((-4.0 * y1) + (4.0 * y2)))
+        let e2 = size * ((-2.0 * pow(x1, 2.0)) + (x2 * ((-2.0 * x2) + (2.0 * y1) - (2.0 * y2))) + (x1 * (4.0 * x2 - (2.0 * y1) + (2.0 * y2))))
+        let f = pow(x1, 2.0) - (2.0 * x1 * x2) + pow(x2, 2.0) + pow(y1, 2.0) - (2.0 * y1 * y2) + pow(y2, 2)
+        let g1 = (0.5 * size * x1 * y1) - (0.5 * size * x2 * y1) - (x1 * x2 * y1) + (pow(x2, 2.0) * y1) + (0.5 * size * pow(y1, 2.0))
+        let g2 = (-0.5 * size * x1 * y2) + (pow(x1, 2.0) * y2) + (0.5 * size * x2 * y2) - (x1 * x2 * y2) - (size * y1 * y2) + (0.5 * size * pow(y2, 2.0))
+        let h1 = (-4.0 * pow(x2, 2.0) * y1) - (4.0 * pow(x1, 2.0) * y2) + (x1 * x2 * ((4.0 * y1) + (4.0 * y2)))
+        let h2 = size * ((-2.0 * x1 * y1) + (2.0 * x2 * y1) - (2.0 * pow(y1, 2.0)) + (2.0 * x1 * y2) - (2.0 * x2 * y2) + (4.0 * y1 * y2) - (2.0 * pow(y2, 2.0)))
+        let i = (pow(r, 2.0) * (-pow(y1, 2.0) + (2.0 * y1 * y2) - pow(y2, 2.0))) + (pow(size, 2.0) * ((0.5 * pow(y1, 2.0)) - (y1 * y2) + (0.5 * pow(y2, 2.0))))
+        let j = size * ((x1 * (y1 - y2) * y2) + (x2 * y1 * (-y1 + y2)))
         
-        let x = (0.5 * (a - (0.5 * sqrt((b * (c + d)) + pow(e, 2.0))))) / f
-        let y = (g - (0.25 * sqrt(pow(h, 2.0) + (b * (i + j))))) / f
+        let x = (0.5 * (a1 + a2 + (0.5 * sqrt((b * cd) + pow(e1 + e2, 2.0))))) / f
+        let y = (g1 + g2 - (0.25 * sqrt(pow(h1 + h2, 2.0) + (b * (d1 + i + j))))) / f
         
         return CGPoint(x: x, y: y)
     }
     
     var checkmarkMiddlePoint: CGPoint {
-        return CGPointMake(size / 2.0, (size / 2.0 ) + (size * checkmarkPoints.middlePointRadius))
+        let r = boxType == .Circle ? checkmarkProperties.middlePointRadius.circle : checkmarkProperties.middlePointRadius.box
+        let o = boxType == .Circle ? checkmarkProperties.middlePointOffset.circle : checkmarkProperties.middlePointOffset.box
+        return CGPointMake((size / 2.0) + (size * o), (size / 2.0 ) + (size * r))
     }
     
     var checkmarkShortArmEndPoint: CGPoint {
-        return CGPointMake((size / 2.0) - (size * checkmarkPoints.shortArmRadius), size / 2.0)
+        let r = boxType == .Circle ? checkmarkProperties.shortArmRadius.circle : checkmarkProperties.shortArmRadius.box
+        return CGPointMake((size / 2.0) - (size * r), size / 2.0)
     }
     
     //----------------------------
@@ -155,8 +169,8 @@ internal class M13CheckboxPathPresets {
         // Create a circle that starts in the top right hand corner.
         return UIBezierPath(arcCenter: CGPointMake(radius, radius),
                             radius: radius,
-                            startAngle: CGFloat(-M_PI_4),
-                            endAngle: CGFloat((2 * M_PI) - M_PI_4),
+                            startAngle: -checkmarkProperties.longArmBoxIntersectionAngle,
+                            endAngle: CGFloat(2 * M_PI) - checkmarkProperties.longArmBoxIntersectionAngle,
                             clockwise: true)
     }
     
@@ -255,25 +269,9 @@ internal class M13CheckboxPathPresets {
     func pathForCheckmark() -> UIBezierPath {
         let path = UIBezierPath()
         
-        // Scale up the checkmark if a square box type.
-        if boxType == .Square {
-            // Add the three points. Draw based on scale to draw at any size.
-            path.moveToPoint(CGPoint(x: size / 3.1578, y: size / 2.0))
-            path.addLineToPoint(CGPoint(x: size / 2.0618, y: size / 1.57894))
-            path.addLineToPoint(CGPoint(x: size / 1.3953, y: size / 2.7272))
-            // Scale
-            path.applyTransform(CGAffineTransformMakeScale(1.5, 1.5))
-            // Recenter
-            path.applyTransform(CGAffineTransformMakeTranslation(-size / 4.0, -size / 4.0))
-        } else {
-            // Add the three points. Draw based on scale to draw at any size.
-            path.moveToPoint(CGPoint(x: size / 3.1578, y: size / 2.0))
-            path.addLineToPoint(CGPoint(x: size / 2.0618, y: size / 1.57894))
-            path.addLineToPoint(CGPoint(x: size / 1.3953, y: size / 2.7272))
-            
-            print(size)
-            print("A: ", CGPoint(x: size / 3.1578, y: size / 2.0), " B: ", CGPoint(x: size / 2.0618, y: size / 1.57894), " C: ", CGPoint(x: size / 1.3953, y: size / 2.7272))
-        }
+        path.moveToPoint(checkmarkShortArmEndPoint)
+        path.addLineToPoint(checkmarkMiddlePoint)
+        path.addLineToPoint(checkmarkLongArmEndPoint)
         
         return path
     }
@@ -308,19 +306,19 @@ internal class M13CheckboxPathPresets {
         let path = UIBezierPath()
         
         // Left point
-        path.moveToPoint(CGPoint(x: size / 3.1578, y: size / 2.0))
+        path.moveToPoint(CGPoint(x: size * 0.25, y: size / 2.0))
         // Middle point
-        path.addLineToPoint(CGPoint(x: size / 2.0, y: size / 2.0))
+        path.addLineToPoint(CGPoint(x: size * 0.5, y: size / 2.0))
         // Right point
-        path.addLineToPoint(CGPoint(x: size / 1.3953, y: size / 2.0))
+        path.addLineToPoint(CGPoint(x: size * 0.75, y: size / 2.0))
         
         return path
     }
     
     func pathForMixedRadio() -> UIBezierPath {
         let path = UIBezierPath()
-        path.moveToPoint(CGPoint(x: size / 3.1578, y: size / 2.0))
-        path.addLineToPoint(CGPoint(x: size / 1.3953, y: size / 2.0))
+        path.moveToPoint(CGPoint(x: size * 0.25, y: size / 2.0))
+        path.addLineToPoint(CGPoint(x: size * 0.75, y: size / 2.0))
         path.bezierPathByReversingPath()
         return path
     }

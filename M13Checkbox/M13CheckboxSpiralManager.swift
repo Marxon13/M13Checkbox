@@ -101,16 +101,16 @@ class M13CheckboxSpiralManager: M13CheckboxManager {
         
         if toState == .Unchecked {
             // Temporarily set the path of the checkmark to the long checkmark
-            markLayer.path = (paths as! M13CheckboxSpiralPathPresets).pathForLongMark(toState).CGPath
+            markLayer.path = (paths as! M13CheckboxSpiralPathPresets).pathForLongMark(toState).bezierPathByReversingPath().CGPath
             
-            let checkMorphAnimation = animations.morphAnimation(paths.path(toState)!, toPath: (paths as! M13CheckboxSpiralPathPresets).pathForLongMark(toState))
+            let checkMorphAnimation = animations.morphAnimation(paths.path(toState)!.bezierPathByReversingPath(), toPath: (paths as! M13CheckboxSpiralPathPresets).pathForLongMark(toState).bezierPathByReversingPath())
             checkMorphAnimation.fillMode = kCAFillModeBackwards
-            checkMorphAnimation.duration = checkMorphAnimation.duration / 6.0
+            checkMorphAnimation.duration = checkMorphAnimation.duration / 4.0
             checkMorphAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
             
             let checkStrokeAnimation = animations.strokeAnimation(true)
             checkStrokeAnimation.beginTime = CACurrentMediaTime() + checkMorphAnimation.duration
-            checkStrokeAnimation.duration = checkStrokeAnimation.duration / 3.0
+            checkStrokeAnimation.duration = checkStrokeAnimation.duration / 4.0
             checkStrokeAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
             
             let boxStrokeAnimation = animations.strokeAnimation(true)
@@ -140,12 +140,13 @@ class M13CheckboxSpiralManager: M13CheckboxManager {
         } else {
             if fromState == .Unchecked {
                 // Temporarly set to the long mark.
-                markLayer.path = (paths as! M13CheckboxSpiralPathPresets).pathForLongMark(toState).CGPath
+                markLayer.path = (paths as! M13CheckboxSpiralPathPresets).pathForLongMark(toState).bezierPathByReversingPath().CGPath
                 
                 let quickOpacityAnimation = animations.quickOpacityAnimation(false)
                 
                 let boxStrokeAnimation = animations.strokeAnimation(false)
                 boxStrokeAnimation.duration = boxStrokeAnimation.duration / 2.0
+                boxStrokeAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
                 
                 let checkQuickOpacityAnimation = animations.quickOpacityAnimation(false)
                 checkQuickOpacityAnimation.duration = 0.001
@@ -157,12 +158,11 @@ class M13CheckboxSpiralManager: M13CheckboxManager {
                 checkStrokeAnimation.fillMode = kCAFillModeBackwards
                 checkStrokeAnimation.beginTime = CACurrentMediaTime() + boxStrokeAnimation.duration
                 
-                let checkMorphAnimation = animations.morphAnimation((paths as! M13CheckboxSpiralPathPresets).pathForLongMark(toState), toPath: paths.path(toState)!)
+                let checkMorphAnimation = animations.morphAnimation((paths as! M13CheckboxSpiralPathPresets).pathForLongMark(toState).bezierPathByReversingPath(), toPath: paths.path(toState)!.bezierPathByReversingPath())
                 checkMorphAnimation.duration = checkMorphAnimation.duration / 4.0
                 checkMorphAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
                 checkMorphAnimation.beginTime = CACurrentMediaTime() + boxStrokeAnimation.duration + checkStrokeAnimation.duration
-                checkMorphAnimation.removedOnCompletion = false
-                checkMorphAnimation.fillMode = kCAFillModeForwards
+                checkMorphAnimation.fillMode = kCAFillModeBackwards
                 
                 CATransaction.begin()
                 CATransaction.setCompletionBlock({ () -> Void in
