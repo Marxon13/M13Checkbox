@@ -200,6 +200,9 @@ public class M13Checkbox: UIControl {
         }
         manager.tintColor = tintColor
         manager.resetLayersForState(.Unchecked)
+        
+        let longPressGesture = M13CheckboxGestureRecognizer(target: self, action: #selector(M13Checkbox.handleLongPress(_:)))
+        addGestureRecognizer(longPressGesture)
     }
     
     //----------------------------
@@ -344,28 +347,16 @@ public class M13Checkbox: UIControl {
     // MARK: - UIControl
     //----------------------------
     
-    public override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
-        super.beginTrackingWithTouch(touch, withEvent: event)
-        // Become selected
-        selected = true
-        return true
-    }
-    
-    public override func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
-        super.continueTrackingWithTouch(touch, withEvent: event)
-        return true
-    }
-    
-    public override func endTrackingWithTouch(touch: UITouch?, withEvent event: UIEvent?) {
-        super.endTrackingWithTouch(touch, withEvent: event)
-        selected = false
-        toggleCheckState(true)
-        sendActionsForControlEvents(.ValueChanged)
-    }
-    
-    public override func cancelTrackingWithEvent(event: UIEvent?) {
-        super.cancelTrackingWithEvent(event)
-        selected = false
+    func handleLongPress(sender: UILongPressGestureRecognizer) {
+        if sender.state == .Began || sender.state == .Changed {
+            selected = true
+        } else {
+            selected = false
+            if sender.state == .Ended {
+                toggleCheckState(true)
+                sendActionsForControlEvents(.ValueChanged)
+            }
+        }
     }
     
     //----------------------------
@@ -480,34 +471,4 @@ public class M13Checkbox: UIControl {
         // Layout
         manager.layoutLayers()
     }
-    
-    /*public override func drawRect(rect: CGRect) {
-        
-        let intersectionRect = CGRect(x: manager.paths.checkmarkLongArmBoxIntersectionPoint.x - 1.0, y: manager.paths.checkmarkLongArmBoxIntersectionPoint.y - 1.0, width: 2.0, height: 2.0)
-        print("intersection: ", intersectionRect)
-        let longEndRect = CGRect(x: manager.paths.checkmarkLongArmEndPoint.x - 1.0, y: manager.paths.checkmarkLongArmEndPoint.y - 1.0, width: 2.0, height: 2.0)
-        print("longEnd: ", longEndRect)
-        let middleRect = CGRect(x: manager.paths.checkmarkMiddlePoint.x - 1.0, y: manager.paths.checkmarkMiddlePoint.y - 1.0, width: 2.0, height: 2.0)
-        print("middleRect: ", middleRect)
-        let shortEndRect = CGRect(x: manager.paths.checkmarkShortArmEndPoint.x - 1.0, y: manager.paths.checkmarkShortArmEndPoint.y - 1.0, width: 2.0, height: 2.0)
-        print("shortRect: ", shortEndRect)
-        
-        let context = UIGraphicsGetCurrentContext()
-        
-        CGContextSetFillColorWithColor(context, UIColor.clearColor().CGColor)
-        CGContextFillRect(context, bounds)
-         
-        super.drawRect(rect)
-        
-        CGContextSaveGState(context)
-        
-        CGContextSetFillColorWithColor(context, UIColor.redColor().CGColor)
-        
-        CGContextFillRect(context, intersectionRect)
-        CGContextFillRect(context, longEndRect)
-        CGContextFillRect(context, middleRect)
-        CGContextFillRect(context, shortEndRect)
-        
-        CGContextRestoreGState(context)
-    }*/
 }

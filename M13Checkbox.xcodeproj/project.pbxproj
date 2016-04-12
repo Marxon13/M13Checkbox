@@ -35,6 +35,7 @@
 		EAA098371CA8AF68001AAF6E /* M13CheckboxPathPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA098361CA8AF68001AAF6E /* M13CheckboxPathPresets.swift */; };
 		EAA098391CA8B206001AAF6E /* M13CheckboxAnimationPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA098381CA8B206001AAF6E /* M13CheckboxAnimationPresets.swift */; };
 		EAA0983F1CA8BEF1001AAF6E /* M13CheckboxStrokeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0983E1CA8BEF1001AAF6E /* M13CheckboxStrokeManager.swift */; };
+		EAD2FDA51CBD2FA400086119 /* M13CheckboxGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD2FDA41CBD2FA400086119 /* M13CheckboxGestureRecognizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		EAA098361CA8AF68001AAF6E /* M13CheckboxPathPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M13CheckboxPathPresets.swift; sourceTree = "<group>"; };
 		EAA098381CA8B206001AAF6E /* M13CheckboxAnimationPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M13CheckboxAnimationPresets.swift; sourceTree = "<group>"; };
 		EAA0983E1CA8BEF1001AAF6E /* M13CheckboxStrokeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M13CheckboxStrokeManager.swift; sourceTree = "<group>"; };
+		EAD2FDA41CBD2FA400086119 /* M13CheckboxGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M13CheckboxGestureRecognizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 				EA508D1A1C9CE605007142F6 /* M13CheckboxManager.swift */,
 				EAA098361CA8AF68001AAF6E /* M13CheckboxPathPresets.swift */,
 				EAA098381CA8B206001AAF6E /* M13CheckboxAnimationPresets.swift */,
+				EAD2FDA41CBD2FA400086119 /* M13CheckboxGestureRecognizer.swift */,
 				EA26E1EC1CAEDD0800ACB4F4 /* Presets */,
 				EAA0983C1CA8BE7F001AAF6E /* Managers */,
 				EA6720301C7DFC3D008054BA /* M13Checkbox+IB.swift */,
@@ -315,6 +318,7 @@
 				EA8610511C8F4FE300F9FDBA /* BaseCollectionViewCell.swift in Sources */,
 				EA8610531C8F588E00F9FDBA /* SliderCollectionViewCell.swift in Sources */,
 				EA8610551C8F5E9F00F9FDBA /* SelectionCollectionViewCell.swift in Sources */,
+				EAD2FDA51CBD2FA400086119 /* M13CheckboxGestureRecognizer.swift in Sources */,
 				EAA098371CA8AF68001AAF6E /* M13CheckboxPathPresets.swift in Sources */,
 				EA6720311C7DFC3D008054BA /* M13Checkbox+IB.swift in Sources */,
 				EA508D1B1C9CE605007142F6 /* M13CheckboxManager.swift in Sources */,
