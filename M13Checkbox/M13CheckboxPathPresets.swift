@@ -20,19 +20,22 @@ internal class M13CheckboxPathPresets {
     struct CheckmarkProperties {
         
         /// The angle between the x-axis, and the line created between the origin, and the location where the extended long arm of the checkmark meets the box. (Diagram: Θ)
-        var longArmBoxIntersectionAngle: CGFloat = 40.0 * CGFloat(M_PI / 180.0)
+        var longArmBoxIntersectionAngle: CGFloat = 45.0 * CGFloat(M_PI / 180.0)
         
         /// The distance from the center the long arm of the checkmark draws to, as a percentage of size. (Diagram: S)
-        var longArmRadius: (circle: CGFloat, box: CGFloat) = (circle: 0.25, box: 0.375)
+        var longArmRadius: (circle: CGFloat, box: CGFloat) = (circle: 0.22, box: 0.33)
         
         /// The distance from the center of the middle/bottom point of the checkbox, as a percentage of size. (Diagram: T)
-        var middlePointRadius: (circle: CGFloat, box: CGFloat) = (circle: 0.135, box: 0.2025)
+        var middlePointRadius: (circle: CGFloat, box: CGFloat) = (circle: 0.133, box: 0.1995)
         
-        /// The distance between the vertical center and the middle point of the checkbox.
-        var middlePointOffset: (circle: CGFloat, box: CGFloat) = (circle: -0.015, box: -0.0225)
+        /// The distance between the horizontal center and the middle point of the checkbox.
+        var middlePointOffset: (circle: CGFloat, box: CGFloat) = (circle: -0.04, box: -0.06)
         
         /// The distance from the center of the left most point of the checkmark, as a percentage of size.
-        var shortArmRadius: (circle: CGFloat, box: CGFloat) = (circle: 0.185, box: 0.2775)
+        var shortArmRadius: (circle: CGFloat, box: CGFloat) = (circle: 0.17, box: 0.255)
+        
+        /// The distance between the vertical center and the left most point of the checkmark, as a percentage of size.
+        var shortArmOffset: (circle: CGFloat, box: CGFloat) = (circle: 0.02, box: 0.03)
     }
     
     //----------------------------
@@ -144,7 +147,8 @@ internal class M13CheckboxPathPresets {
     
     var checkmarkShortArmEndPoint: CGPoint {
         let r = boxType == .Circle ? checkmarkProperties.shortArmRadius.circle : checkmarkProperties.shortArmRadius.box
-        return CGPointMake((size / 2.0) - (size * r), size / 2.0)
+        let o = boxType == .Circle ? checkmarkProperties.shortArmOffset.circle : checkmarkProperties.shortArmOffset.box
+        return CGPointMake((size / 2.0) - (size * r), (size / 2.0) + (size * o))
     }
     
     //----------------------------
