@@ -13,6 +13,8 @@
 
 #import "M13Checkbox.h"
 
+#import <UIKit/UIGestureRecognizerSubclass.h>
+
 #define kBoxSize .875
 #define kCheckHorizontalExtention .125
 #define kCheckVerticalExtension .125
@@ -117,6 +119,39 @@
     
     //Cleanup
     CGColorSpaceRelease(colorSpace);
+}
+
+@end
+
+@interface M13GestureRecognizer : UILongPressGestureRecognizer
+
+@end
+
+@implementation M13GestureRecognizer
+
+- (instancetype)initWithTarget:(id)target action:(SEL)action
+{
+    self = [super initWithTarget:target action:action];
+    if (self)
+    {
+        self.minimumPressDuration = 0.;
+    }
+
+    return self;
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    // Override `-touchesEnded:withEvent:` to check whether the touch is outside of the M13Checkbox's bounds, and fail to recognize if so.
+    UITouch *anyTouch = [touches anyObject];
+    CGPoint touchPoint = [anyTouch locationInView:self.view];
+    if (!CGRectContainsPoint(self.view.bounds, touchPoint))
+    {
+        self.state = UIGestureRecognizerStateFailed;
+    }
+
+    // If `self.state` is not yet set, the superclass implementation of this method will set it as it sees fit.
+    [super touchesEnded:touches withEvent:event];
 }
 
 @end
@@ -270,7 +305,9 @@
     //Add the subviews
     [self addSubview:checkView];
     [self addSubview:_titleLabel];
-    
+
+    M13GestureRecognizer *recognizer = [[M13GestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    [self addGestureRecognizer:recognizer];
 }
 
 - (CGFloat)heightForCheckbox
@@ -435,36 +472,26 @@
     return checkView.frame;
 }
 
-#pragma mark - UIControl overrides
+#pragma mark - UIGestureRecognizer action
 
-- (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
+- (void)handleLongPress:(UIGestureRecognizer *)recognizer
 {
-    [super beginTrackingWithTouch:touch withEvent:event];
-    checkView.selected = YES;
+    if (UIGestureRecognizerStateBegan == recognizer.state || UIGestureRecognizerStateChanged == recognizer.state)
+    {
+        checkView.selected = YES;
+    }
+    else
+    {
+        checkView.selected = NO;
+
+        if (UIGestureRecognizerStateEnded == recognizer.state)
+        {
+            [self toggleCheckState];
+            [self sendActionsForControlEvents:UIControlEventValueChanged];
+        }
+    }
+
     [checkView setNeedsDisplay];
-    
-    return YES;
-}
-
-- (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
-{
-    [super continueTrackingWithTouch:touch withEvent:event];
-    return YES;
-}
-
-- (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
-{
-    checkView.selected = NO;
-    [self toggleCheckState];
-    [self sendActionsForControlEvents:UIControlEventValueChanged];
-    [super endTrackingWithTouch:touch withEvent:event];
-}
-
-- (void)cancelTrackingWithEvent:(UIEvent *)event
-{
-    checkView.selected = NO;
-    [checkView setNeedsDisplay];
-    [super cancelTrackingWithEvent:event];
 }
 
 @end
