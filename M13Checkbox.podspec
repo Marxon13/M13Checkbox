@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
 
   s.source = { :git => "https://github.com/Marxon13/M13Checkbox.git", :tag => "v2.0.0"}
 
-  s.source_files  = 'Source/*'
+  s.source_files  = 'Sources/*'
 
   s.frameworks = 'Foundation', 'UIKit', 'CoreGraphics'
 
