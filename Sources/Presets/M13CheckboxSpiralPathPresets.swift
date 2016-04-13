@@ -37,9 +37,11 @@ class M13CheckboxSpiralPathPresets: M13CheckboxPathPresets {
         let path = UIBezierPath()
         
         // Left point
-        path.moveToPoint(CGPoint(x: size * 0.25, y: size * 0.5))
+        path.moveToPoint(CGPoint(x: size * 0.25, y: size / 2.0))
+        // Middle point
+        path.addLineToPoint(CGPoint(x: size * 0.5, y: size / 2.0))
         // Right point
-        path.addLineToPoint(CGPoint(x: size, y: size * 0.5))
+        path.addLineToPoint(CGPoint(x: size - boxLineWidth, y: size * 0.5))
         
         return path
     }

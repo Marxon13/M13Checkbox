@@ -106,9 +106,9 @@ class M13CheckboxSpiralManager: M13CheckboxManager {
         
         if toState == .Unchecked {
             // Temporarily set the path of the checkmark to the long checkmark
-            markLayer.path = (paths as! M13CheckboxSpiralPathPresets).pathForLongMark(toState).bezierPathByReversingPath().CGPath
+            markLayer.path = (paths as! M13CheckboxSpiralPathPresets).pathForLongMark(fromState).bezierPathByReversingPath().CGPath
             
-            let checkMorphAnimation = animations.morphAnimation(paths.path(toState)!.bezierPathByReversingPath(), toPath: (paths as! M13CheckboxSpiralPathPresets).pathForLongMark(toState).bezierPathByReversingPath())
+            let checkMorphAnimation = animations.morphAnimation(paths.path(fromState)!.bezierPathByReversingPath(), toPath: (paths as! M13CheckboxSpiralPathPresets).pathForLongMark(fromState).bezierPathByReversingPath())
             checkMorphAnimation.fillMode = kCAFillModeBackwards
             checkMorphAnimation.duration = checkMorphAnimation.duration / 4.0
             checkMorphAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
@@ -160,14 +160,13 @@ class M13CheckboxSpiralManager: M13CheckboxManager {
                 let checkStrokeAnimation = animations.strokeAnimation(false)
                 checkStrokeAnimation.duration = checkStrokeAnimation.duration / 4.0
                 checkStrokeAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
-                checkStrokeAnimation.fillMode = kCAFillModeBackwards
+                checkStrokeAnimation.fillMode = kCAFillModeForwards
                 checkStrokeAnimation.beginTime = CACurrentMediaTime() + boxStrokeAnimation.duration
                 
                 let checkMorphAnimation = animations.morphAnimation((paths as! M13CheckboxSpiralPathPresets).pathForLongMark(toState).bezierPathByReversingPath(), toPath: paths.path(toState)!.bezierPathByReversingPath())
                 checkMorphAnimation.duration = checkMorphAnimation.duration / 4.0
                 checkMorphAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
                 checkMorphAnimation.beginTime = CACurrentMediaTime() + boxStrokeAnimation.duration + checkStrokeAnimation.duration
-                checkMorphAnimation.fillMode = kCAFillModeBackwards
                 
                 CATransaction.begin()
                 CATransaction.setCompletionBlock({ () -> Void in
