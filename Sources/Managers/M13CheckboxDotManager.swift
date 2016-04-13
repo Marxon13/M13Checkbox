@@ -168,19 +168,46 @@ class M13CheckboxDotManager: M13CheckboxManager {
                 
                 CATransaction.commit()
             } else {
-                let fromPath = paths.path(fromState)
-                let toPath = paths.path(toState)
-                
-                let morphAnimation = animations.morphAnimation(fromPath!, toPath: toPath!)
-                
-                CATransaction.begin()
-                CATransaction.setCompletionBlock({ [unowned self] () -> Void in
-                    self.resetLayersForState(self.state)
-                    })
-                
-                markLayer.addAnimation(morphAnimation, forKey: "path")
-                
-                CATransaction.commit()
+                if paths.markType != .Radio {
+                    let fromPath = paths.path(fromState)
+                    let toPath = paths.path(toState)
+                    
+                    let morphAnimation = animations.morphAnimation(fromPath!, toPath: toPath!)
+                    
+                    CATransaction.begin()
+                    CATransaction.setCompletionBlock({ [unowned self] () -> Void in
+                        self.resetLayersForState(self.state)
+                        })
+                    
+                    markLayer.addAnimation(morphAnimation, forKey: "path")
+                    
+                    CATransaction.commit()
+                } else {
+                    
+                    var compressionAnimation: CAAnimation? = nil
+                    if toState == .Mixed {
+                        let toPath = paths.path(fromState)
+                        let scale: CGFloat = 0.5 / 0.665
+                        toPath?.applyTransform(CGAffineTransformMakeScale(scale, 0.002))
+                        toPath?.applyTransform(CGAffineTransformMakeTranslation(((paths.size * 0.665) - (paths.size * 0.5)) * scale, (paths.size / 2.0) - (paths.boxLineWidth * 0.5 * scale)))
+                        compressionAnimation = animations.morphAnimation(paths.path(fromState)!, toPath: toPath!)
+                    } else {
+                        let fromPath = paths.path(toState)
+                        let scale: CGFloat = 0.5 / 0.665
+                        fromPath?.applyTransform(CGAffineTransformMakeScale(scale, 0.002))
+                        fromPath?.applyTransform(CGAffineTransformMakeTranslation(((paths.size * 0.665) - (paths.size * 0.5)) * scale, (paths.size / 2.0) - (paths.boxLineWidth * 0.5 * scale)))
+                        compressionAnimation = animations.morphAnimation(fromPath!, toPath: paths.path(toState)!)
+                    }
+                    
+                    CATransaction.begin()
+                    CATransaction.setCompletionBlock({ [unowned self] () -> Void in
+                        self.resetLayersForState(self.state)
+                        })
+                    
+                    markLayer.addAnimation(compressionAnimation!, forKey: "path")
+                    
+                    CATransaction.commit()
+                }
             }
         }
     }
