@@ -3,9 +3,25 @@
 <br>
 Create beautiful, customizable, extendable, animated checkboxes on iOS. Completely configurable through interface builder. It has several built in animations, custom value support, a mixed state, checkmark and radio styles, circular and rounded rectangle box shapes, as well as full color customization. See the demo app to play with all the features. 
 
+##Table of Contents
 
-Documentation
--------------
+* [**Documentation**](#documentation) 
+    * [Animations](#animations)
+    * [Values](#values)
+    * [State](#state)
+    * [Appearance](#appearance)
+* [**Getting Started**](#getting-started)
+    * [Installation](#installation)
+    * [Use](#use)
+* [**Project Structure**](project-structure)
+* [**Project Details**](project-details)
+    * [Requirements](requirements)
+    * [Support](support)
+    * [Todo](todo)
+    * [License](license)
+
+
+##Documentation
 
 Check out the demo app to change the properties of the checkbox and see the changes in real time.
 
@@ -79,8 +95,7 @@ Check out the demo app to change the properties of the checkbox and see the chan
 
 <br>
 
-Getting Started
----------------
+##Getting Started
 
 ### Installation
 
@@ -124,8 +139,7 @@ view.addSubview(checkbox)
 <br>
 
 
-Project Structure
----------------
+##Project Structure
 
 **M13Checkbox**
 The main interface for M13Checkbox is the `M13Checkbox` class. It is a subclass of `UIControl` and handles the configurable properties, as well as touch events. 
@@ -146,8 +160,7 @@ A shim that gives the ability to set the enum values of `M13Checkbox` in Interfa
 
 <br>
 
-Project Details
----------------
+##Project Details
 
 ### Requirements
 
@@ -158,9 +171,18 @@ Project Details
 
 Open an issue or shoot me an email. Check out previous issues to see if your's has already been solved. (I would prefer an issue over an email. But will still happily respond to an email.)
 
+### Todo
+
+- Fix the animations between the checked and mixed states when the mark is a radio. When the circle is close to being flat, the left and right edges are not rounded, as well as render some artifacts. 
+- Add visual feedback for UIControl's selected state. So that when the checkbox is touched, it animates slightly towards the new state.
+- Add support for interrupting animations mid-animation. So that if the checkbox is tapped multiple times in quick succession, it animates from the current values, instead of resetting the checkbox and restarting the animations. This might involve replacing CAAnimations with manually done animations using a CADisplayLink.
+- tvOS support.
+- watchOS support.
+- Mac OS X support.
+
 ### License
 
-***Under the MIT License***
+***Available Under the MIT License***
 
 >Copyright (c) 2016 Brandon McQuilkin
 >                    
