@@ -3,11 +3,6 @@
 <br>
 Create beautiful, customizable, extendable, animated checkboxes on iOS. Completely configurable through interface builder. See the demo app to play with all the features.
 
-Table of Contents
------------------
-
-
-<br>
 
 Documentation
 -------------
@@ -18,18 +13,31 @@ Check out the demo app to change the properties of the checkbox and see the chan
 
 - **Animation `enum`:** The possible animations for switching to and from the unchecked state.
     - **Stroke:**
+        ![Stroke Sample](Resources/Samples/Stroke Sample.gif)
     - **Fill:**
+        ![Fill Sample](Resources/Samples/Fill Sample.gif)
     - **Bounce (Stroke):**
+        ![Bounce Stroke Sample](Resources/Samples/Bounce Stroke Sample.gif)
     - **Bounce (Fill):**
+        ![Bounce Fill Sample](Resources/Samples/Bounce Fill Sample.gif)
     - **Expand (Stroke):**
+        ![Expand Stroke Sample](Resources/Samples/Expand Stroke Sample.gif)
     - **Expand (Fill):**
+        ![Expand Fill Sample](Resources/Samples/Expand Fill Sample.gif)
     - **Flat (Stroke):**
+        ![Flat Stroke Sample](Resources/Samples/Flat Stroke Sample.gif)
     - **Flat (Fill):**
+        ![Flat Fill Sample](Resources/Samples/Flat Fill Sample.gif)
     - **Spiral:**
+        ![Spiral Sample](Resources/Samples/Spiral Sample.gif)
     - **Fade (Stroke):**
+        ![Fade Stroke Sample](Resources/Samples/Fade Stroke Sample.gif)
     - **Fade (Fill):**
+        ![Fade Fill Sample](Resources/Samples/Fade Fill Sample.gif)
     - **Dot (Stroke):**
+        ![Dot Stroke Sample](Resources/Samples/Dot Stroke Sample.gif)
     - **Dot (Fill):**
+        ![Dot Fill Sample](Resources/Samples/Dot Fill Sample.gif)
 - **stateChangeAnimation `Animation`:** The type of animation to preform when changing from the unchecked state to any other state.
 - **animationDuration `NSTimeInterval`:** The duration of the animation that occurs when the checkbox switches states. The default is 0.3 seconds.
 
@@ -100,6 +108,29 @@ Just initialize the checkbox like one would initialize a UIView, and add it as a
 let checkbox = M13Checkbox(frame: CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
 view.addSubview(checkbox)
 ```
+
+<br>
+
+
+Project Structure
+---------------
+
+**M13Checkbox**
+The main interface for M13Checkbox is the `M13Checkbox` class. It is a subclass of `UIControl` and handles the configurable properties, as well as touch events. 
+
+**M13CheckboxManager**
+Each `M13Checkbox` references an instance of `M13CheckboxManager`, which controls the appearance and animations of its layers. The manager passes a set of layers to the `M13Checkbox`, which adds the layers to its layer hierarchy. The checkbox then asks the manager to perform the necessary animations on the layers to animate between states. Each animation type has its own subclass of `M13CheckboxManager`. To add an animation, subclass `M13CheckboxManager`, and add the animation type to the `Animation` enum, supporting the animation `Style` if applicable. Take a look at the existing managers to see what variables and functions to override.
+
+**M13CheckboxAnimationPresets**
+Each `M13CheckboxManager` references an instance of `M13CheckboxAnimationPresets`, which generates the animations that will be applied to layers during state transitions. The base class contains animations that are shared between multiple animation styles. An animation can subclass `M13CheckboxAnimationPresets` to generate new animations specific to the animation type.
+
+**M13CheckboxPathPresets**
+Each `M13CheckboxManager` references an instance of `M13CheckboxPathPresets`, which generates the paths that will be displayed by the layers. The base class contains paths that are shared between multiple animation styles, as well as some boilerplate code to determine which path to use. Some animations have a subclass of `M13CheckboxPathPresets` to add new paths specific to the animation type, or override existing paths to customize the look.
+
+`M13CheckboxPathPresets` calculates the positions of the points of the checkmark with more than just a basic scaled offset. This allows the checkmark to always look the same, not matter what size the checkbox is. The math contained in the `checkmarkLongArmBoxIntersectionPoint` and `checkmarkLongArmEndPoint` are a simplified version of a human readable solution. To see the math that went into creating these equations, check out the "Math.nb" or the "Math.pdf" in the "Other" folder.
+
+**M13Checkbox+IB**
+A shim that gives the ability to set the enum values of `M13Checkbox` in Interface Builder.
 
 <br>
 
