@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, '9.0'
 
-  s.source = { :git => "https://github.com/Marxon13/M13Checkbox.git", :tag => "v2.0.0"}
+  s.source = { :git => "https://github.com/Marxon13/M13Checkbox.git", :tag => "2.0.0"}
 
   s.source_files  = 'Sources/*'
 
