@@ -32,30 +32,43 @@ Check out the demo app to change the properties of the checkbox and see the chan
 
 - **Animation `enum`:** The possible animations for switching to and from the unchecked state.
     - **Stroke:**
+    
         ![Stroke Sample](Resources/Samples/Stroke Sample.gif)
     - **Fill:**
+    
         ![Fill Sample](Resources/Samples/Fill Sample.gif)
     - **Bounce (Stroke):**
+    
         ![Bounce Stroke Sample](Resources/Samples/Bounce Stroke Sample.gif)
     - **Bounce (Fill):**
+    
         ![Bounce Fill Sample](Resources/Samples/Bounce Fill Sample.gif)
     - **Expand (Stroke):**
+    
         ![Expand Stroke Sample](Resources/Samples/Expand Stroke Sample.gif)
     - **Expand (Fill):**
+    
         ![Expand Fill Sample](Resources/Samples/Expand Fill Sample.gif)
     - **Flat (Stroke):**
+    
         ![Flat Stroke Sample](Resources/Samples/Flat Stroke Sample.gif)
     - **Flat (Fill):**
+    
         ![Flat Fill Sample](Resources/Samples/Flat Fill Sample.gif)
     - **Spiral:**
+    
         ![Spiral Sample](Resources/Samples/Spiral Sample.gif)
     - **Fade (Stroke):**
+    
         ![Fade Stroke Sample](Resources/Samples/Fade Stroke Sample.gif)
     - **Fade (Fill):**
+    
         ![Fade Fill Sample](Resources/Samples/Fade Fill Sample.gif)
     - **Dot (Stroke):**
+    
         ![Dot Stroke Sample](Resources/Samples/Dot Stroke Sample.gif)
     - **Dot (Fill):**
+    
         ![Dot Fill Sample](Resources/Samples/Dot Fill Sample.gif)
 - **stateChangeAnimation `Animation`:** The type of animation to preform when changing from the unchecked state to any other state.
 - **animationDuration `NSTimeInterval`:** The duration of the animation that occurs when the checkbox switches states. The default is 0.3 seconds.
