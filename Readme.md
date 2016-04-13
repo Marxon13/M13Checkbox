@@ -131,6 +131,14 @@ To install via Carthage, add the following to your cartfile:
 github "Marxon13/M13Checkbox"
 ```
 
+#### Swift Package Manager
+
+To install via Swift Package Manager, add the following as a dependency to your Package.swift file:
+
+```
+.Package(url: "git@github.com:Marxon13/M13Checkbox.git", versions: Version(2,0,0)..<Version(2,0,0)),
+```
+
 #### Manual
 
 Another option is to copy the files in the "Sources" folder to your project.
