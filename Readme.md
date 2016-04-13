@@ -1,7 +1,7 @@
 <br>
 ![Banner](Resources/Banner.png)
 <br>
-Create beautiful, customizable, extendable, animated checkboxes on iOS. Completely configurable through interface builder. See the demo app to play with all the features.
+Create beautiful, customizable, extendable, animated checkboxes on iOS. Completely configurable through interface builder. It has several built in animations, custom value support, a mixed state, checkmark and radio styles, circular and rounded rectangle box shapes, as well as full color customization. See the demo app to play with all the features. 
 
 
 Documentation
