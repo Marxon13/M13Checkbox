@@ -13,7 +13,7 @@
 
 import UIKit
 
-extension M13Checkbox {
+public extension M13Checkbox {
     
     /// A proxy to set the box type compatible with interface builder.
     @IBInspectable public var _IBStateChangeAnimation: Int {

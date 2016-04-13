@@ -13,7 +13,7 @@
 
 import UIKit
 
-class M13CheckboxSpiralManager: M13CheckboxManager {
+internal class M13CheckboxSpiralManager: M13CheckboxManager {
     
     //----------------------------
     // MARK: - Properties

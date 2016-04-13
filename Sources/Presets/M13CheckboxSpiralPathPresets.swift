@@ -13,7 +13,7 @@
 
 import UIKit
 
-class M13CheckboxSpiralPathPresets: M13CheckboxPathPresets {
+internal class M13CheckboxSpiralPathPresets: M13CheckboxPathPresets {
     
     /**
      Creates a path object for the long checkmark which is in contact with the box.

@@ -14,7 +14,7 @@
 import UIKit
 import UIKit.UIGestureRecognizerSubclass
 
-class M13CheckboxGestureRecognizer: UILongPressGestureRecognizer {
+internal class M13CheckboxGestureRecognizer: UILongPressGestureRecognizer {
     
     override init(target: AnyObject?, action: Selector) {
         super.init(target: target, action: action)

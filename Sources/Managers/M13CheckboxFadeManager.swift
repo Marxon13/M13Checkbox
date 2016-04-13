@@ -13,7 +13,7 @@
 
 import UIKit
 
-class M13CheckboxFadeManager: M13CheckboxManager {
+internal class M13CheckboxFadeManager: M13CheckboxManager {
     
     //----------------------------
     // MARK: - Properties
