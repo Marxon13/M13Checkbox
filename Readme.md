@@ -84,11 +84,23 @@ Getting Started
 
 ### Installation
 
+#### Cocoapods
+
 The easiest way to install M13Checkbox is through CocoaPods. Simplify add the following to your podfile.
 
 ```
 pod 'M13Checkbox'
 ```
+
+#### Carthage
+
+To install via Carthage, add the following to your cartfile:
+
+```
+github "Marxon13/M13Checkbox"
+```
+
+#### Manual
 
 Another option is to copy the files in the "Sources" folder to your project.
 
