@@ -209,6 +209,7 @@ Open an issue or shoot me an email. Check out previous issues to see if your's h
 
 ### Todo
 
+- Possibly change enumeration values to strings?
 - Fix the animations between the checked and mixed states when the mark is a radio. When the circle is close to being flat, the left and right edges are not rounded, as well as render some artifacts. 
 - Add visual feedback for UIControl's selected state. So that when the checkbox is touched, it animates slightly towards the new state.
 - Add support for interrupting animations mid-animation. So that if the checkbox is tapped multiple times in quick succession, it animates from the current values, instead of resetting the checkbox and restarting the animations. This might involve replacing CAAnimations with manually done animations using a CADisplayLink.
