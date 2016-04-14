@@ -8,6 +8,7 @@ Create beautiful, customizable, extendable, animated checkboxes on iOS. Complete
 
 ##Table of Contents
 
+* [**Recent Changes**](#recent-changes)
 * [**Documentation**](#documentation) 
     * [Animations](#animations)
     * [Values](#values)
@@ -22,6 +23,17 @@ Create beautiful, customizable, extendable, animated checkboxes on iOS. Complete
     * [Support](support)
     * [Todo](todo)
     * [License](license)
+
+
+##Recent Changes
+
+- **2.0.0:** M13Checkbox is now implemented in swift! The checkbox has been redone from scratch.
+    - **Added:** 
+        - Animations
+    - **Removed:** 
+        - Gloss overlay
+        - Title label: This is very easy to achieve with auto-layout. It is no longer necessary to be provided by the library. This may be re-implemented in a later release.
+        - Custom checkboxes
 
 
 ##Documentation
@@ -203,6 +215,8 @@ Open an issue or shoot me an email. Check out previous issues to see if your's h
 - tvOS support.
 - watchOS support.
 - Mac OS X support.
+- Checkbox cells (Re-add label support)
+- Checkbox groups (single / multiple selection)
 
 ### License
 
