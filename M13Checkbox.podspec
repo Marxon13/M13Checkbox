@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "M13Checkbox"
-  s.version      = "2.0.0"
+  s.version      = "2.1.0"
   s.summary      = "A beautiful, customizable, extendable, animated checkbox for iOS."
 
   s.description  = <<-DESC
@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, '9.0'
 
-  s.source = { :git => "https://github.com/Marxon13/M13Checkbox.git", :tag => "2.0.0"}
+  s.source = { :git => "https://github.com/Marxon13/M13Checkbox.git", :tag => "2.1.0"}
 
   s.source_files  = 'Sources/**/*'
 

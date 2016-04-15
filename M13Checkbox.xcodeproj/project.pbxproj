@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6377D925C3EC42578F4FFDB8 /* Pods_M13Checkbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 142C71FD96ACA2685D246CF8 /* Pods_M13Checkbox.framework */; };
+		C8A9C7D6B9A456341E134B9F /* Pods_M13Checkbox_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792FB031E2B87AC7363ACC0A /* Pods_M13Checkbox_Demo.framework */; };
 		EA1528991C90653D00EE5115 /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1528981C90653D00EE5115 /* ColorCollectionViewCell.swift */; };
 		EA1528A01C907B1200EE5115 /* CollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA15289F1C907B1200EE5115 /* CollectionViewLayout.swift */; };
 		EA26E1E51CAC66F000ACB4F4 /* M13CheckboxBounceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA26E1E41CAC66F000ACB4F4 /* M13CheckboxBounceManager.swift */; };
@@ -60,7 +61,10 @@
 /* Begin PBXFileReference section */
 		142C71FD96ACA2685D246CF8 /* Pods_M13Checkbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_M13Checkbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43A4CE6E1E64F86D23A4560F /* Pods-M13Checkbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-M13Checkbox.release.xcconfig"; path = "Pods/Target Support Files/Pods-M13Checkbox/Pods-M13Checkbox.release.xcconfig"; sourceTree = "<group>"; };
+		6F39FC0C5AAE259FA99C8348 /* Pods-M13Checkbox Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-M13Checkbox Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-M13Checkbox Demo/Pods-M13Checkbox Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		792FB031E2B87AC7363ACC0A /* Pods_M13Checkbox_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_M13Checkbox_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		986098FE8EE9379B59F2A8C0 /* Pods-M13Checkbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-M13Checkbox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-M13Checkbox/Pods-M13Checkbox.debug.xcconfig"; sourceTree = "<group>"; };
+		9CD5E1DB8F346AB79E3C6430 /* Pods-M13Checkbox Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-M13Checkbox Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-M13Checkbox Demo/Pods-M13Checkbox Demo.release.xcconfig"; sourceTree = "<group>"; };
 		EA1528981C90653D00EE5115 /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		EA15289F1C907B1200EE5115 /* CollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewLayout.swift; sourceTree = "<group>"; };
 		EA26E1E41CAC66F000ACB4F4 /* M13CheckboxBounceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = M13CheckboxBounceManager.swift; path = ../Sources/Managers/M13CheckboxBounceManager.swift; sourceTree = "<group>"; };
@@ -105,6 +109,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6377D925C3EC42578F4FFDB8 /* Pods_M13Checkbox.framework in Frameworks */,
+				C8A9C7D6B9A456341E134B9F /* Pods_M13Checkbox_Demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +130,8 @@
 			children = (
 				986098FE8EE9379B59F2A8C0 /* Pods-M13Checkbox.debug.xcconfig */,
 				43A4CE6E1E64F86D23A4560F /* Pods-M13Checkbox.release.xcconfig */,
+				6F39FC0C5AAE259FA99C8348 /* Pods-M13Checkbox Demo.debug.xcconfig */,
+				9CD5E1DB8F346AB79E3C6430 /* Pods-M13Checkbox Demo.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -135,6 +142,7 @@
 				EA96F9051CBEB4EC0066C6B7 /* CoreGraphics.framework */,
 				EA96F9031CBEB4E70066C6B7 /* UIKit.framework */,
 				142C71FD96ACA2685D246CF8 /* Pods_M13Checkbox.framework */,
+				792FB031E2B87AC7363ACC0A /* Pods_M13Checkbox_Demo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -257,12 +265,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EA67202A1C7D0296008054BA /* Build configuration list for PBXNativeTarget "M13Checkbox Demo" */;
 			buildPhases = (
-				1D6F94BDC6F4F3B0BB9B8F02 /* Check Pods Manifest.lock */,
+				1D6F94BDC6F4F3B0BB9B8F02 /* 📦 Check Pods Manifest.lock */,
 				EA6720121C7D0296008054BA /* Sources */,
 				EA6720131C7D0296008054BA /* Frameworks */,
 				EA6720141C7D0296008054BA /* Resources */,
-				3AE30ADBBC1FF6B62D2D7432 /* Embed Pods Frameworks */,
-				7D35D6D2E4983E7515358555 /* Copy Pods Resources */,
+				3AE30ADBBC1FF6B62D2D7432 /* 📦 Embed Pods Frameworks */,
+				7D35D6D2E4983E7515358555 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -349,14 +357,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1D6F94BDC6F4F3B0BB9B8F02 /* Check Pods Manifest.lock */ = {
+		1D6F94BDC6F4F3B0BB9B8F02 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,34 +372,34 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		3AE30ADBBC1FF6B62D2D7432 /* Embed Pods Frameworks */ = {
+		3AE30ADBBC1FF6B62D2D7432 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-M13Checkbox/Pods-M13Checkbox-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-M13Checkbox Demo/Pods-M13Checkbox Demo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7D35D6D2E4983E7515358555 /* Copy Pods Resources */ = {
+		7D35D6D2E4983E7515358555 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-M13Checkbox/Pods-M13Checkbox-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-M13Checkbox Demo/Pods-M13Checkbox Demo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -559,7 +567,7 @@
 		};
 		EA67202B1C7D0296008054BA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 986098FE8EE9379B59F2A8C0 /* Pods-M13Checkbox.debug.xcconfig */;
+			baseConfigurationReference = 6F39FC0C5AAE259FA99C8348 /* Pods-M13Checkbox Demo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = M13Checkbox/Info.plist;
@@ -572,7 +580,7 @@
 		};
 		EA67202C1C7D0296008054BA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43A4CE6E1E64F86D23A4560F /* Pods-M13Checkbox.release.xcconfig */;
+			baseConfigurationReference = 9CD5E1DB8F346AB79E3C6430 /* Pods-M13Checkbox Demo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = M13Checkbox/Info.plist;
@@ -653,6 +661,7 @@
 				EA96F9021CBEB4CC0066C6B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -28,13 +28,13 @@ public class M13Checkbox: UIControl {
     - Checked: A checkmark is shown.
     - Mixed: A dash is shown.
     */
-    public enum CheckState: Int, RawRepresentable {
+    public enum CheckState: String, RawRepresentable {
         /// No check is shown.
-        case Unchecked = 0
+        case Unchecked = "Unchecked"
         /// A checkmark is shown.
-        case Checked = 1
+        case Checked = "Checked"
         /// A dash is shown.
-        case Mixed = 2
+        case Mixed = "Mixed"
     }
     
     /**
@@ -43,11 +43,11 @@ public class M13Checkbox: UIControl {
      - Square: The box is square with optional rounded corners.
      - Circle: The box is a circle.
      */
-    public enum BoxType: Int, RawRepresentable {
+    public enum BoxType: String, RawRepresentable {
         /// The box is a circle.
-        case Circle = 0
+        case Circle = "Circle"
         /// The box is square with optional rounded corners.
-        case Square = 1
+        case Square = "Square"
     }
     
     /**
@@ -56,11 +56,11 @@ public class M13Checkbox: UIControl {
      - Checkmark: The mark is a standard checkmark.
      - Radio: The mark is a radio style fill.
      */
-    public enum MarkType: Int, RawRepresentable {
+    public enum MarkType: String, RawRepresentable {
         /// The mark is a standard checkmark.
-        case Checkmark = 0
+        case Checkmark = "Checkmark"
         /// The mark is a radio style fill.
-        case Radio = 1
+        case Radio = "Radio"
     }
     
     /**
@@ -84,56 +84,99 @@ public class M13Checkbox: UIControl {
         /// Start the box as a dot, and expand the box.
         case Dot(AnimationStyle)
         
-        public init?(rawValue: Int) {
+        public init?(rawValue: String) {
             // Map the integer values to the animation types.
             // This is only for interface builder support. I would like this to be removed eventually.
             switch rawValue {
-            case 0:
+            case "Stroke":
                 self = .Stroke
                 break
-            case 10:
+            case "Fill":
                 self = .Fill
                 break
-            case 20...21:
-                self = rawValue == 20 ? .Bounce(.Stroke) : .Bounce(.Fill)
+            case "BounceStroke":
+                self = .Bounce(.Stroke)
                 break
-            case 30...31:
-                self = rawValue == 30 ? .Expand(.Stroke) : .Expand(.Fill)
-            case 40...41:
-                self = rawValue == 40 ? .Flat(.Stroke) : .Flat(.Fill)
+            case "BounceFill":
+                self = .Bounce(.Fill)
                 break
-            case 50:
+            case "ExpandStroke":
+                self = .Expand(.Stroke)
+                break
+            case "ExpandFill":
+                self = .Expand(.Fill)
+                break
+            case "FlatStroke":
+                self = .Flat(.Stroke)
+                break
+            case "FlatFill":
+                self = .Flat(.Fill)
+                break
+            case "Spiral":
                 self = .Spiral
                 break
-            case 60...61:
-                self = rawValue == 50 ? .Fade(.Stroke) : .Fade(.Fill)
-            case 70...71:
-                self = rawValue == 70 ? .Dot(.Stroke) : .Dot(.Fill)
+            case "FadeStroke":
+                self = .Fade(.Stroke)
+                break
+            case "FadeFill":
+                self = .Fade(.Fill)
+                break
+            case "DotStroke":
+                self = .Dot(.Stroke)
+                break
+            case "DotFill":
+                self = .Dot(.Fill)
+                break
             default:
                 return nil
             }
         }
         
-        public var rawValue: Int {
+        public var rawValue: String {
             // Map the animation types to integer values.
             // This is only for interface builder support. I would like this to be removed eventually.
             switch self {
             case .Stroke:
-                return 0
+                return "Stroke"
             case .Fill:
-                return 10
+                return "Fill"
             case let .Bounce(style):
-                return style == .Stroke ? 20 : 21
+                switch style {
+                case .Stroke:
+                    return "BounceStroke"
+                case .Fill:
+                    return "BounceFill"
+                }
             case let .Expand(style):
-                return style == .Stroke ? 30 : 31
+                switch style {
+                case .Stroke:
+                    return "ExpandStroke"
+                case .Fill:
+                    return "ExpandFill"
+                }
             case let .Flat(style):
-                return style == .Stroke ? 40 : 41
+                switch style {
+                case .Stroke:
+                    return "FlatStroke"
+                case .Fill:
+                    return "FlatFill"
+                }
             case .Spiral:
-                return 50
+                return "Spiral"
             case let .Fade(style):
-                return style == .Stroke ? 60 : 61
+                switch style {
+                case .Stroke:
+                    return "FadeStroke"
+                case .Fill:
+                    return "FadeFill"
+                }
             case let .Dot(style):
-                return style == .Stroke ? 70 : 71
+                switch style {
+                case .Stroke:
+                    return "DotStroke"
+                case .Fill:
+                    return "DotFill"
+                }
             }
         }
         
@@ -160,7 +203,7 @@ public class M13Checkbox: UIControl {
         }
         
         public var hashValue: Int {
-            return self.rawValue
+            return self.rawValue.hashValue
         }
     }
     
@@ -168,11 +211,11 @@ public class M13Checkbox: UIControl {
      The possible animation styles.
      - Note: Not all animations support all styles.
      */
-    public enum AnimationStyle: Int {
+    public enum AnimationStyle: String {
         // The animation will focus on the stroke.
-        case Stroke = 0
+        case Stroke = "Stroke"
         // The animation will focus on the fill.
-        case Fill = 1
+        case Fill = "Fill"
     }
     
     //----------------------------
