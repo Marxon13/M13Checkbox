@@ -309,7 +309,7 @@ public class M13Checkbox: UIControl {
         if animated {
             manager.animate(checkState, toState: newState)
         } else {
-            manager.resetLayersForState(checkState)
+            manager.resetLayersForState(newState)
         }
     }
     
