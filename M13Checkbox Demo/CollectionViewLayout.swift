@@ -24,36 +24,36 @@ class CollectionViewLayout: UICollectionViewFlowLayout {
         sharedSetup()
     }
     
-    private func sharedSetup() {
-        scrollDirection = .Horizontal
-        minimumInteritemSpacing = CGFloat.max
+    fileprivate func sharedSetup() {
+        scrollDirection = .horizontal
+        minimumInteritemSpacing = CGFloat.greatestFiniteMagnitude
     }
     
-    override func prepareLayout() {
-        super.prepareLayout()
+    override func prepare() {
+        super.prepare()
         
         guard let collectionView = collectionView else { return }
         
         // Update the collection view insets.
-        var insets = UIEdgeInsetsZero
-        if scrollDirection == .Horizontal {
-            if let leftCellSize = layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))?.bounds.size {
+        var insets = UIEdgeInsets.zero
+        if scrollDirection == .horizontal {
+            if let leftCellSize = layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.bounds.size {
                 insets.left = (collectionView.bounds.size.width - leftCellSize.width) / 2.0
             }
             
-            let section = collectionView.numberOfSections() - 1
-            let item = collectionView.numberOfItemsInSection(section) - 1
-            if let rightCellSize = layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: item, inSection: section))?.bounds.size {
+            let section = collectionView.numberOfSections - 1
+            let item = collectionView.numberOfItems(inSection: section) - 1
+            if let rightCellSize = layoutAttributesForItem(at: IndexPath(item: item, section: section))?.bounds.size {
                 insets.right = (collectionView.bounds.size.width - rightCellSize.width) / 2.0
             }
         } else {
-            if let topCellSize = layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0))?.bounds.size {
+            if let topCellSize = layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.bounds.size {
                 insets.top = (collectionView.bounds.size.height - topCellSize.height) / 2.0
             }
             
-            let section = collectionView.numberOfSections() - 1
-            let item = collectionView.numberOfItemsInSection(section) - 1
-            if let bottomCellSize = layoutAttributesForItemAtIndexPath(NSIndexPath(forItem: item, inSection: section))?.bounds.size {
+            let section = collectionView.numberOfSections - 1
+            let item = collectionView.numberOfItems(inSection: section) - 1
+            if let bottomCellSize = layoutAttributesForItem(at: IndexPath(item: item, section: section))?.bounds.size {
                 insets.bottom = (collectionView.bounds.size.height - bottomCellSize.height) / 2.0
             }
         }
@@ -70,27 +70,27 @@ class CollectionViewLayout: UICollectionViewFlowLayout {
     // MARK: - Paging
     //----------------------------
     
-    override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
+    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
         
         if let collectionView = collectionView {
             
             let bounds = collectionView.bounds
             let center = collectionView.bounds.size.width / 2.0
             var proposedContentOffsetCenter: CGFloat = 0.0
-            if scrollDirection == .Horizontal {
+            if scrollDirection == .horizontal {
                 proposedContentOffsetCenter = proposedContentOffset.x + center
             } else {
                 proposedContentOffsetCenter = proposedContentOffset.y + center
             }
             
-            if let candidateAttributes = layoutAttributesForElementsInRect(bounds)?.filter({ $0.representedElementCategory == .Cell }) {
+            if let candidateAttributes = layoutAttributesForElements(in: bounds)?.filter({ $0.representedElementCategory == .cell }) {
                 var candidate: UICollectionViewLayoutAttributes?
                 
                 for attributes in candidateAttributes {
                     if let previousCandidate = candidate {
                         var a: CGFloat = 0.0
                         var b: CGFloat = 0.0
-                        if scrollDirection == .Horizontal {
+                        if scrollDirection == .horizontal {
                             a = attributes.center.x - proposedContentOffsetCenter
                             b = previousCandidate.center.x - proposedContentOffsetCenter
                         } else {
@@ -106,7 +106,7 @@ class CollectionViewLayout: UICollectionViewFlowLayout {
                     }
                 }
                 
-                if scrollDirection == .Horizontal {
+                if scrollDirection == .horizontal {
                     print("Target X: ", round(candidate!.center.x - center))
                     return CGPoint(x: round(candidate!.center.x - center), y: proposedContentOffset.y)
                 } else {
@@ -115,7 +115,7 @@ class CollectionViewLayout: UICollectionViewFlowLayout {
             }
         }
         
-        return super.targetContentOffsetForProposedContentOffset(proposedContentOffset, withScrollingVelocity: velocity)
+        return super.targetContentOffset(forProposedContentOffset: proposedContentOffset, withScrollingVelocity: velocity)
     }
     
 }

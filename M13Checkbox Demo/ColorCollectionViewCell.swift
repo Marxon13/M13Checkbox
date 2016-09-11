@@ -17,10 +17,10 @@ class ColorCollectionViewCell: BaseCollectionViewCell {
     
     
     override func prepareForReuse() {
-        tintColorButton?.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
-        secondaryTintColorButton?.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
-        secondaryCheckTintColorButton?.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
-        backgroundColorButton?.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
+        tintColorButton?.removeTarget(nil, action: nil, for: .allEvents)
+        secondaryTintColorButton?.removeTarget(nil, action: nil, for: .allEvents)
+        secondaryCheckTintColorButton?.removeTarget(nil, action: nil, for: .allEvents)
+        backgroundColorButton?.removeTarget(nil, action: nil, for: .allEvents)
     }
     
 }
@@ -37,8 +37,8 @@ class ColorButton: UIButton {
         sharedSetup()
     }
     
-    private func sharedSetup() {
-        layer.borderColor = UIColor.whiteColor().CGColor
+    fileprivate func sharedSetup() {
+        layer.borderColor = UIColor.white.cgColor
         layer.borderWidth = 1.0
     }
     

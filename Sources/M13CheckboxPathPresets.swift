@@ -60,10 +60,10 @@ internal class M13CheckboxPathPresets {
     var cornerRadius: CGFloat = 3.0
     
     /// The box type to create.
-    var boxType: M13Checkbox.BoxType = .Circle
+    var boxType: M13Checkbox.BoxType = .circle
     
     /// The type of checkmark to create.
-    var markType: M13Checkbox.MarkType = .Checkmark
+    var markType: M13Checkbox.MarkType = .checkmark
     
     /// The parameters that define the checkmark.
     var checkmarkProperties: CheckmarkProperties = CheckmarkProperties()
@@ -78,7 +78,7 @@ internal class M13CheckboxPathPresets {
         let radius = (size - boxLineWidth) / 2.0
         let theta = checkmarkProperties.longArmBoxIntersectionAngle
         
-        if boxType == .Circle {
+        if boxType == .circle {
             // Basic trig to get the location of the point on the circle.
             return CGPoint(x: (size / 2.0) + (radius * cos(theta)), y: (size / 2.0) - (radius * sin(theta)))
         } else {
@@ -118,7 +118,7 @@ internal class M13CheckboxPathPresets {
         let midPoint = checkmarkMiddlePoint
         let x1 = midPoint.x
         let y1 = midPoint.y
-        let r = boxType == .Circle ? size * checkmarkProperties.longArmRadius.circle : size * checkmarkProperties.longArmRadius.box
+        let r = boxType == .circle ? size * checkmarkProperties.longArmRadius.circle : size * checkmarkProperties.longArmRadius.box
         
         let a1 = (size * pow(x1, 2.0)) - (2.0 * size * x1 * x2) + (size * pow(x2, 2.0)) + (size * x1 * y1) - (size * x2 * y1)
         let a2 = (2.0 * x2 * pow(y1, 2.0)) - (size * x1 * y2) + (size * x2 * y2) - (2.0 * x1 * y1 * y2) - (2.0 * x2 * y1 * y2) + (2.0 * x1 * pow(y2, 2.0))
@@ -138,22 +138,25 @@ internal class M13CheckboxPathPresets {
         let i = (pow(r, 2.0) * (-pow(y1, 2.0) + (2.0 * y1 * y2) - pow(y2, 2.0))) + (pow(size, 2.0) * ((0.5 * pow(y1, 2.0)) - (y1 * y2) + (0.5 * pow(y2, 2.0))))
         let j = size * ((x1 * (y1 - y2) * y2) + (x2 * y1 * (-y1 + y2)))
         
-        let x = (0.5 * (a1 + a2 + (0.5 * sqrt((b * cd) + pow(e1 + e2, 2.0))))) / f
-        let y = (g1 + g2 - (0.25 * sqrt(pow(h1 + h2, 2.0) + (b * (d1 + i + j))))) / f
+        let subX1 = (b * cd) + pow(e1 + e2, 2.0)
+        let subY1 = pow(h1 + h2, 2.0) + (b * (d1 + i + j))
+        
+        let x = (0.5 * (a1 + a2 + (0.5 * sqrt(subX1)))) / f
+        let y = (g1 + g2 - (0.25 * sqrt(subY1))) / f
         
         return CGPoint(x: x, y: y)
     }
     
     var checkmarkMiddlePoint: CGPoint {
-        let r = boxType == .Circle ? checkmarkProperties.middlePointRadius.circle : checkmarkProperties.middlePointRadius.box
-        let o = boxType == .Circle ? checkmarkProperties.middlePointOffset.circle : checkmarkProperties.middlePointOffset.box
-        return CGPointMake((size / 2.0) + (size * o), (size / 2.0 ) + (size * r))
+        let r = boxType == .circle ? checkmarkProperties.middlePointRadius.circle : checkmarkProperties.middlePointRadius.box
+        let o = boxType == .circle ? checkmarkProperties.middlePointOffset.circle : checkmarkProperties.middlePointOffset.box
+        return CGPoint(x: (size / 2.0) + (size * o), y: (size / 2.0 ) + (size * r))
     }
     
     var checkmarkShortArmEndPoint: CGPoint {
-        let r = boxType == .Circle ? checkmarkProperties.shortArmRadius.circle : checkmarkProperties.shortArmRadius.box
-        let o = boxType == .Circle ? checkmarkProperties.shortArmOffset.circle : checkmarkProperties.shortArmOffset.box
-        return CGPointMake((size / 2.0) - (size * r), (size / 2.0) + (size * o))
+        let r = boxType == .circle ? checkmarkProperties.shortArmRadius.circle : checkmarkProperties.shortArmRadius.box
+        let o = boxType == .circle ? checkmarkProperties.shortArmOffset.circle : checkmarkProperties.shortArmOffset.box
+        return CGPoint(x: (size / 2.0) - (size * r), y: (size / 2.0) + (size * o))
     }
     
     //----------------------------
@@ -166,9 +169,9 @@ internal class M13CheckboxPathPresets {
      */
     final func pathForBox() -> UIBezierPath {
         switch boxType {
-        case .Circle:
+        case .circle:
             return pathForCircle()
-        case .Square:
+        case .square:
             return pathForRoundedRect()
         }
     }
@@ -176,7 +179,7 @@ internal class M13CheckboxPathPresets {
     func pathForCircle() -> UIBezierPath {
         let radius = (size - boxLineWidth) / 2.0
         // Create a circle that starts in the top right hand corner.
-        return UIBezierPath(arcCenter: CGPointMake(radius, radius),
+        return UIBezierPath(arcCenter: CGPoint(x: radius, y: radius),
                             radius: radius,
                             startAngle: -checkmarkProperties.longArmBoxIntersectionAngle,
                             endAngle: CGFloat(2 * M_PI) - checkmarkProperties.longArmBoxIntersectionAngle,
@@ -193,57 +196,57 @@ internal class M13CheckboxPathPresets {
         
         // Start in the top right corner.
         let offset: CGFloat = ((cornerRadius * sqrt(2)) / 2.0)
-        path.moveToPoint(CGPoint(x: tr.x + offset, y: tr.y - offset))
+        path.move(to: CGPoint(x: tr.x + offset, y: tr.y - offset))
         // Bottom of top right arc.12124
         if cornerRadius != 0 {
-            path.addArcWithCenter(tr,
+            path.addArc(withCenter: tr,
                                   radius: cornerRadius,
                                   startAngle: CGFloat(-M_PI_4),
                                   endAngle: 0.0,
                                   clockwise: true)
         }
         // Right side.
-        path.addLineToPoint(CGPoint(x: br.x + cornerRadius, y: br.y))
+        path.addLine(to: CGPoint(x: br.x + cornerRadius, y: br.y))
         
         // Bottom right arc.
         if cornerRadius != 0 {
-            path.addArcWithCenter(br,
+            path.addArc(withCenter: br,
                                   radius: cornerRadius,
                                   startAngle: 0.0,
                                   endAngle: CGFloat(M_PI_2),
                                   clockwise: true)
         }
         // Bottom side.
-        path.addLineToPoint(CGPoint(x: bl.x , y: bl.y + cornerRadius))
+        path.addLine(to: CGPoint(x: bl.x , y: bl.y + cornerRadius))
         // Bottom left arc.
         if cornerRadius != 0 {
-            path.addArcWithCenter(bl,
+            path.addArc(withCenter: bl,
                                   radius: cornerRadius,
                                   startAngle: CGFloat(M_PI_2),
                                   endAngle: CGFloat(M_PI),
                                   clockwise: true)
         }
         // Left side.
-        path.addLineToPoint(CGPoint(x: tl.x - cornerRadius, y: tl.y))
+        path.addLine(to: CGPoint(x: tl.x - cornerRadius, y: tl.y))
         // Top left arc.
         if cornerRadius != 0 {
-            path.addArcWithCenter(tl,
+            path.addArc(withCenter: tl,
                                   radius: cornerRadius,
                                   startAngle: CGFloat(M_PI),
                                   endAngle: CGFloat(M_PI + M_PI_2),
                                   clockwise: true)
         }
         // Top side.
-        path.addLineToPoint(CGPoint(x: tr.x, y: tr.y - cornerRadius))
+        path.addLine(to: CGPoint(x: tr.x, y: tr.y - cornerRadius))
         // Top of top right arc
         if cornerRadius != 0 {
-            path.addArcWithCenter(tr,
+            path.addArc(withCenter: tr,
                                   radius: cornerRadius,
                                   startAngle: CGFloat(M_PI + M_PI_2),
                                   endAngle: CGFloat(M_PI + M_PI_2 + M_PI_4),
                                   clockwise: true)
         }
-        path.closePath()
+        path.close()
         return path
     }
     
@@ -251,22 +254,22 @@ internal class M13CheckboxPathPresets {
     // MARK: - Check Generation
     //----------------------------
     
-    final func path(state: M13Checkbox.CheckState) -> UIBezierPath? {
+    final func path(_ state: M13Checkbox.CheckState) -> UIBezierPath? {
         switch state {
-        case .Unchecked:
+        case .unchecked:
             return pathForUnselectedMark()
-        case .Checked:
+        case .checked:
             return pathForMark()
-        case .Mixed:
+        case .mixed:
             return pathForMixedMark()
         }
     }
     
     final func pathForMark() -> UIBezierPath {
         switch markType {
-        case .Checkmark:
+        case .checkmark:
             return pathForCheckmark()
-        case .Radio:
+        case .radio:
             return pathForRadio()
         }
     }
@@ -278,19 +281,19 @@ internal class M13CheckboxPathPresets {
     func pathForCheckmark() -> UIBezierPath {
         let path = UIBezierPath()
         
-        path.moveToPoint(checkmarkShortArmEndPoint)
-        path.addLineToPoint(checkmarkMiddlePoint)
-        path.addLineToPoint(checkmarkLongArmEndPoint)
+        path.move(to: checkmarkShortArmEndPoint)
+        path.addLine(to: checkmarkMiddlePoint)
+        path.addLine(to: checkmarkLongArmEndPoint)
         
         return path
     }
     
     func pathForRadio() -> UIBezierPath {
-        let transform = CGAffineTransformMakeScale(0.665, 0.665)
-        let translate = CGAffineTransformMakeTranslation(size * 0.1675, size * 0.1675)
+        let transform = CGAffineTransform(scaleX: 0.665, y: 0.665)
+        let translate = CGAffineTransform(translationX: size * 0.1675, y: size * 0.1675)
         let path = pathForBox()
-        path.applyTransform(transform)
-        path.applyTransform(translate)
+        path.apply(transform)
+        path.apply(translate)
         return path
     }
     
@@ -304,9 +307,9 @@ internal class M13CheckboxPathPresets {
      */
     final func pathForMixedMark() -> UIBezierPath {
         switch markType {
-        case .Checkmark:
+        case .checkmark:
             return pathForMixedCheckmark()
-        case .Radio:
+        case .radio:
             return pathForMixedRadio()
         }
     }
@@ -315,20 +318,20 @@ internal class M13CheckboxPathPresets {
         let path = UIBezierPath()
         
         // Left point
-        path.moveToPoint(CGPoint(x: size * 0.25, y: size / 2.0))
+        path.move(to: CGPoint(x: size * 0.25, y: size / 2.0))
         // Middle point
-        path.addLineToPoint(CGPoint(x: size * 0.5, y: size / 2.0))
+        path.addLine(to: CGPoint(x: size * 0.5, y: size / 2.0))
         // Right point
-        path.addLineToPoint(CGPoint(x: size * 0.75, y: size / 2.0))
+        path.addLine(to: CGPoint(x: size * 0.75, y: size / 2.0))
         
         return path
     }
     
     func pathForMixedRadio() -> UIBezierPath {
         let path = UIBezierPath()
-        path.moveToPoint(CGPoint(x: size * 0.25, y: size / 2.0))
-        path.addLineToPoint(CGPoint(x: size * 0.75, y: size / 2.0))
-        path.bezierPathByReversingPath()
+        path.move(to: CGPoint(x: size * 0.25, y: size / 2.0))
+        path.addLine(to: CGPoint(x: size * 0.75, y: size / 2.0))
+        path.reversing()
         return path
     }
     
@@ -342,9 +345,9 @@ internal class M13CheckboxPathPresets {
      */
     final func pathForUnselectedMark() -> UIBezierPath? {
         switch markType {
-        case .Checkmark:
+        case .checkmark:
             return pathForUnselectedCheckmark()
-        case .Radio:
+        case .radio:
             return pathForUnselectedRadio()
         }
     }
