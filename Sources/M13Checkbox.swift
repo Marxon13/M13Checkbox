@@ -15,7 +15,7 @@ import UIKit
 
 /// A customizable checkbox control for iOS.
 @IBDesignable
-open class M13Checkbox: UIControl {
+public class M13Checkbox: UIControl {
     
     //----------------------------
     // MARK: - Constants
@@ -258,20 +258,20 @@ open class M13Checkbox: UIControl {
     //----------------------------
     
     /// The object to return from `value` when the checkbox is checked.
-    open var checkedValue: Any?
+    public var checkedValue: Any?
     
     /// The object to return from `value` when the checkbox is unchecked.
-    open var uncheckedValue: Any?
+    public var uncheckedValue: Any?
     
     /// The object to return from `value` when the checkbox is mixed.
-    open var mixedValue: Any?
+    public var mixedValue: Any?
     
     /**
      Returns one of the three "value" properties depending on the checkbox state.
      - returns: The value coresponding to the checkbox state.
      - note: This is a convenience method so that if one has a large group of checkboxes, it is not necessary to write: if (someCheckbox == thatCheckbox) { if (someCheckbox.checkState == ...
      */
-    open var value: Any? {
+    public var value: Any? {
         switch checkState {
         case .unchecked:
             return uncheckedValue
@@ -287,7 +287,7 @@ open class M13Checkbox: UIControl {
     //----------------------------
     
     /// The current state of the checkbox.
-    open var checkState: CheckState {
+    public var checkState: CheckState {
         get {
             return manager.state
         }
@@ -301,7 +301,7 @@ open class M13Checkbox: UIControl {
      - parameter checkState: The new state of the checkbox.
      - parameter animated: Whether or not to animate the change.
      */
-    open func setCheckState(_ newState: CheckState, animated: Bool) {
+    public func setCheckState(_ newState: CheckState, animated: Bool) {
         if checkState == newState {
             return
         }
@@ -318,7 +318,7 @@ open class M13Checkbox: UIControl {
      - parameter animated: Whether or not to animate the change. Defaults to false.
      - note: If the checkbox is mixed, it will return to the unchecked state.
      */
-    open func toggleCheckState(_ animated: Bool = false) {
+    public func toggleCheckState(_ animated: Bool = false) {
         switch checkState {
         case .checked:
             setCheckState(.unchecked, animated: animated)
@@ -337,7 +337,7 @@ open class M13Checkbox: UIControl {
     //----------------------------
     
     /// The duration of the animation that occurs when the checkbox switches states. The default is 0.3 seconds.
-    @IBInspectable open var animationDuration: TimeInterval {
+    @IBInspectable public var animationDuration: TimeInterval {
         get {
             return manager.animations.animationDuration
         }
@@ -347,7 +347,7 @@ open class M13Checkbox: UIControl {
     }
     
     /// The type of animation to preform when changing from the unchecked state to any other state.
-    open var stateChangeAnimation: Animation = .stroke {
+    public var stateChangeAnimation: Animation = .stroke {
         didSet {
             
             // Remove the sublayers
@@ -412,7 +412,7 @@ open class M13Checkbox: UIControl {
     //----------------------------
     
     /// The color of the checkbox's tint color when not in the unselected state. The tint color is is the main color used when not in the unselected state.
-    @IBInspectable open var secondaryTintColor: UIColor? {
+    @IBInspectable public var secondaryTintColor: UIColor? {
         get {
             return manager.secondaryTintColor
         }
@@ -422,7 +422,7 @@ open class M13Checkbox: UIControl {
     }
     
     /// The color of the checkmark when it is displayed against a filled background.
-    @IBInspectable open var secondaryCheckmarkTintColor: UIColor? {
+    @IBInspectable public var secondaryCheckmarkTintColor: UIColor? {
         get {
             return manager.secondaryCheckmarkTintColor
         }
@@ -432,7 +432,7 @@ open class M13Checkbox: UIControl {
     }
     
     /// The stroke width of the checkmark.
-    @IBInspectable open var checkmarkLineWidth: CGFloat {
+    @IBInspectable public var checkmarkLineWidth: CGFloat {
         get {
             return manager.paths.checkmarkLineWidth
         }
@@ -443,7 +443,7 @@ open class M13Checkbox: UIControl {
     }
     
     // The type of mark to display.
-    @IBInspectable open var markType: MarkType {
+    @IBInspectable public var markType: MarkType {
         get {
             return manager.paths.markType
         }
@@ -462,7 +462,7 @@ open class M13Checkbox: UIControl {
     }
     
     /// The stroke width of the box.
-    @IBInspectable open var boxLineWidth: CGFloat {
+    @IBInspectable public var boxLineWidth: CGFloat {
         get {
             return manager.paths.boxLineWidth
         }
@@ -473,7 +473,7 @@ open class M13Checkbox: UIControl {
     }
     
     /// The corner radius of the box if the box type is square.
-    @IBInspectable open var cornerRadius: CGFloat {
+    @IBInspectable public var cornerRadius: CGFloat {
         get {
             return manager.paths.cornerRadius
         }
@@ -484,7 +484,7 @@ open class M13Checkbox: UIControl {
     }
     
     /// The shape of the checkbox.
-    open var boxType: BoxType {
+    public var boxType: BoxType {
         get {
             return manager.paths.boxType
         }
@@ -495,7 +495,7 @@ open class M13Checkbox: UIControl {
     }
     
     /// Wether or not to hide the checkbox.
-    @IBInspectable open var hideBox: Bool {
+    @IBInspectable public var hideBox: Bool {
         get {
             return manager.hideBox
         }
@@ -504,7 +504,7 @@ open class M13Checkbox: UIControl {
         }
     }
     
-    open override func tintColorDidChange() {
+    public override func tintColorDidChange() {
         super.tintColorDidChange()
         manager.tintColor = tintColor
     }
@@ -513,7 +513,7 @@ open class M13Checkbox: UIControl {
     // MARK: - Layout
     //----------------------------
     
-    open override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         // Update size
         manager.paths.size = min(frame.size.width, frame.size.height)
