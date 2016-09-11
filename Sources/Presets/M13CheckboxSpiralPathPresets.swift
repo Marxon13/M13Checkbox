@@ -22,9 +22,9 @@ internal class M13CheckboxSpiralPathPresets: M13CheckboxPathPresets {
     func pathForLongCheckmark() -> UIBezierPath {
         let path = UIBezierPath()
         
-        path.moveToPoint(checkmarkShortArmEndPoint)
-        path.addLineToPoint(checkmarkMiddlePoint)
-        path.addLineToPoint(checkmarkLongArmBoxIntersectionPoint)
+        path.move(to: checkmarkShortArmEndPoint)
+        path.addLine(to: checkmarkMiddlePoint)
+        path.addLine(to: checkmarkLongArmBoxIntersectionPoint)
         
         return path
     }
@@ -37,11 +37,11 @@ internal class M13CheckboxSpiralPathPresets: M13CheckboxPathPresets {
         let path = UIBezierPath()
         
         // Left point
-        path.moveToPoint(CGPoint(x: size * 0.25, y: size / 2.0))
+        path.move(to: CGPoint(x: size * 0.25, y: size / 2.0))
         // Middle point
-        path.addLineToPoint(CGPoint(x: size * 0.5, y: size / 2.0))
+        path.addLine(to: CGPoint(x: size * 0.5, y: size / 2.0))
         // Right point
-        path.addLineToPoint(CGPoint(x: size - boxLineWidth, y: size * 0.5))
+        path.addLine(to: CGPoint(x: size - boxLineWidth, y: size * 0.5))
         
         return path
     }
@@ -54,21 +54,21 @@ internal class M13CheckboxSpiralPathPresets: M13CheckboxPathPresets {
         return pathForBox()
     }
     
-    final func pathForLongMark(state: M13Checkbox.CheckState) -> UIBezierPath {
+    final func pathForLongMark(_ state: M13Checkbox.CheckState) -> UIBezierPath {
             switch state {
-            case .Unchecked:
-                if markType == .Checkmark {
+            case .unchecked:
+                if markType == .checkmark {
                     return pathForLongCheckmark()
                 } else {
                     return pathForLongRadioMark()
                 }
-            case .Checked:
-                if markType == .Checkmark {
+            case .checked:
+                if markType == .checkmark {
                     return pathForLongCheckmark()
                 } else {
                     return pathForLongRadioMark()
                 }
-            case .Mixed:
+            case .mixed:
                 return pathForLongMixedMark()
             }
     }

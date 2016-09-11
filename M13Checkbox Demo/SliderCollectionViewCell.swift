@@ -12,7 +12,7 @@ class SliderCollectionViewCell: BaseCollectionViewCell {
     @IBOutlet weak var slider: UISlider?
     
     override func prepareForReuse() {
-        slider?.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
+        slider?.removeTarget(nil, action: nil, for: .allEvents)
     }
 }
 

@@ -21,37 +21,37 @@ internal class M13CheckboxBounceManager: M13CheckboxManager {
     
     override var tintColor: UIColor {
         didSet {
-            selectedBoxLayer.strokeColor = tintColor.CGColor
-            if style == .Stroke {
-                markLayer.strokeColor = tintColor.CGColor
+            selectedBoxLayer.strokeColor = tintColor.cgColor
+            if style == .stroke {
+                markLayer.strokeColor = tintColor.cgColor
             } else {
-                selectedBoxLayer.fillColor = tintColor.CGColor
+                selectedBoxLayer.fillColor = tintColor.cgColor
             }
         }
     }
     
     override var secondaryTintColor: UIColor? {
         didSet {
-            unselectedBoxLayer.strokeColor = secondaryTintColor?.CGColor
+            unselectedBoxLayer.strokeColor = secondaryTintColor?.cgColor
         }
     }
     
     override var secondaryCheckmarkTintColor: UIColor? {
         didSet {
-            if style == .Fill {
-                markLayer.strokeColor = secondaryCheckmarkTintColor?.CGColor
+            if style == .fill {
+                markLayer.strokeColor = secondaryCheckmarkTintColor?.cgColor
             }
         }
     }
     
     override var hideBox: Bool {
         didSet {
-            selectedBoxLayer.hidden = hideBox
-            unselectedBoxLayer.hidden = hideBox
+            selectedBoxLayer.isHidden = hideBox
+            unselectedBoxLayer.isHidden = hideBox
         }
     }
     
-    private var style: M13Checkbox.AnimationStyle = .Stroke
+    fileprivate var style: M13Checkbox.AnimationStyle = .stroke
     
     init(style: M13Checkbox.AnimationStyle) {
         self.style = style
@@ -64,7 +64,7 @@ internal class M13CheckboxBounceManager: M13CheckboxManager {
         sharedSetup()
     }
     
-    private func sharedSetup() {
+    fileprivate func sharedSetup() {
         // Disable som implicit animations.
         let newActions = [
             "opacity": NSNull(),
@@ -77,7 +77,7 @@ internal class M13CheckboxBounceManager: M13CheckboxManager {
         
         // Setup the unselected box layer
         unselectedBoxLayer.lineCap = kCALineCapRound
-        unselectedBoxLayer.rasterizationScale = UIScreen.mainScreen().scale
+        unselectedBoxLayer.rasterizationScale = UIScreen.main.scale
         unselectedBoxLayer.shouldRasterize = true
         unselectedBoxLayer.actions = newActions
         
@@ -88,7 +88,7 @@ internal class M13CheckboxBounceManager: M13CheckboxManager {
         
         // Setup the selected box layer.
         selectedBoxLayer.lineCap = kCALineCapRound
-        selectedBoxLayer.rasterizationScale = UIScreen.mainScreen().scale
+        selectedBoxLayer.rasterizationScale = UIScreen.main.scale
         selectedBoxLayer.shouldRasterize = true
         selectedBoxLayer.actions = newActions
         
@@ -98,7 +98,7 @@ internal class M13CheckboxBounceManager: M13CheckboxManager {
         // Setup the checkmark layer.
         markLayer.lineCap = kCALineCapRound
         markLayer.lineJoin = kCALineJoinRound
-        markLayer.rasterizationScale = UIScreen.mainScreen().scale
+        markLayer.rasterizationScale = UIScreen.main.scale
         markLayer.shouldRasterize = true
         markLayer.actions = newActions
         
@@ -122,12 +122,12 @@ internal class M13CheckboxBounceManager: M13CheckboxManager {
     // MARK: - Animations
     //----------------------------
     
-    override func animate(fromState: M13Checkbox.CheckState, toState: M13Checkbox.CheckState) {
+    override func animate(_ fromState: M13Checkbox.CheckState, toState: M13Checkbox.CheckState) {
         super.animate(fromState, toState: toState)
         
-        if toState == .Unchecked {
+        if toState == .unchecked {
             
-            let amplitude: CGFloat = paths.boxType == .Square ? 0.20 : 0.35
+            let amplitude: CGFloat = paths.boxType == .square ? 0.20 : 0.35
             let wiggleAnimation = animations.fillAnimation(1, amplitude: amplitude, reverse: true)
             let opacityAnimation = animations.opacityAnimation(true)
             opacityAnimation.duration = opacityAnimation.duration / 1.5
@@ -138,16 +138,16 @@ internal class M13CheckboxBounceManager: M13CheckboxManager {
                 self.resetLayersForState(self.state)
             })
             
-            selectedBoxLayer.addAnimation(opacityAnimation, forKey: "opacity")
-            markLayer.addAnimation(wiggleAnimation, forKey: "transform")
+            selectedBoxLayer.add(opacityAnimation, forKey: "opacity")
+            markLayer.add(wiggleAnimation, forKey: "transform")
             
             CATransaction.commit()
             
         } else {
-            if fromState == .Unchecked {
-                markLayer.path = paths.path(toState)?.CGPath
+            if fromState == .unchecked {
+                markLayer.path = paths.path(toState)?.cgPath
                 
-                let amplitude: CGFloat = paths.boxType == .Square ? 0.20 : 0.35
+                let amplitude: CGFloat = paths.boxType == .square ? 0.20 : 0.35
                 let wiggleAnimation = animations.fillAnimation(1, amplitude: amplitude, reverse: false)
                 
                 let opacityAnimation = animations.opacityAnimation(false)
@@ -158,12 +158,12 @@ internal class M13CheckboxBounceManager: M13CheckboxManager {
                     self.resetLayersForState(self.state)
                 })
                 
-                selectedBoxLayer.addAnimation(opacityAnimation, forKey: "opacity")
-                markLayer.addAnimation(wiggleAnimation, forKey: "transform")
+                selectedBoxLayer.add(opacityAnimation, forKey: "opacity")
+                markLayer.add(wiggleAnimation, forKey: "transform")
                 
                 CATransaction.commit()
             } else {
-                if paths.markType != .Radio {
+                if paths.markType != .radio {
                     let fromPath = paths.path(fromState)
                     let toPath = paths.path(toState)
                     
@@ -174,23 +174,23 @@ internal class M13CheckboxBounceManager: M13CheckboxManager {
                         self.resetLayersForState(self.state)
                         })
                     
-                    markLayer.addAnimation(morphAnimation, forKey: "path")
+                    markLayer.add(morphAnimation, forKey: "path")
                     
                     CATransaction.commit()
                 } else {
                     
                     var compressionAnimation: CAAnimation? = nil
-                    if toState == .Mixed {
+                    if toState == .mixed {
                         let toPath = paths.path(fromState)
                         let scale: CGFloat = 0.5 / 0.665
-                        toPath?.applyTransform(CGAffineTransformMakeScale(scale, 0.002))
-                        toPath?.applyTransform(CGAffineTransformMakeTranslation(((paths.size * 0.665) - (paths.size * 0.5)) * scale, (paths.size / 2.0) - (paths.boxLineWidth * 0.5 * scale)))
+                        toPath?.apply(CGAffineTransform(scaleX: scale, y: 0.002))
+                        toPath?.apply(CGAffineTransform(translationX: ((paths.size * 0.665) - (paths.size * 0.5)) * scale, y: (paths.size / 2.0) - (paths.boxLineWidth * 0.5 * scale)))
                         compressionAnimation = animations.morphAnimation(paths.path(fromState)!, toPath: toPath!)
                     } else {
                         let fromPath = paths.path(toState)
                         let scale: CGFloat = 0.5 / 0.665
-                        fromPath?.applyTransform(CGAffineTransformMakeScale(scale, 0.002))
-                        fromPath?.applyTransform(CGAffineTransformMakeTranslation(((paths.size * 0.665) - (paths.size * 0.5)) * scale, (paths.size / 2.0) - (paths.boxLineWidth * 0.5 * scale)))
+                        fromPath?.apply(CGAffineTransform(scaleX: scale, y: 0.002))
+                        fromPath?.apply(CGAffineTransform(translationX: ((paths.size * 0.665) - (paths.size * 0.5)) * scale, y: (paths.size / 2.0) - (paths.boxLineWidth * 0.5 * scale)))
                         compressionAnimation = animations.morphAnimation(fromPath!, toPath: paths.path(toState)!)
                     }
                     
@@ -199,7 +199,7 @@ internal class M13CheckboxBounceManager: M13CheckboxManager {
                         self.resetLayersForState(self.state)
                         })
                     
-                    markLayer.addAnimation(compressionAnimation!, forKey: "path")
+                    markLayer.add(compressionAnimation!, forKey: "path")
                     
                     CATransaction.commit()
                 }
@@ -214,20 +214,20 @@ internal class M13CheckboxBounceManager: M13CheckboxManager {
     
     override func layoutLayers() {
         // Frames
-        unselectedBoxLayer.frame = CGRectMake(0.0, 0.0, paths.size, paths.size)
-        selectedBoxLayer.frame = CGRectMake(0.0, 0.0, paths.size, paths.size)
-        markLayer.frame = CGRectMake(0.0, 0.0, paths.size, paths.size)
+        unselectedBoxLayer.frame = CGRect(x: 0.0, y: 0.0, width: paths.size, height: paths.size)
+        selectedBoxLayer.frame = CGRect(x: 0.0, y: 0.0, width: paths.size, height: paths.size)
+        markLayer.frame = CGRect(x: 0.0, y: 0.0, width: paths.size, height: paths.size)
         // Paths
-        unselectedBoxLayer.path = paths.pathForBox().CGPath
-        selectedBoxLayer.path = paths.pathForBox().CGPath
-        markLayer.path = paths.path(state)?.CGPath
+        unselectedBoxLayer.path = paths.pathForBox().cgPath
+        selectedBoxLayer.path = paths.pathForBox().cgPath
+        markLayer.path = paths.path(state)?.cgPath
     }
     
     //----------------------------
     // MARK: - Display
     //----------------------------
     
-    override func resetLayersForState(state: M13Checkbox.CheckState) {
+    override func resetLayersForState(_ state: M13Checkbox.CheckState) {
         super.resetLayersForState(state)
         // Remove all remnant animations. They will interfere with each other if they are not removed before a new round of animations start.
         unselectedBoxLayer.removeAllAnimations()
@@ -235,31 +235,31 @@ internal class M13CheckboxBounceManager: M13CheckboxManager {
         markLayer.removeAllAnimations()
         
         // Set the properties for the final states of each necessary property of each layer.
-        unselectedBoxLayer.strokeColor = secondaryTintColor?.CGColor
+        unselectedBoxLayer.strokeColor = secondaryTintColor?.cgColor
         unselectedBoxLayer.lineWidth = paths.boxLineWidth
         
-        selectedBoxLayer.strokeColor = tintColor.CGColor
+        selectedBoxLayer.strokeColor = tintColor.cgColor
         selectedBoxLayer.lineWidth = paths.boxLineWidth
         
-        if style == .Stroke {
+        if style == .stroke {
             selectedBoxLayer.fillColor = nil
-            markLayer.strokeColor = tintColor.CGColor
-            if paths.markType == .Checkmark {
+            markLayer.strokeColor = tintColor.cgColor
+            if paths.markType == .checkmark {
                 markLayer.fillColor = nil
             } else {
-                markLayer.fillColor = tintColor.CGColor
+                markLayer.fillColor = tintColor.cgColor
             }
         } else {
-            selectedBoxLayer.fillColor = tintColor.CGColor
-            markLayer.strokeColor = secondaryCheckmarkTintColor?.CGColor
+            selectedBoxLayer.fillColor = tintColor.cgColor
+            markLayer.strokeColor = secondaryCheckmarkTintColor?.cgColor
         }
         
         markLayer.lineWidth = paths.checkmarkLineWidth
         
-        if state == .Unchecked {
+        if state == .unchecked {
             selectedBoxLayer.opacity = 0.0
             markLayer.transform = CATransform3DMakeScale(0.0, 0.0, 0.0)
-        } else if state == .Checked {
+        } else if state == .checked {
             markLayer.transform = CATransform3DIdentity
             selectedBoxLayer.opacity = 1.0
         } else {
@@ -268,9 +268,9 @@ internal class M13CheckboxBounceManager: M13CheckboxManager {
         }
         
         // Paths
-        unselectedBoxLayer.path = paths.pathForBox().CGPath
-        selectedBoxLayer.path = paths.pathForBox().CGPath
-        markLayer.path = paths.path(state)?.CGPath
+        unselectedBoxLayer.path = paths.pathForBox().cgPath
+        selectedBoxLayer.path = paths.pathForBox().cgPath
+        markLayer.path = paths.path(state)?.cgPath
     }
     
 }

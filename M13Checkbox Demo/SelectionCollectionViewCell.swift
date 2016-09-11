@@ -13,11 +13,11 @@ class SelectionCollectionViewCell: BaseCollectionViewCell {
     
     override func awakeFromNib() {
         selectionButton?.layer.cornerRadius = 4.0
-        selectionButton?.layer.borderColor = selectionButton?.tintColor.CGColor
+        selectionButton?.layer.borderColor = selectionButton?.tintColor.cgColor
         selectionButton?.layer.borderWidth = 1.0
     }
     
     override func prepareForReuse() {
-        selectionButton?.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
+        selectionButton?.removeTarget(nil, action: nil, for: .allEvents)
     }
 }

@@ -21,8 +21,8 @@ internal class M13CheckboxDotPathPresets: M13CheckboxPathPresets {
     func pathForDot() -> UIBezierPath {
         let boxPath = pathForBox()
         let scale: CGFloat = 1.0 / 20.0
-        boxPath.applyTransform(CGAffineTransformMakeScale(scale, scale))
-        boxPath.applyTransform(CGAffineTransformMakeTranslation((size - (size * scale)) / 2.0, (size - (size * scale)) / 2.0))
+        boxPath.apply(CGAffineTransform(scaleX: scale, y: scale))
+        boxPath.apply(CGAffineTransform(translationX: (size - (size * scale)) / 2.0, y: (size - (size * scale)) / 2.0))
         return boxPath
     }
     

@@ -15,7 +15,7 @@ import UIKit
 
 /// A customizable checkbox control for iOS.
 @IBDesignable
-public class M13Checkbox: UIControl {
+open class M13Checkbox: UIControl {
     
     //----------------------------
     // MARK: - Constants
@@ -30,11 +30,11 @@ public class M13Checkbox: UIControl {
     */
     public enum CheckState: String, RawRepresentable {
         /// No check is shown.
-        case Unchecked = "Unchecked"
+        case unchecked = "Unchecked"
         /// A checkmark is shown.
-        case Checked = "Checked"
+        case checked = "Checked"
         /// A dash is shown.
-        case Mixed = "Mixed"
+        case mixed = "Mixed"
     }
     
     /**
@@ -45,9 +45,9 @@ public class M13Checkbox: UIControl {
      */
     public enum BoxType: String, RawRepresentable {
         /// The box is a circle.
-        case Circle = "Circle"
+        case circle = "Circle"
         /// The box is square with optional rounded corners.
-        case Square = "Square"
+        case square = "Square"
     }
     
     /**
@@ -58,9 +58,9 @@ public class M13Checkbox: UIControl {
      */
     public enum MarkType: String, RawRepresentable {
         /// The mark is a standard checkmark.
-        case Checkmark = "Checkmark"
+        case checkmark = "Checkmark"
         /// The mark is a radio style fill.
-        case Radio = "Radio"
+        case radio = "Radio"
     }
     
     /**
@@ -68,64 +68,64 @@ public class M13Checkbox: UIControl {
      */
     public enum Animation: RawRepresentable, Hashable {
         /// Animates the stroke of the box and the check as if they were drawn.
-        case Stroke
+        case stroke
         /// Animates the checkbox with a bouncey fill effect.
-        case Fill
+        case fill
         /// Animates the check mark with a bouncy effect.
-        case Bounce(AnimationStyle)
+        case bounce(AnimationStyle)
         /// Animates the checkmark and fills the box with a bouncy effect.
-        case Expand(AnimationStyle)
+        case expand(AnimationStyle)
         /// Morphs the checkmark from a line.
-        case Flat(AnimationStyle)
+        case flat(AnimationStyle)
         /// Animates the box and check as if they were drawn in one continuous line.
-        case Spiral
+        case spiral
         /// Fades checkmark in or out. (opacity).
-        case Fade(AnimationStyle)
+        case fade(AnimationStyle)
         /// Start the box as a dot, and expand the box.
-        case Dot(AnimationStyle)
+        case dot(AnimationStyle)
         
         public init?(rawValue: String) {
             // Map the integer values to the animation types.
             // This is only for interface builder support. I would like this to be removed eventually.
             switch rawValue {
             case "Stroke":
-                self = .Stroke
+                self = .stroke
                 break
             case "Fill":
-                self = .Fill
+                self = .fill
                 break
             case "BounceStroke":
-                self = .Bounce(.Stroke)
+                self = .bounce(.stroke)
                 break
             case "BounceFill":
-                self = .Bounce(.Fill)
+                self = .bounce(.fill)
                 break
             case "ExpandStroke":
-                self = .Expand(.Stroke)
+                self = .expand(.stroke)
                 break
             case "ExpandFill":
-                self = .Expand(.Fill)
+                self = .expand(.fill)
                 break
             case "FlatStroke":
-                self = .Flat(.Stroke)
+                self = .flat(.stroke)
                 break
             case "FlatFill":
-                self = .Flat(.Fill)
+                self = .flat(.fill)
                 break
             case "Spiral":
-                self = .Spiral
+                self = .spiral
                 break
             case "FadeStroke":
-                self = .Fade(.Stroke)
+                self = .fade(.stroke)
                 break
             case "FadeFill":
-                self = .Fade(.Fill)
+                self = .fade(.fill)
                 break
             case "DotStroke":
-                self = .Dot(.Stroke)
+                self = .dot(.stroke)
                 break
             case "DotFill":
-                self = .Dot(.Fill)
+                self = .dot(.fill)
                 break
             default:
                 return nil
@@ -136,68 +136,68 @@ public class M13Checkbox: UIControl {
             // Map the animation types to integer values.
             // This is only for interface builder support. I would like this to be removed eventually.
             switch self {
-            case .Stroke:
+            case .stroke:
                 return "Stroke"
-            case .Fill:
+            case .fill:
                 return "Fill"
-            case let .Bounce(style):
+            case let .bounce(style):
                 switch style {
-                case .Stroke:
+                case .stroke:
                     return "BounceStroke"
-                case .Fill:
+                case .fill:
                     return "BounceFill"
                 }
-            case let .Expand(style):
+            case let .expand(style):
                 switch style {
-                case .Stroke:
+                case .stroke:
                     return "ExpandStroke"
-                case .Fill:
+                case .fill:
                     return "ExpandFill"
                 }
-            case let .Flat(style):
+            case let .flat(style):
                 switch style {
-                case .Stroke:
+                case .stroke:
                     return "FlatStroke"
-                case .Fill:
+                case .fill:
                     return "FlatFill"
                 }
-            case .Spiral:
+            case .spiral:
                 return "Spiral"
-            case let .Fade(style):
+            case let .fade(style):
                 switch style {
-                case .Stroke:
+                case .stroke:
                     return "FadeStroke"
-                case .Fill:
+                case .fill:
                     return "FadeFill"
                 }
-            case let .Dot(style):
+            case let .dot(style):
                 switch style {
-                case .Stroke:
+                case .stroke:
                     return "DotStroke"
-                case .Fill:
+                case .fill:
                     return "DotFill"
                 }
             }
         }
         
         /// The manager for the specific animation type.
-        private var manager: M13CheckboxManager {
+        fileprivate var manager: M13CheckboxManager {
             switch self {
-            case .Stroke:
+            case .stroke:
                 return M13CheckboxStrokeManager()
-            case .Fill:
+            case .fill:
                 return M13CheckboxFillManager()
-            case let .Bounce(style):
+            case let .bounce(style):
                 return M13CheckboxBounceManager(style: style)
-            case let .Expand(style):
+            case let .expand(style):
                 return M13CheckboxExpandManager(style: style)
-            case let .Flat(style):
+            case let .flat(style):
                 return M13CheckboxFlatManager(style: style)
-            case .Spiral:
+            case .spiral:
                 return M13CheckboxSpiralManager()
-            case let .Fade(style):
+            case let .fade(style):
                 return M13CheckboxFadeManager(style: style)
-            case let .Dot(style):
+            case let .dot(style):
                 return M13CheckboxDotManager(style: style)
             }
         }
@@ -213,9 +213,9 @@ public class M13Checkbox: UIControl {
      */
     public enum AnimationStyle: String {
         // The animation will focus on the stroke.
-        case Stroke = "Stroke"
+        case stroke = "Stroke"
         // The animation will focus on the fill.
-        case Fill = "Fill"
+        case fill = "Fill"
     }
     
     //----------------------------
@@ -224,7 +224,7 @@ public class M13Checkbox: UIControl {
     
     /// The manager that manages display and animations of the checkbox.
     /// The default animation is a stroke.
-    private var manager: M13CheckboxManager = M13CheckboxStrokeManager()
+    fileprivate var manager: M13CheckboxManager = M13CheckboxStrokeManager()
     
     //----------------------------
     // MARK: - Initalization
@@ -241,13 +241,13 @@ public class M13Checkbox: UIControl {
     }
     
     /// The setup shared between initalizers.
-    private func sharedSetup() {
+    fileprivate func sharedSetup() {
         // Set up the inital state.
         for aLayer in manager.layersToDisplay {
             layer.addSublayer(aLayer)
         }
         manager.tintColor = tintColor
-        manager.resetLayersForState(.Unchecked)
+        manager.resetLayersForState(.unchecked)
         
         let longPressGesture = M13CheckboxGestureRecognizer(target: self, action: #selector(M13Checkbox.handleLongPress(_:)))
         addGestureRecognizer(longPressGesture)
@@ -258,26 +258,26 @@ public class M13Checkbox: UIControl {
     //----------------------------
     
     /// The object to return from `value` when the checkbox is checked.
-    public var checkedValue: Any?
+    open var checkedValue: Any?
     
     /// The object to return from `value` when the checkbox is unchecked.
-    public var uncheckedValue: Any?
+    open var uncheckedValue: Any?
     
     /// The object to return from `value` when the checkbox is mixed.
-    public var mixedValue: Any?
+    open var mixedValue: Any?
     
     /**
      Returns one of the three "value" properties depending on the checkbox state.
      - returns: The value coresponding to the checkbox state.
      - note: This is a convenience method so that if one has a large group of checkboxes, it is not necessary to write: if (someCheckbox == thatCheckbox) { if (someCheckbox.checkState == ...
      */
-    public var value: Any? {
+    open var value: Any? {
         switch checkState {
-        case .Unchecked:
+        case .unchecked:
             return uncheckedValue
-        case .Checked:
+        case .checked:
             return checkedValue
-        case .Mixed:
+        case .mixed:
             return mixedValue
         }
     }
@@ -287,7 +287,7 @@ public class M13Checkbox: UIControl {
     //----------------------------
     
     /// The current state of the checkbox.
-    public var checkState: CheckState {
+    open var checkState: CheckState {
         get {
             return manager.state
         }
@@ -301,7 +301,7 @@ public class M13Checkbox: UIControl {
      - parameter checkState: The new state of the checkbox.
      - parameter animated: Whether or not to animate the change.
      */
-    public func setCheckState(newState: CheckState, animated: Bool) {
+    open func setCheckState(_ newState: CheckState, animated: Bool) {
         if checkState == newState {
             return
         }
@@ -318,16 +318,16 @@ public class M13Checkbox: UIControl {
      - parameter animated: Whether or not to animate the change. Defaults to false.
      - note: If the checkbox is mixed, it will return to the unchecked state.
      */
-    public func toggleCheckState(animated: Bool = false) {
+    open func toggleCheckState(_ animated: Bool = false) {
         switch checkState {
-        case .Checked:
-            setCheckState(.Unchecked, animated: animated)
+        case .checked:
+            setCheckState(.unchecked, animated: animated)
             break
-        case .Unchecked:
-            setCheckState(.Checked, animated: animated)
+        case .unchecked:
+            setCheckState(.checked, animated: animated)
             break
-        case .Mixed:
-            setCheckState(.Unchecked, animated: animated)
+        case .mixed:
+            setCheckState(.unchecked, animated: animated)
             break
         }
     }
@@ -337,7 +337,7 @@ public class M13Checkbox: UIControl {
     //----------------------------
     
     /// The duration of the animation that occurs when the checkbox switches states. The default is 0.3 seconds.
-    @IBInspectable public var animationDuration: NSTimeInterval {
+    @IBInspectable open var animationDuration: TimeInterval {
         get {
             return manager.animations.animationDuration
         }
@@ -347,7 +347,7 @@ public class M13Checkbox: UIControl {
     }
     
     /// The type of animation to preform when changing from the unchecked state to any other state.
-    public var stateChangeAnimation: Animation = .Stroke {
+    open var stateChangeAnimation: Animation = .stroke {
         didSet {
             
             // Remove the sublayers
@@ -384,8 +384,8 @@ public class M13Checkbox: UIControl {
             manager = newManager
             
             // TODO: - Add support for missing animations.
-            if markType == .Radio && stateChangeAnimation == .Spiral {
-                stateChangeAnimation = .Stroke
+            if markType == .radio && stateChangeAnimation == .spiral {
+                stateChangeAnimation = .stroke
                 print("WARNING: The spiral animation is currently unsupported with a radio mark.")
             }
         }
@@ -395,14 +395,14 @@ public class M13Checkbox: UIControl {
     // MARK: - UIControl
     //----------------------------
     
-    func handleLongPress(sender: UILongPressGestureRecognizer) {
-        if sender.state == .Began || sender.state == .Changed {
-            selected = true
+    func handleLongPress(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == .began || sender.state == .changed {
+            isSelected = true
         } else {
-            selected = false
-            if sender.state == .Ended {
+            isSelected = false
+            if sender.state == .ended {
                 toggleCheckState(true)
-                sendActionsForControlEvents(.ValueChanged)
+                sendActions(for: .valueChanged)
             }
         }
     }
@@ -412,7 +412,7 @@ public class M13Checkbox: UIControl {
     //----------------------------
     
     /// The color of the checkbox's tint color when not in the unselected state. The tint color is is the main color used when not in the unselected state.
-    @IBInspectable public var secondaryTintColor: UIColor? {
+    @IBInspectable open var secondaryTintColor: UIColor? {
         get {
             return manager.secondaryTintColor
         }
@@ -422,7 +422,7 @@ public class M13Checkbox: UIControl {
     }
     
     /// The color of the checkmark when it is displayed against a filled background.
-    @IBInspectable public var secondaryCheckmarkTintColor: UIColor? {
+    @IBInspectable open var secondaryCheckmarkTintColor: UIColor? {
         get {
             return manager.secondaryCheckmarkTintColor
         }
@@ -432,7 +432,7 @@ public class M13Checkbox: UIControl {
     }
     
     /// The stroke width of the checkmark.
-    @IBInspectable public var checkmarkLineWidth: CGFloat {
+    @IBInspectable open var checkmarkLineWidth: CGFloat {
         get {
             return manager.paths.checkmarkLineWidth
         }
@@ -443,7 +443,7 @@ public class M13Checkbox: UIControl {
     }
     
     // The type of mark to display.
-    @IBInspectable public var markType: MarkType {
+    @IBInspectable open var markType: MarkType {
         get {
             return manager.paths.markType
         }
@@ -451,8 +451,8 @@ public class M13Checkbox: UIControl {
             manager.paths.markType = newValue
             
             // TODO: - Add support for missing animations.
-            if markType == .Radio && stateChangeAnimation == .Spiral {
-                manager.paths.markType = .Checkmark
+            if markType == .radio && stateChangeAnimation == .spiral {
+                manager.paths.markType = .checkmark
                 print("WARNING: The spiral animation is currently unsupported with a radio mark.")
             }
             
@@ -462,7 +462,7 @@ public class M13Checkbox: UIControl {
     }
     
     /// The stroke width of the box.
-    @IBInspectable public var boxLineWidth: CGFloat {
+    @IBInspectable open var boxLineWidth: CGFloat {
         get {
             return manager.paths.boxLineWidth
         }
@@ -473,7 +473,7 @@ public class M13Checkbox: UIControl {
     }
     
     /// The corner radius of the box if the box type is square.
-    @IBInspectable public var cornerRadius: CGFloat {
+    @IBInspectable open var cornerRadius: CGFloat {
         get {
             return manager.paths.cornerRadius
         }
@@ -484,7 +484,7 @@ public class M13Checkbox: UIControl {
     }
     
     /// The shape of the checkbox.
-    public var boxType: BoxType {
+    open var boxType: BoxType {
         get {
             return manager.paths.boxType
         }
@@ -495,7 +495,7 @@ public class M13Checkbox: UIControl {
     }
     
     /// Wether or not to hide the checkbox.
-    @IBInspectable public var hideBox: Bool {
+    @IBInspectable open var hideBox: Bool {
         get {
             return manager.hideBox
         }
@@ -504,7 +504,7 @@ public class M13Checkbox: UIControl {
         }
     }
     
-    public override func tintColorDidChange() {
+    open override func tintColorDidChange() {
         super.tintColorDidChange()
         manager.tintColor = tintColor
     }
@@ -513,7 +513,7 @@ public class M13Checkbox: UIControl {
     // MARK: - Layout
     //----------------------------
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         // Update size
         manager.paths.size = min(frame.size.width, frame.size.height)

@@ -26,19 +26,19 @@ internal class M13CheckboxManager {
     var animations: M13CheckboxAnimationPresets = M13CheckboxAnimationPresets()
     
     /// The current state of the checkbox.
-    var state: M13Checkbox.CheckState = .Unchecked
+    var state: M13Checkbox.CheckState = .unchecked
     
     /// The current tint color.
     /// - Note: Subclasses should override didSet to update the layers when this value changes.
-    var tintColor: UIColor = UIColor.blackColor()
+    var tintColor: UIColor = UIColor.black
     
     /// The secondary tint color.
     /// - Note: Subclasses should override didSet to update the layers when this value changes.
-    var secondaryTintColor: UIColor? = UIColor.lightGrayColor()
+    var secondaryTintColor: UIColor? = UIColor.lightGray
     
     /// The secondary color of the mark.
     /// - Note: Subclasses should override didSet to update the layers when this value changes.
-    var secondaryCheckmarkTintColor: UIColor? = UIColor.whiteColor()
+    var secondaryCheckmarkTintColor: UIColor? = UIColor.white
     
     /// Whether or not to hide the box.
     /// - Note: Subclasses should override didSet to update the layers when this value changes.
@@ -62,7 +62,7 @@ internal class M13CheckboxManager {
     - parameter fromState: The previous state of the checkbox.
     - parameter toState: The new state of the checkbox.
     */
-    func animate(fromState: M13Checkbox.CheckState, toState: M13Checkbox.CheckState) {
+    func animate(_ fromState: M13Checkbox.CheckState, toState: M13Checkbox.CheckState) {
         state = toState
     }
     
@@ -83,7 +83,7 @@ internal class M13CheckboxManager {
     Reset the layers to be in the given state.
     - parameter state: The new state of the checkbox.
     */
-    func resetLayersForState(state: M13Checkbox.CheckState) {
+    func resetLayersForState(_ state: M13Checkbox.CheckState) {
         self.state = state
         layoutLayers()
     }
