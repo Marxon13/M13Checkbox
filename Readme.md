@@ -118,6 +118,10 @@ Check out the demo app to change the properties of the checkbox and see the chan
 
 ##Getting Started
 
+###Demo
+
+To see a working playground in action, run the workspace located at path Playground/LaunchMe.xcworkspace. You may need to run the framework scheme and wait for Xcode to process the files, before the playground begins. Open the assistant editor for a live preview of the UI.
+
 ### Installation
 
 #### Cocoapods
