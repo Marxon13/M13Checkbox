@@ -102,8 +102,8 @@ internal class M13CheckboxPathPresets {
                 let d = size * cos(theta) * (cos(theta) - sin(theta))
                 let e = 2.0 * cornerRadius * sin(theta) * (cos(theta) + sin(theta))
                 
-                let x = 0.25 * (a + (2.0 * (b + sqrt(c)) * cos(theta)))
-                let y = 0.50 * (d + e - (sqrt(c) * sin(theta)))
+                let x = 0.25 * (a + (2.0 * (b + sqrt(c)) * cos(theta))) + (boxLineWidth / 2.0)
+                let y = 0.50 * (d + e - (sqrt(c) * sin(theta))) + (boxLineWidth / 2.0)
                 
                 return CGPoint(x: x, y: y)
             }
@@ -141,8 +141,8 @@ internal class M13CheckboxPathPresets {
         let subX1 = (b * cd) + pow(e1 + e2, 2.0)
         let subY1 = pow(h1 + h2, 2.0) + (b * (d1 + i + j))
         
-        let x = (0.5 * (a1 + a2 + (0.5 * sqrt(subX1)))) / f
-        let y = (g1 + g2 - (0.25 * sqrt(subY1))) / f
+        let x = (0.5 * (a1 + a2 + (0.5 * sqrt(subX1))) + (boxLineWidth / 2.0)) / f
+        let y = (g1 + g2 - (0.25 * sqrt(subY1)) + (boxLineWidth / 2.0)) / f
         
         return CGPoint(x: x, y: y)
     }
@@ -150,13 +150,13 @@ internal class M13CheckboxPathPresets {
     var checkmarkMiddlePoint: CGPoint {
         let r = boxType == .circle ? checkmarkProperties.middlePointRadius.circle : checkmarkProperties.middlePointRadius.box
         let o = boxType == .circle ? checkmarkProperties.middlePointOffset.circle : checkmarkProperties.middlePointOffset.box
-        return CGPoint(x: (size / 2.0) + (size * o), y: (size / 2.0 ) + (size * r))
+        return CGPoint(x: (size / 2.0) + (size * o) + (boxLineWidth / 2.0), y: (size / 2.0 ) + (size * r) + (boxLineWidth / 2.0))
     }
     
     var checkmarkShortArmEndPoint: CGPoint {
         let r = boxType == .circle ? checkmarkProperties.shortArmRadius.circle : checkmarkProperties.shortArmRadius.box
         let o = boxType == .circle ? checkmarkProperties.shortArmOffset.circle : checkmarkProperties.shortArmOffset.box
-        return CGPoint(x: (size / 2.0) - (size * r), y: (size / 2.0) + (size * o))
+        return CGPoint(x: (size / 2.0) - (size * r) + (boxLineWidth / 2.0), y: (size / 2.0) + (size * o) + (boxLineWidth / 2.0))
     }
     
     //----------------------------
