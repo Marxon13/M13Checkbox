@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lyr-ql-eDx" customClass="M13Checkbox" customModule="M13Checkbox_Demo" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lyr-ql-eDx" customClass="M13Checkbox" customModule="M13Checkbox">
                                 <color key="tintColor" red="0.223007977" green="0.82969284060000004" blue="0.87480789420000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="lyr-ql-eDx" secondAttribute="height" multiplier="1:1" identifier="checkAspectRation" id="rAo-kd-UCo"/>
@@ -44,7 +44,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XTB-bm-XDV">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="350" identifier="collectionHeight" id="NOX-U1-ZXm"/>
-                                    <constraint firstAttribute="width" priority="250" constant="300" identifier="collectionWidth" id="Tlc-A5-Cue">
+                                    <constraint firstAttribute="width" priority="750" constant="300" identifier="collectionWidth" id="Tlc-A5-Cue">
                                         <variation key="heightClass=compact" constant="320"/>
                                     </constraint>
                                 </constraints>
@@ -66,6 +66,10 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="XTB-bm-XDV" firstAttribute="top" secondItem="lyr-ql-eDx" secondAttribute="bottom" priority="750" constant="100" id="06p-V3-dB5">
+                                <variation key="heightClass=compact" constant="20"/>
+                                <variation key="widthClass=compact" constant="40"/>
+                            </constraint>
                             <constraint firstItem="XTB-bm-XDV" firstAttribute="top" secondItem="gtP-cW-6wj" secondAttribute="top" identifier="collectionTop" id="0U9-Jk-ujz"/>
                             <constraint firstItem="lyr-ql-eDx" firstAttribute="centerY" secondItem="gtP-cW-6wj" secondAttribute="centerY" identifier="checkHorizontalCenter" id="91H-ph-FAH"/>
                             <constraint firstItem="gex-gV-rMe" firstAttribute="top" secondItem="XTB-bm-XDV" secondAttribute="bottom" identifier="collectionBottom" id="ExQ-9j-XqN"/>
@@ -89,6 +93,7 @@
                             <mask key="constraints">
                                 <exclude reference="0U9-Jk-ujz"/>
                                 <exclude reference="Gct-91-Fve"/>
+                                <exclude reference="LYq-K3-j81"/>
                                 <exclude reference="j5e-VG-tFd"/>
                                 <exclude reference="91H-ph-FAH"/>
                                 <exclude reference="O2z-lE-Y5G"/>
@@ -260,8 +265,8 @@
         <scene sceneID="U5C-bs-e3E">
             <objects>
                 <collectionViewController id="eeR-FI-F2L" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="prototypes" id="gw4-UL-RvN">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="350"/>
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="prototypes" id="gw4-UL-RvN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.22300797700881958" green="0.82969284057617188" blue="0.87480789422988892" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="40" minimumInteritemSpacing="0.0" id="tjT-58-xVQ" customClass="CollectionViewLayout" customModule="M13Checkbox_Demo" customModuleProvider="target">
@@ -272,7 +277,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="segmentedControlCell" id="mAw-mk-o0m" customClass="SegmentedControlCollectionViewCell" customModule="M13Checkbox_Demo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="15" width="320" height="320"/>
+                                <rect key="frame" x="0.0" y="140" width="320" height="320"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
@@ -335,7 +340,7 @@
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="sliderCell" id="sX9-Sa-Sj4" customClass="SliderCollectionViewCell" customModule="M13Checkbox_Demo" customModuleProvider="target">
-                                <rect key="frame" x="360" y="15" width="320" height="320"/>
+                                <rect key="frame" x="360" y="140" width="320" height="320"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
@@ -392,7 +397,7 @@
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="selectionCell" id="ALO-Fk-Eor" customClass="SelectionCollectionViewCell" customModule="M13Checkbox_Demo" customModuleProvider="target">
-                                <rect key="frame" x="720" y="15" width="320" height="320"/>
+                                <rect key="frame" x="720" y="140" width="320" height="320"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
@@ -451,7 +456,7 @@
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="colorCell" id="gcD-Yj-nan" customClass="ColorCollectionViewCell" customModule="M13Checkbox_Demo" customModuleProvider="target">
-                                <rect key="frame" x="1080" y="15" width="320" height="320"/>
+                                <rect key="frame" x="1080" y="140" width="320" height="320"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>

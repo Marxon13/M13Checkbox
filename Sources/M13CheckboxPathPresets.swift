@@ -150,13 +150,13 @@ internal class M13CheckboxPathPresets {
     var checkmarkMiddlePoint: CGPoint {
         let r = boxType == .circle ? checkmarkProperties.middlePointRadius.circle : checkmarkProperties.middlePointRadius.box
         let o = boxType == .circle ? checkmarkProperties.middlePointOffset.circle : checkmarkProperties.middlePointOffset.box
-        return CGPoint(x: (size / 2.0) + (size * o) + (boxLineWidth / 2.0), y: (size / 2.0 ) + (size * r) + (boxLineWidth / 2.0))
+        return CGPoint(x: (size / 2.0) + (size * o), y: (size / 2.0 ) + (size * r))
     }
     
     var checkmarkShortArmEndPoint: CGPoint {
         let r = boxType == .circle ? checkmarkProperties.shortArmRadius.circle : checkmarkProperties.shortArmRadius.box
         let o = boxType == .circle ? checkmarkProperties.shortArmOffset.circle : checkmarkProperties.shortArmOffset.box
-        return CGPoint(x: (size / 2.0) - (size * r) + (boxLineWidth / 2.0), y: (size / 2.0) + (size * o) + (boxLineWidth / 2.0))
+        return CGPoint(x: (size / 2.0) - (size * r), y: (size / 2.0) + (size * o))
     }
     
     //----------------------------
