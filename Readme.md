@@ -15,6 +15,9 @@ Create beautiful, customizable, extendable, animated checkboxes on iOS. Complete
     * [State](#state)
     * [Appearance](#appearance)
 * [**Getting Started**](#getting-started)
+    * [Demo](#demo)
+        * [Playground](#playground)
+        * [App](#app)
     * [Installation](#installation)
     * [Use](#use)
 * [**Project Structure**](project-structure)
@@ -116,11 +119,19 @@ Check out the demo app to change the properties of the checkbox and see the chan
 
 <br>
 
-##Getting Started
+## Getting Started
 
-###Demo
+### Demo
 
-To see a working playground in action, run the workspace located at path Playground/LaunchMe.xcworkspace. You may need to run the framework scheme and wait for Xcode to process the files, before the playground begins. Open the assistant editor for a live preview of the UI.
+#### Playground
+
+To see a working playground in action, run the workspace located at path `M13Checkbox Demo Playground/LaunchMe.xcworkspace`. You may need to run the framework scheme and wait for Xcode to process the files, before the playground begins. Open the assistant editor for a live preview of the UI. 
+
+This is a great way to work on customizing the checkbox in code to suit your needs.
+
+#### App
+
+To see the checkbox working on a device, run the demo app included in `M13Checkbox.xcodeproj`. The demo app walks through all the available features. You will need to run a `pod install` in order to build the demo app.
 
 ### Installation
 
@@ -145,7 +156,7 @@ github "Marxon13/M13Checkbox"
 To install via Swift Package Manager, add the following as a dependency to your Package.swift file:
 
 ```
-.Package(url: "git@github.com:Marxon13/M13Checkbox.git", versions: Version(2,2,0)..<Version(2,2,0)),
+.Package(url: "git@github.com:Marxon13/M13Checkbox.git", versions: Version(2,2,0)..<Version(2,2,3)),
 ```
 
 #### Manual

@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
   s.name         = "M13Checkbox"
-  s.version      = "2.2.2"
+  s.version      = "2.2.3"
   s.summary      = "A beautiful, customizable, extendable, animated checkbox for iOS."
 
   s.description  = <<-DESC
-                   Create beautiful, customizable, extendable, animated checkboxes on iOS. Completely configurable through interface builder. See the demo app to play with all the features.
+                   Create beautiful, customizable, extendable, animated checkboxes on iOS. Completely configurable through interface builder. See the demo app or playground to play with all the features.
                    DESC
 
   s.homepage     = "https://github.com/Marxon13/M13Checkbox"
@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, '8.0'
 
-  s.source = { :git => "https://github.com/Marxon13/M13Checkbox.git", :tag => "2.2.0"}
+  s.source = { :git => "https://github.com/Marxon13/M13Checkbox.git", :tag => "2.2.3"}
 
   s.source_files  = 'Sources/**/*'
 
