@@ -143,7 +143,7 @@ internal class M13CheckboxPathPresets {
         
         let x = (0.5 * (a1 + a2 + (0.5 * sqrt(subX1))) + (boxLineWidth / 2.0)) / f
         let y = (g1 + g2 - (0.25 * sqrt(subY1)) + (boxLineWidth / 2.0)) / f
-        
+  
         return CGPoint(x: x, y: y)
     }
     
@@ -179,7 +179,7 @@ internal class M13CheckboxPathPresets {
     func pathForCircle() -> UIBezierPath {
         let radius = (size - boxLineWidth) / 2.0
         // Create a circle that starts in the top right hand corner.
-        return UIBezierPath(arcCenter: CGPoint(x: radius, y: radius),
+        return UIBezierPath(arcCenter: CGPoint(x: size / 2.0, y: size / 2.0),
                             radius: radius,
                             startAngle: -checkmarkProperties.longArmBoxIntersectionAngle,
                             endAngle: CGFloat(2 * M_PI) - checkmarkProperties.longArmBoxIntersectionAngle,

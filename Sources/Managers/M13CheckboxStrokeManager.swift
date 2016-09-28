@@ -185,11 +185,9 @@ internal class M13CheckboxStrokeManager: M13CheckboxManager {
     
     override func layoutLayers() {
         // Frames
-        let x: CGFloat = paths.boxLineWidth / 2.0
-        let y: CGFloat = paths.boxLineWidth / 2.0
-        unselectedBoxLayer.frame = CGRect(x: x, y: y, width: paths.size, height: paths.size)
-        selectedBoxLayer.frame = CGRect(x: x, y: y, width: paths.size, height: paths.size)
-        markLayer.frame = CGRect(x: x, y: y, width: paths.size, height: paths.size)
+        unselectedBoxLayer.frame = CGRect(x: 0.0, y: 0.0, width: paths.size, height: paths.size)
+        selectedBoxLayer.frame = CGRect(x: 0.0, y: 0.0, width: paths.size, height: paths.size)
+        markLayer.frame = CGRect(x: 0.0, y: 0.0, width: paths.size, height: paths.size)
         // Paths
         unselectedBoxLayer.path = paths.pathForBox().cgPath
         selectedBoxLayer.path = paths.pathForBox().cgPath
