@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import M13Checkbox
 
 protocol AnimationSelectionTableViewControllerDelegate {
     func selectedAnimation(_ animation: M13Checkbox.Animation)

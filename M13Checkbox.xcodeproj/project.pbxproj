@@ -10,22 +10,10 @@
 		C8A9C7D6B9A456341E134B9F /* Pods_M13Checkbox_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792FB031E2B87AC7363ACC0A /* Pods_M13Checkbox_Demo.framework */; };
 		EA1528991C90653D00EE5115 /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1528981C90653D00EE5115 /* ColorCollectionViewCell.swift */; };
 		EA1528A01C907B1200EE5115 /* CollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA15289F1C907B1200EE5115 /* CollectionViewLayout.swift */; };
-		EA26E1E51CAC66F000ACB4F4 /* M13CheckboxBounceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA26E1E41CAC66F000ACB4F4 /* M13CheckboxBounceManager.swift */; };
-		EA26E1E71CAED49900ACB4F4 /* M13CheckboxExpandManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA26E1E61CAED49900ACB4F4 /* M13CheckboxExpandManager.swift */; };
-		EA26E1E91CAED71700ACB4F4 /* M13CheckboxFlatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA26E1E81CAED71700ACB4F4 /* M13CheckboxFlatManager.swift */; };
-		EA26E1F01CAEDD5700ACB4F4 /* M13CheckboxFadeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA26E1EF1CAEDD5700ACB4F4 /* M13CheckboxFadeManager.swift */; };
-		EA26E1F21CAEF7A600ACB4F4 /* M13CheckboxDotPathPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA26E1F11CAEF7A600ACB4F4 /* M13CheckboxDotPathPresets.swift */; };
-		EA26E1F41CAEFA6300ACB4F4 /* M13CheckboxDotManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA26E1F31CAEFA6300ACB4F4 /* M13CheckboxDotManager.swift */; };
-		EA26E1F61CAEFDC500ACB4F4 /* M13CheckboxSpiralPathPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA26E1F51CAEFDC500ACB4F4 /* M13CheckboxSpiralPathPresets.swift */; };
-		EA26E1F81CAEFE7800ACB4F4 /* M13CheckboxSpiralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA26E1F71CAEFE7800ACB4F4 /* M13CheckboxSpiralManager.swift */; };
-		EA3591431CAC1F12000FBA3B /* M13CheckboxFillManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3591421CAC1F12000FBA3B /* M13CheckboxFillManager.swift */; };
-		EA508D1B1C9CE605007142F6 /* M13CheckboxManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA508D1A1C9CE605007142F6 /* M13CheckboxManager.swift */; };
 		EA67201A1C7D0296008054BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6720191C7D0296008054BA /* AppDelegate.swift */; };
 		EA6720211C7D0296008054BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA67201F1C7D0296008054BA /* Main.storyboard */; };
 		EA6720231C7D0296008054BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA6720221C7D0296008054BA /* Assets.xcassets */; };
 		EA6720261C7D0296008054BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA6720241C7D0296008054BA /* LaunchScreen.storyboard */; };
-		EA67202F1C7D0349008054BA /* M13Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA67202E1C7D0349008054BA /* M13Checkbox.swift */; };
-		EA6720311C7DFC3D008054BA /* M13Checkbox+IB.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6720301C7DFC3D008054BA /* M13Checkbox+IB.swift */; };
 		EA6D7D031C933F0D00F30778 /* AnimationSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6D7D021C933F0D00F30778 /* AnimationSelectionTableViewController.swift */; };
 		EA86104C1C8F4F0000F9FDBA /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA86104B1C8F4F0000F9FDBA /* DemoViewController.swift */; };
 		EA86104F1C8F4FA900F9FDBA /* SegmentedControlCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA86104E1C8F4FA900F9FDBA /* SegmentedControlCollectionViewCell.swift */; };
@@ -51,11 +39,33 @@
 		EA96F9141CBEB5190066C6B7 /* M13CheckboxSpiralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA26E1F71CAEFE7800ACB4F4 /* M13CheckboxSpiralManager.swift */; };
 		EA96F9151CBEB5190066C6B7 /* M13CheckboxDotManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA26E1F31CAEFA6300ACB4F4 /* M13CheckboxDotManager.swift */; };
 		EA96F9161CBEB5190066C6B7 /* M13Checkbox+IB.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6720301C7DFC3D008054BA /* M13Checkbox+IB.swift */; };
-		EAA098371CA8AF68001AAF6E /* M13CheckboxPathPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA098361CA8AF68001AAF6E /* M13CheckboxPathPresets.swift */; };
-		EAA098391CA8B206001AAF6E /* M13CheckboxAnimationPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA098381CA8B206001AAF6E /* M13CheckboxAnimationPresets.swift */; };
-		EAA0983F1CA8BEF1001AAF6E /* M13CheckboxStrokeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0983E1CA8BEF1001AAF6E /* M13CheckboxStrokeManager.swift */; };
-		EAD2FDA51CBD2FA400086119 /* M13CheckboxGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD2FDA41CBD2FA400086119 /* M13CheckboxGestureRecognizer.swift */; };
+		EA9F61E51D9BFF3D0015D68E /* M13Checkbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA96F8FB1CBEB4CC0066C6B7 /* M13Checkbox.framework */; };
+		EA9F61E61D9BFF3D0015D68E /* M13Checkbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA96F8FB1CBEB4CC0066C6B7 /* M13Checkbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EA9F61E71D9BFF3D0015D68E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA67200E1C7D0296008054BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA96F8FA1CBEB4CC0066C6B7;
+			remoteInfo = M13Checkbox;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EA9F61E91D9BFF3D0015D68E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EA9F61E61D9BFF3D0015D68E /* M13Checkbox.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		142C71FD96ACA2685D246CF8 /* Pods_M13Checkbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_M13Checkbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +118,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C8A9C7D6B9A456341E134B9F /* Pods_M13Checkbox_Demo.framework in Frameworks */,
+				EA9F61E51D9BFF3D0015D68E /* M13Checkbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,10 +280,12 @@
 				EA6720141C7D0296008054BA /* Resources */,
 				3AE30ADBBC1FF6B62D2D7432 /* 📦 Embed Pods Frameworks */,
 				7D35D6D2E4983E7515358555 /* 📦 Copy Pods Resources */,
+				EA9F61E91D9BFF3D0015D68E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				EA9F61E81D9BFF3D0015D68E /* PBXTargetDependency */,
 			);
 			name = "M13Checkbox Demo";
 			productName = M13Checkbox;
@@ -409,31 +422,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA67202F1C7D0349008054BA /* M13Checkbox.swift in Sources */,
-				EA26E1F61CAEFDC500ACB4F4 /* M13CheckboxSpiralPathPresets.swift in Sources */,
-				EA3591431CAC1F12000FBA3B /* M13CheckboxFillManager.swift in Sources */,
-				EA26E1E71CAED49900ACB4F4 /* M13CheckboxExpandManager.swift in Sources */,
 				EA8610511C8F4FE300F9FDBA /* BaseCollectionViewCell.swift in Sources */,
 				EA8610531C8F588E00F9FDBA /* SliderCollectionViewCell.swift in Sources */,
 				EA8610551C8F5E9F00F9FDBA /* SelectionCollectionViewCell.swift in Sources */,
-				EAD2FDA51CBD2FA400086119 /* M13CheckboxGestureRecognizer.swift in Sources */,
-				EAA098371CA8AF68001AAF6E /* M13CheckboxPathPresets.swift in Sources */,
-				EA6720311C7DFC3D008054BA /* M13Checkbox+IB.swift in Sources */,
-				EA508D1B1C9CE605007142F6 /* M13CheckboxManager.swift in Sources */,
-				EA26E1F21CAEF7A600ACB4F4 /* M13CheckboxDotPathPresets.swift in Sources */,
-				EA26E1E51CAC66F000ACB4F4 /* M13CheckboxBounceManager.swift in Sources */,
 				EA6D7D031C933F0D00F30778 /* AnimationSelectionTableViewController.swift in Sources */,
-				EA26E1F41CAEFA6300ACB4F4 /* M13CheckboxDotManager.swift in Sources */,
 				EA86104C1C8F4F0000F9FDBA /* DemoViewController.swift in Sources */,
-				EA26E1F81CAEFE7800ACB4F4 /* M13CheckboxSpiralManager.swift in Sources */,
 				EA86104F1C8F4FA900F9FDBA /* SegmentedControlCollectionViewCell.swift in Sources */,
 				EA1528991C90653D00EE5115 /* ColorCollectionViewCell.swift in Sources */,
-				EA26E1F01CAEDD5700ACB4F4 /* M13CheckboxFadeManager.swift in Sources */,
-				EAA098391CA8B206001AAF6E /* M13CheckboxAnimationPresets.swift in Sources */,
 				EA67201A1C7D0296008054BA /* AppDelegate.swift in Sources */,
 				EA1528A01C907B1200EE5115 /* CollectionViewLayout.swift in Sources */,
-				EA26E1E91CAED71700ACB4F4 /* M13CheckboxFlatManager.swift in Sources */,
-				EAA0983F1CA8BEF1001AAF6E /* M13CheckboxStrokeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +458,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EA9F61E81D9BFF3D0015D68E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA96F8FA1CBEB4CC0066C6B7 /* M13Checkbox */;
+			targetProxy = EA9F61E71D9BFF3D0015D68E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		EA67201F1C7D0296008054BA /* Main.storyboard */ = {
@@ -576,6 +581,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6F39FC0C5AAE259FA99C8348 /* Pods-M13Checkbox Demo.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "M13Checkbox Demo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -590,6 +596,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9CD5E1DB8F346AB79E3C6430 /* Pods-M13Checkbox Demo.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "M13Checkbox Demo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

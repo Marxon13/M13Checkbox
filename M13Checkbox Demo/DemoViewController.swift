@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import M13Checkbox
 import Color_Picker_for_iOS
 import PBDCarouselCollectionViewLayout
 
