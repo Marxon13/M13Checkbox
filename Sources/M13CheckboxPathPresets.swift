@@ -74,7 +74,8 @@ internal class M13CheckboxPathPresets {
     
     /// The intersection point between the extended long checkmark arm, and the box.
     var checkmarkLongArmBoxIntersectionPoint: CGPoint {
-        
+        return CGPoint.zero
+        /*
         let radius = (size - boxLineWidth) / 2.0
         let theta = checkmarkProperties.longArmBoxIntersectionAngle
         
@@ -108,9 +109,12 @@ internal class M13CheckboxPathPresets {
                 return CGPoint(x: x, y: y)
             }
         }
+ */
     }
     
     var checkmarkLongArmEndPoint: CGPoint {
+        return CGPoint.zero
+        /*
         // Known variables
         let boxEndPoint = checkmarkLongArmBoxIntersectionPoint
         let x2 = boxEndPoint.x
@@ -145,6 +149,7 @@ internal class M13CheckboxPathPresets {
         let y = (g1 + g2 - (0.25 * sqrt(subY1)) + (boxLineWidth / 2.0)) / f
   
         return CGPoint(x: x, y: y)
+ */
     }
     
     var checkmarkMiddlePoint: CGPoint {
