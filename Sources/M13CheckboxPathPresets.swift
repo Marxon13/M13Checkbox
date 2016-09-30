@@ -74,47 +74,49 @@ internal class M13CheckboxPathPresets {
     
     /// The intersection point between the extended long checkmark arm, and the box.
     var checkmarkLongArmBoxIntersectionPoint: CGPoint {
+        
+        let cornerRadius: CGFloat = self.cornerRadius
+        let boxLineWidth: CGFloat = self.boxLineWidth
+        let size: CGFloat = self.size
+
         let radius: CGFloat = (size - boxLineWidth) / 2.0
         let theta:CGFloat = checkmarkProperties.longArmBoxIntersectionAngle
-        
-        let cR: CGFloat = cornerRadius
-        let bLW: CGFloat = boxLineWidth
-        let s: CGFloat = size
-
+    
         if boxType == .circle {
             // Basic trig to get the location of the point on the circle.
-            let x: CGFloat = (s / 2.0) + (radius * cos(theta))
-            let y: CGFloat = (s / 2.0) - (radius * sin(theta))
+            let x: CGFloat = (size / 2.0) + (radius * cos(theta))
+            let y: CGFloat = (size / 2.0) - (radius * sin(theta))
             return CGPoint(x: x, y: y)
         } else {
             // We need to differentiate between the box edges and the rounded corner.
-            let lineOffset: CGFloat = bLW / 2.0
-            let circleX: CGFloat = s - lineOffset - cR
-            let circleY: CGFloat = 0.0 + lineOffset + cR
-            let edgeX: CGFloat = (s / 2.0) + (0.5 * (s - bLW) * (1.0 / tan(theta)))
-            let edgeY: CGFloat = (s / 2.0) - (0.5 * (s - bLW) * tan(theta));
+            let lineOffset: CGFloat = boxLineWidth / 2.0
+            let circleX: CGFloat = size - lineOffset - cornerRadius
+            let circleY: CGFloat = 0.0 + lineOffset + cornerRadius
+            let edgeX: CGFloat = (size / 2.0) + (0.5 * (size - boxLineWidth) * (1.0 / tan(theta)))
+            let edgeY: CGFloat = (size / 2.0) - (0.5 * (size - boxLineWidth) * tan(theta));
 
             if edgeX <= circleX {
                 // On the top edge.
                 return CGPoint(x: edgeX, y: lineOffset)
             } else if edgeY >= circleY {
                 // On the right edge.
-                let x: CGFloat = s - lineOffset
+                let x: CGFloat = size - lineOffset
                 return CGPoint(x: x, y: edgeY)
             } else {
                 // On the corner
                 let cos2Theta: CGFloat = cos(2.0 * theta)
                 let sin2Theta: CGFloat = sin(2.0 * theta)
-                let powV: CGFloat = pow((2.0 * cR) + s, 2.0)
+                let sqrtV: CGFloat = sqrt(((4.0 * cornerRadius) - size) * size)
+                let powV: CGFloat = pow((2.0 * cornerRadius) + size, 2.0)
                 
-                let a: CGFloat = s * (3.0 + cos2Theta + sin2Theta)
-                let b: CGFloat = -2.0 * cR * (cos(theta) + sin(theta))
-                let c: CGFloat = ((4.0 * cR) - s) * s + (powV * sin2Theta)
-                let d: CGFloat = s * cos(theta) * (cos(theta) - sin(theta))
-                let e: CGFloat = 2.0 * cR * sin(theta) * (cos(theta) + sin(theta))
+                let a: CGFloat = size * (3.0 + cos2Theta + sin2Theta)
+                let b: CGFloat = -2.0 * cornerRadius * (cos(theta) + sin(theta))
+                let c: CGFloat = sqrtV + (powV * sin2Theta)
+                let d: CGFloat = size * cos(theta) * (cos(theta) - sin(theta))
+                let e: CGFloat = 2.0 * cornerRadius * sin(theta) * (cos(theta) + sin(theta))
                 
-                let x: CGFloat = 0.25 * (a + (2.0 * (b + sqrt(c)) * cos(theta))) + (bLW / 2.0)
-                let y: CGFloat = 0.5 * (d + e - (sqrt(c) * sin(theta))) + (bLW / 2.0)
+                let x: CGFloat = 0.25 * (a + (2.0 * (b + c) * cos(theta))) + (boxLineWidth / 2.0)
+                let y: CGFloat = 0.5 * (d + e - (c * sin(theta))) + (boxLineWidth / 2.0)
                 
                 return CGPoint(x: x, y: y)
             }
