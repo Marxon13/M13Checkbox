@@ -74,36 +74,47 @@ internal class M13CheckboxPathPresets {
     
     /// The intersection point between the extended long checkmark arm, and the box.
     var checkmarkLongArmBoxIntersectionPoint: CGPoint {
+        let radius: CGFloat = (size - boxLineWidth) / 2.0
+        let theta:CGFloat = checkmarkProperties.longArmBoxIntersectionAngle
         
-        let radius = (size - boxLineWidth) / 2.0
-        let theta = checkmarkProperties.longArmBoxIntersectionAngle
-        
+        let cR: CGFloat = cornerRadius
+        let bLW: CGFloat = boxLineWidth
+        let s: CGFloat = size
+
         if boxType == .circle {
             // Basic trig to get the location of the point on the circle.
-            return CGPoint(x: (size / 2.0) + (radius * cos(theta)), y: (size / 2.0) - (radius * sin(theta)))
+            let x: CGFloat = (s / 2.0) + (radius * cos(theta))
+            let y: CGFloat = (s / 2.0) - (radius * sin(theta))
+            return CGPoint(x: x, y: y)
         } else {
             // We need to differentiate between the box edges and the rounded corner.
-            let lineOffset = boxLineWidth / 2.0
-            let circleOrigin = CGPoint(x: size - lineOffset - cornerRadius, y: 0.0 + lineOffset + cornerRadius)
-            let edgeX = (size / 2.0) + (0.5 * (size - boxLineWidth) * (1.0 / tan(theta)))
-            let edgeY = (size / 2.0) - (0.5 * (size - boxLineWidth) * tan(theta));
-            
-            if edgeX <= circleOrigin.x {
+            let lineOffset: CGFloat = bLW / 2.0
+            let circleX: CGFloat = s - lineOffset - cR
+            let circleY: CGFloat = 0.0 + lineOffset + cR
+            let edgeX: CGFloat = (s / 2.0) + (0.5 * (s - bLW) * (1.0 / tan(theta)))
+            let edgeY: CGFloat = (s / 2.0) - (0.5 * (s - bLW) * tan(theta));
+
+            if edgeX <= circleX {
                 // On the top edge.
                 return CGPoint(x: edgeX, y: lineOffset)
-            } else if edgeY >= circleOrigin.y {
+            } else if edgeY >= circleY {
                 // On the right edge.
-                return CGPoint(x: size - lineOffset, y: edgeY)
+                let x: CGFloat = s - lineOffset
+                return CGPoint(x: x, y: edgeY)
             } else {
                 // On the corner
-                let a = size * (3.0 + cos(2.0 * theta) + sin(2.0 * theta))
-                let b = -2.0 * cornerRadius * (cos(theta) + sin(theta))
-                let c = (((4.0 * cornerRadius) - size) * size) + (pow((-2.0 * cornerRadius) + size, 2.0) * sin(2.0 * theta))
-                let d = size * cos(theta) * (cos(theta) - sin(theta))
-                let e = 2.0 * cornerRadius * sin(theta) * (cos(theta) + sin(theta))
+                let cos2Theta: CGFloat = cos(2.0 * theta)
+                let sin2Theta: CGFloat = sin(2.0 * theta)
+                let powV: CGFloat = pow((2.0 * cR) + s, 2.0)
                 
-                let x = 0.25 * (a + (2.0 * (b + sqrt(c)) * cos(theta))) + (boxLineWidth / 2.0)
-                let y = 0.50 * (d + e - (sqrt(c) * sin(theta))) + (boxLineWidth / 2.0)
+                let a: CGFloat = s * (3.0 + cos2Theta + sin2Theta)
+                let b: CGFloat = -2.0 * cR * (cos(theta) + sin(theta))
+                let c: CGFloat = ((4.0 * cR) - s) * s + (powV * sin2Theta)
+                let d: CGFloat = s * cos(theta) * (cos(theta) - sin(theta))
+                let e: CGFloat = 2.0 * cR * sin(theta) * (cos(theta) + sin(theta))
+                
+                let x: CGFloat = 0.25 * (a + (2.0 * (b + sqrt(c)) * cos(theta))) + (bLW / 2.0)
+                let y: CGFloat = 0.5 * (d + e - (sqrt(c) * sin(theta))) + (bLW / 2.0)
                 
                 return CGPoint(x: x, y: y)
             }
@@ -111,52 +122,71 @@ internal class M13CheckboxPathPresets {
     }
     
     var checkmarkLongArmEndPoint: CGPoint {
+        let s: CGFloat = size
+        let bLW: CGFloat = boxLineWidth
+        
         // Known variables
-        let boxEndPoint = checkmarkLongArmBoxIntersectionPoint
-        let x2 = boxEndPoint.x
-        let y2 = boxEndPoint.y
-        let midPoint = checkmarkMiddlePoint
-        let x1 = midPoint.x
-        let y1 = midPoint.y
-        let r = boxType == .circle ? size * checkmarkProperties.longArmRadius.circle : size * checkmarkProperties.longArmRadius.box
+        let boxEndPoint: CGPoint = checkmarkLongArmBoxIntersectionPoint
+        let x2: CGFloat = boxEndPoint.x
+        let y2: CGFloat = boxEndPoint.y
+        let midPoint: CGPoint = checkmarkMiddlePoint
+        let x1: CGFloat = midPoint.x
+        let y1: CGFloat = midPoint.y
+        let r: CGFloat = boxType == .circle ? s * checkmarkProperties.longArmRadius.circle : s * checkmarkProperties.longArmRadius.box
         
-        let a1 = (size * pow(x1, 2.0)) - (2.0 * size * x1 * x2) + (size * pow(x2, 2.0)) + (size * x1 * y1) - (size * x2 * y1)
-        let a2 = (2.0 * x2 * pow(y1, 2.0)) - (size * x1 * y2) + (size * x2 * y2) - (2.0 * x1 * y1 * y2) - (2.0 * x2 * y1 * y2) + (2.0 * x1 * pow(y2, 2.0))
-        let b = -16.0 * (pow(x1, 2.0) - (2.0 * x1 * x2) + pow(x2, 2.0) + pow(y1, 2.0) - (2.0 * y1 * y2) + pow(y2, 2.0))
-        let c1 = pow(r, 2.0) * ((-pow(x1, 2.0)) + (2.0 * x1 * x2) - pow(x2, 2.0))
-        let c2 = pow(size, 2.0) * ((0.5 * pow(x1, 2.0)) - (x1 * x2) + (0.5 * pow(x2, 2.0)))
-        let d1 = (pow(x2, 2.0) * pow(y1, 2.0)) - (2.0 * x1 * x2 * y1 * y2) + (pow(x1, 2.0) * pow(y2, 2.0))
-        let d2 = size * ((x1 * x2 * y1) - (pow(x2, 2.0) * y1) - (pow(x1, 2.0) * y2) + (x1 * x2 * y2))
-        let cd = c1 + c2 + d1 + d2
-        let e1 = (x1 * ((4.0 * y1) - (4.0 * y2)) * y2) + (x2 * y1 * ((-4.0 * y1) + (4.0 * y2)))
-        let e2 = size * ((-2.0 * pow(x1, 2.0)) + (x2 * ((-2.0 * x2) + (2.0 * y1) - (2.0 * y2))) + (x1 * (4.0 * x2 - (2.0 * y1) + (2.0 * y2))))
-        let f = pow(x1, 2.0) - (2.0 * x1 * x2) + pow(x2, 2.0) + pow(y1, 2.0) - (2.0 * y1 * y2) + pow(y2, 2)
-        let g1 = (0.5 * size * x1 * y1) - (0.5 * size * x2 * y1) - (x1 * x2 * y1) + (pow(x2, 2.0) * y1) + (0.5 * size * pow(y1, 2.0))
-        let g2 = (-0.5 * size * x1 * y2) + (pow(x1, 2.0) * y2) + (0.5 * size * x2 * y2) - (x1 * x2 * y2) - (size * y1 * y2) + (0.5 * size * pow(y2, 2.0))
-        let h1 = (-4.0 * pow(x2, 2.0) * y1) - (4.0 * pow(x1, 2.0) * y2) + (x1 * x2 * ((4.0 * y1) + (4.0 * y2)))
-        let h2 = size * ((-2.0 * x1 * y1) + (2.0 * x2 * y1) - (2.0 * pow(y1, 2.0)) + (2.0 * x1 * y2) - (2.0 * x2 * y2) + (4.0 * y1 * y2) - (2.0 * pow(y2, 2.0)))
-        let i = (pow(r, 2.0) * (-pow(y1, 2.0) + (2.0 * y1 * y2) - pow(y2, 2.0))) + (pow(size, 2.0) * ((0.5 * pow(y1, 2.0)) - (y1 * y2) + (0.5 * pow(y2, 2.0))))
-        let j = size * ((x1 * (y1 - y2) * y2) + (x2 * y1 * (-y1 + y2)))
+        let a1: CGFloat = (s * pow(x1, 2.0)) - (2.0 * s * x1 * x2) + (s * pow(x2, 2.0)) + (s * x1 * y1) - (s * x2 * y1)
+        let a2: CGFloat = (2.0 * x2 * pow(y1, 2.0)) - (s * x1 * y2) + (s * x2 * y2) - (2.0 * x1 * y1 * y2) - (2.0 * x2 * y1 * y2) + (2.0 * x1 * pow(y2, 2.0))
         
-        let subX1 = (b * cd) + pow(e1 + e2, 2.0)
-        let subY1 = pow(h1 + h2, 2.0) + (b * (d1 + i + j))
+        let b: CGFloat = -16.0 * (pow(x1, 2.0) - (2.0 * x1 * x2) + pow(x2, 2.0) + pow(y1, 2.0) - (2.0 * y1 * y2) + pow(y2, 2.0))
         
-        let x = (0.5 * (a1 + a2 + (0.5 * sqrt(subX1))) + (boxLineWidth / 2.0)) / f
-        let y = (g1 + g2 - (0.25 * sqrt(subY1)) + (boxLineWidth / 2.0)) / f
+        let c1: CGFloat = pow(r, 2.0) * ((-pow(x1, 2.0)) + (2.0 * x1 * x2) - pow(x2, 2.0))
+        let c2: CGFloat = pow(s, 2.0) * ((0.5 * pow(x1, 2.0)) - (x1 * x2) + (0.5 * pow(x2, 2.0)))
+        
+        let d1: CGFloat = (pow(x2, 2.0) * pow(y1, 2.0)) - (2.0 * x1 * x2 * y1 * y2) + (pow(x1, 2.0) * pow(y2, 2.0))
+        let d2: CGFloat = s * ((x1 * x2 * y1) - (pow(x2, 2.0) * y1) - (pow(x1, 2.0) * y2) + (x1 * x2 * y2))
+        
+        let cd: CGFloat = c1 + c2 + d1 + d2
+        
+        let e1: CGFloat = (x1 * ((4.0 * y1) - (4.0 * y2)) * y2) + (x2 * y1 * ((-4.0 * y1) + (4.0 * y2)))
+        let e2: CGFloat = s * ((-2.0 * pow(x1, 2.0)) + (x2 * ((-2.0 * x2) + (2.0 * y1) - (2.0 * y2))) + (x1 * (4.0 * x2 - (2.0 * y1) + (2.0 * y2))))
+        
+        let f: CGFloat = pow(x1, 2.0) - (2.0 * x1 * x2) + pow(x2, 2.0) + pow(y1, 2.0) - (2.0 * y1 * y2) + pow(y2, 2)
+        
+        let g1: CGFloat = (0.5 * s * x1 * y1) - (0.5 * s * x2 * y1) - (x1 * x2 * y1) + (pow(x2, 2.0) * y1) + (0.5 * s * pow(y1, 2.0))
+        let g2: CGFloat = (-0.5 * s * x1 * y2) + (pow(x1, 2.0) * y2) + (0.5 * s * x2 * y2) - (x1 * x2 * y2) - (s * y1 * y2) + (0.5 * s * pow(y2, 2.0))
+        
+        let h1: CGFloat = (-4.0 * pow(x2, 2.0) * y1) - (4.0 * pow(x1, 2.0) * y2) + (x1 * x2 * ((4.0 * y1) + (4.0 * y2)))
+        let h2: CGFloat = s * ((-2.0 * x1 * y1) + (2.0 * x2 * y1) - (2.0 * pow(y1, 2.0)) + (2.0 * x1 * y2) - (2.0 * x2 * y2) + (4.0 * y1 * y2) - (2.0 * pow(y2, 2.0)))
+        
+        let i: CGFloat = (pow(r, 2.0) * (-pow(y1, 2.0) + (2.0 * y1 * y2) - pow(y2, 2.0))) + (pow(s, 2.0) * ((0.5 * pow(y1, 2.0)) - (y1 * y2) + (0.5 * pow(y2, 2.0))))
+        let j: CGFloat = s * ((x1 * (y1 - y2) * y2) + (x2 * y1 * (-y1 + y2)))
+        
+        let powE1E2: CGFloat = pow(e1 + e2, 2.0)
+        let subX1: CGFloat = (b * cd) + powE1E2
+        
+        let powH1H2: CGFloat = pow(h1 + h2, 2.0)
+        let subY1: CGFloat = powH1H2 + (b * (d1 + i + j))
+        
+        let x: CGFloat = (0.5 * (a1 + a2 + (0.5 * sqrt(subX1))) + (bLW / 2.0)) / f
+        let y: CGFloat = (g1 + g2 - (0.25 * sqrt(subY1)) + (bLW / 2.0)) / f
   
         return CGPoint(x: x, y: y)
     }
     
     var checkmarkMiddlePoint: CGPoint {
-        let r = boxType == .circle ? checkmarkProperties.middlePointRadius.circle : checkmarkProperties.middlePointRadius.box
-        let o = boxType == .circle ? checkmarkProperties.middlePointOffset.circle : checkmarkProperties.middlePointOffset.box
-        return CGPoint(x: (size / 2.0) + (size * o), y: (size / 2.0 ) + (size * r))
+        let r: CGFloat = boxType == .circle ? checkmarkProperties.middlePointRadius.circle : checkmarkProperties.middlePointRadius.box
+        let o: CGFloat = boxType == .circle ? checkmarkProperties.middlePointOffset.circle : checkmarkProperties.middlePointOffset.box
+        let x: CGFloat = (size / 2.0) + (size * o)
+        let y: CGFloat = (size / 2.0 ) + (size * r)
+        return CGPoint(x: x, y: y)
     }
     
     var checkmarkShortArmEndPoint: CGPoint {
-        let r = boxType == .circle ? checkmarkProperties.shortArmRadius.circle : checkmarkProperties.shortArmRadius.box
-        let o = boxType == .circle ? checkmarkProperties.shortArmOffset.circle : checkmarkProperties.shortArmOffset.box
-        return CGPoint(x: (size / 2.0) - (size * r), y: (size / 2.0) + (size * o))
+        let r: CGFloat = boxType == .circle ? checkmarkProperties.shortArmRadius.circle : checkmarkProperties.shortArmRadius.box
+        let o: CGFloat = boxType == .circle ? checkmarkProperties.shortArmOffset.circle : checkmarkProperties.shortArmOffset.box
+        let x: CGFloat = (size / 2.0) - (size * r)
+        let y: CGFloat = (size / 2.0) + (size * o)
+        return CGPoint(x: x, y: y)
     }
     
     //----------------------------
@@ -188,15 +218,29 @@ internal class M13CheckboxPathPresets {
     
     func pathForRoundedRect() -> UIBezierPath {
         let path = UIBezierPath()
-        let lineOffset = boxLineWidth / 2.0
-        let tr = CGPoint(x: size - lineOffset - cornerRadius, y: 0.0 + lineOffset + cornerRadius)
-        let br = CGPoint(x: size - lineOffset - cornerRadius, y: size - lineOffset - cornerRadius)
-        let bl = CGPoint(x: 0.0 + lineOffset + cornerRadius, y: size - lineOffset - cornerRadius)
-        let tl = CGPoint(x: 0.0 + lineOffset + cornerRadius, y: 0.0 + lineOffset + cornerRadius)
+        let lineOffset: CGFloat = boxLineWidth / 2.0
+        
+        let trX: CGFloat = size - lineOffset - cornerRadius
+        let trY: CGFloat = 0.0 + lineOffset + cornerRadius
+        let tr = CGPoint(x: trX, y: trY)
+        
+        let brX: CGFloat = size - lineOffset - cornerRadius
+        let brY: CGFloat = size - lineOffset - cornerRadius
+        let br = CGPoint(x: brX, y: brY)
+        
+        let blX: CGFloat = 0.0 + lineOffset + cornerRadius
+        let blY: CGFloat = size - lineOffset - cornerRadius
+        let bl = CGPoint(x: blX, y: blY)
+        
+        let tlX: CGFloat = 0.0 + lineOffset + cornerRadius
+        let tlY: CGFloat = 0.0 + lineOffset + cornerRadius
+        let tl = CGPoint(x: tlX, y: tlY)
         
         // Start in the top right corner.
         let offset: CGFloat = ((cornerRadius * sqrt(2)) / 2.0)
-        path.move(to: CGPoint(x: tr.x + offset, y: tr.y - offset))
+        let trXOffset: CGFloat = tr.x + offset
+        let trYOffset: CGFloat = tr.y - offset
+        path.move(to: CGPoint(x: trXOffset, y: trYOffset))
         // Bottom of top right arc.12124
         if cornerRadius != 0 {
             path.addArc(withCenter: tr,
@@ -206,7 +250,8 @@ internal class M13CheckboxPathPresets {
                                   clockwise: true)
         }
         // Right side.
-        path.addLine(to: CGPoint(x: br.x + cornerRadius, y: br.y))
+        let brXCr: CGFloat = br.x + cornerRadius
+        path.addLine(to: CGPoint(x: brXCr, y: br.y))
         
         // Bottom right arc.
         if cornerRadius != 0 {
@@ -217,7 +262,8 @@ internal class M13CheckboxPathPresets {
                                   clockwise: true)
         }
         // Bottom side.
-        path.addLine(to: CGPoint(x: bl.x , y: bl.y + cornerRadius))
+        let blYCr: CGFloat = bl.y + cornerRadius
+        path.addLine(to: CGPoint(x: bl.x , y: blYCr))
         // Bottom left arc.
         if cornerRadius != 0 {
             path.addArc(withCenter: bl,
@@ -227,7 +273,8 @@ internal class M13CheckboxPathPresets {
                                   clockwise: true)
         }
         // Left side.
-        path.addLine(to: CGPoint(x: tl.x - cornerRadius, y: tl.y))
+        let tlXCr: CGFloat = tl.x - cornerRadius
+        path.addLine(to: CGPoint(x: tlXCr, y: tl.y))
         // Top left arc.
         if cornerRadius != 0 {
             path.addArc(withCenter: tl,
@@ -237,7 +284,8 @@ internal class M13CheckboxPathPresets {
                                   clockwise: true)
         }
         // Top side.
-        path.addLine(to: CGPoint(x: tr.x, y: tr.y - cornerRadius))
+        let trYCr: CGFloat = tr.y - cornerRadius
+        path.addLine(to: CGPoint(x: tr.x, y: trYCr))
         // Top of top right arc
         if cornerRadius != 0 {
             path.addArc(withCenter: tr,
