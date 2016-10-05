@@ -274,12 +274,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EA67202A1C7D0296008054BA /* Build configuration list for PBXNativeTarget "M13Checkbox Demo" */;
 			buildPhases = (
-				1D6F94BDC6F4F3B0BB9B8F02 /* 📦 Check Pods Manifest.lock */,
+				1D6F94BDC6F4F3B0BB9B8F02 /* [CP] Check Pods Manifest.lock */,
 				EA6720121C7D0296008054BA /* Sources */,
 				EA6720131C7D0296008054BA /* Frameworks */,
 				EA6720141C7D0296008054BA /* Resources */,
-				3AE30ADBBC1FF6B62D2D7432 /* 📦 Embed Pods Frameworks */,
-				7D35D6D2E4983E7515358555 /* 📦 Copy Pods Resources */,
+				3AE30ADBBC1FF6B62D2D7432 /* [CP] Embed Pods Frameworks */,
+				7D35D6D2E4983E7515358555 /* [CP] Copy Pods Resources */,
 				EA9F61E91D9BFF3D0015D68E /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -370,14 +370,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1D6F94BDC6F4F3B0BB9B8F02 /* 📦 Check Pods Manifest.lock */ = {
+		1D6F94BDC6F4F3B0BB9B8F02 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,14 +385,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		3AE30ADBBC1FF6B62D2D7432 /* 📦 Embed Pods Frameworks */ = {
+		3AE30ADBBC1FF6B62D2D7432 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -400,14 +400,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-M13Checkbox Demo/Pods-M13Checkbox Demo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7D35D6D2E4983E7515358555 /* 📦 Copy Pods Resources */ = {
+		7D35D6D2E4983E7515358555 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -581,7 +581,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6F39FC0C5AAE259FA99C8348 /* Pods-M13Checkbox Demo.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "M13Checkbox Demo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -596,7 +595,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9CD5E1DB8F346AB79E3C6430 /* Pods-M13Checkbox Demo.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "M13Checkbox Demo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
