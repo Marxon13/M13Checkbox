@@ -106,17 +106,17 @@ internal class M13CheckboxPathPresets {
                 // On the corner
                 let cos2Theta: CGFloat = cos(2.0 * theta)
                 let sin2Theta: CGFloat = sin(2.0 * theta)
-                let sqrtV: CGFloat = sqrt(((4.0 * cornerRadius) - size) * size)
-                let powV: CGFloat = pow((2.0 * cornerRadius) + size, 2.0)
+                let powC: CGFloat = pow((-2.0 * cornerRadius) + size, 2.0)
                 
                 let a: CGFloat = size * (3.0 + cos2Theta + sin2Theta)
                 let b: CGFloat = -2.0 * cornerRadius * (cos(theta) + sin(theta))
-                let c: CGFloat = sqrtV + (powV * sin2Theta)
+                let c: CGFloat = (((4.0 * cornerRadius) - size) * size) + (powC * sin2Theta)
                 let d: CGFloat = size * cos(theta) * (cos(theta) - sin(theta))
                 let e: CGFloat = 2.0 * cornerRadius * sin(theta) * (cos(theta) + sin(theta))
                 
-                let x: CGFloat = 0.25 * (a + (2.0 * (b + c) * cos(theta))) + (boxLineWidth / 2.0)
-                let y: CGFloat = 0.5 * (d + e - (c * sin(theta))) + (boxLineWidth / 2.0)
+                let x: CGFloat = 0.25 * (a + (2.0 * (b + sqrt(c)) * cos(theta))) - boxLineWidth
+                let y: CGFloat = 0.50 * (d + e - (sqrt(c) * sin(theta))) + boxLineWidth
+
                 
                 return CGPoint(x: x, y: y)
             }
