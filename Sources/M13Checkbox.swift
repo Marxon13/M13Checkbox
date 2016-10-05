@@ -181,24 +181,24 @@ public class M13Checkbox: UIControl {
         }
         
         /// The manager for the specific animation type.
-        fileprivate var manager: M13CheckboxManager {
+        fileprivate var manager: M13CheckboxController {
             switch self {
             case .stroke:
-                return M13CheckboxStrokeManager()
+                return M13CheckboxStrokeController()
             case .fill:
-                return M13CheckboxFillManager()
+                return M13CheckboxFillController()
             case let .bounce(style):
-                return M13CheckboxBounceManager(style: style)
+                return M13CheckboxBounceController(style: style)
             case let .expand(style):
-                return M13CheckboxExpandManager(style: style)
+                return M13CheckboxExpandController(style: style)
             case let .flat(style):
-                return M13CheckboxFlatManager(style: style)
+                return M13CheckboxFlatController(style: style)
             case .spiral:
-                return M13CheckboxSpiralManager()
+                return M13CheckboxSpiralController()
             case let .fade(style):
-                return M13CheckboxFadeManager(style: style)
+                return M13CheckboxFadeController(style: style)
             case let .dot(style):
-                return M13CheckboxDotManager(style: style)
+                return M13CheckboxDotController(style: style)
             }
         }
         
@@ -224,7 +224,7 @@ public class M13Checkbox: UIControl {
     
     /// The manager that manages display and animations of the checkbox.
     /// The default animation is a stroke.
-    fileprivate var manager: M13CheckboxManager = M13CheckboxStrokeManager()
+    fileprivate var manager: M13CheckboxController = M13CheckboxStrokeController()
     
     //----------------------------
     // MARK: - Initalization

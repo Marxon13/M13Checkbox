@@ -1,8 +1,8 @@
 //
-//  M13CheckboxExpandManager.swift
+//  M13CheckboxStrokeController.swift
 //  M13Checkbox
 //
-//  Created by McQuilkin, Brandon on 4/1/16.
+//  Created by McQuilkin, Brandon on 3/27/16.
 //  Copyright © 2016 Brandon McQuilkin. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -13,7 +13,7 @@
 
 import UIKit
 
-internal class M13CheckboxExpandManager: M13CheckboxManager {
+internal class M13CheckboxStrokeController: M13CheckboxController {
     
     //----------------------------
     // MARK: - Properties
@@ -22,25 +22,13 @@ internal class M13CheckboxExpandManager: M13CheckboxManager {
     override var tintColor: UIColor {
         didSet {
             selectedBoxLayer.strokeColor = tintColor.cgColor
-            if style == .stroke {
-                markLayer.strokeColor = tintColor.cgColor
-            } else {
-                selectedBoxLayer.fillColor = tintColor.cgColor
-            }
+            markLayer.strokeColor = tintColor.cgColor
         }
     }
     
     override var secondaryTintColor: UIColor? {
         didSet {
             unselectedBoxLayer.strokeColor = secondaryTintColor?.cgColor
-        }
-    }
-    
-    override var secondaryCheckmarkTintColor: UIColor? {
-        didSet {
-            if style == .fill {
-                markLayer.strokeColor = secondaryCheckmarkTintColor?.cgColor
-            }
         }
     }
     
@@ -51,20 +39,7 @@ internal class M13CheckboxExpandManager: M13CheckboxManager {
         }
     }
     
-    fileprivate var style: M13Checkbox.AnimationStyle = .stroke
-    
-    init(style: M13Checkbox.AnimationStyle) {
-        self.style = style
-        super.init()
-        sharedSetup()
-    }
-    
     override init() {
-        super.init()
-        sharedSetup()
-    }
-    
-    fileprivate func sharedSetup() {
         // Disable som implicit animations.
         let newActions = [
             "opacity": NSNull(),
@@ -81,6 +56,8 @@ internal class M13CheckboxExpandManager: M13CheckboxManager {
         unselectedBoxLayer.shouldRasterize = true
         unselectedBoxLayer.actions = newActions
         
+        unselectedBoxLayer.opacity = 1.0
+        unselectedBoxLayer.strokeEnd = 1.0
         unselectedBoxLayer.transform = CATransform3DIdentity
         unselectedBoxLayer.fillColor = nil
         
@@ -90,8 +67,8 @@ internal class M13CheckboxExpandManager: M13CheckboxManager {
         selectedBoxLayer.shouldRasterize = true
         selectedBoxLayer.actions = newActions
         
-        selectedBoxLayer.fillColor = nil
         selectedBoxLayer.transform = CATransform3DIdentity
+        selectedBoxLayer.fillColor = nil
         
         // Setup the checkmark layer.
         markLayer.lineCap = kCALineCapRound
@@ -124,17 +101,18 @@ internal class M13CheckboxExpandManager: M13CheckboxManager {
         super.animate(fromState, toState: toState)
         
         if toState == .unchecked {
-            
-            let amplitude: CGFloat = paths.boxType == .square ? 0.20 : 0.35
-            let wiggleAnimation = animations.fillAnimation(1, amplitude: amplitude, reverse: true)
+            let strokeAnimation = animations.strokeAnimation(true)
+            let quickOpacityAnimation = animations.quickOpacityAnimation(true)
             
             CATransaction.begin()
-            CATransaction.setCompletionBlock({ () -> Void in
+            CATransaction.setCompletionBlock({ [unowned self] () -> Void in
                 self.resetLayersForState(self.state)
-            })
+                })
             
-            selectedBoxLayer.add(wiggleAnimation, forKey: "transform")
-            markLayer.add(wiggleAnimation, forKey: "transform")
+            markLayer.add(strokeAnimation, forKey: "strokeEnd")
+            markLayer.add(quickOpacityAnimation, forKey: "opacity")
+            selectedBoxLayer.add(strokeAnimation, forKey: "strokeEnd")
+            selectedBoxLayer.add(quickOpacityAnimation, forKey: "opacity")
             
             CATransaction.commit()
             
@@ -142,16 +120,18 @@ internal class M13CheckboxExpandManager: M13CheckboxManager {
             if fromState == .unchecked {
                 markLayer.path = paths.path(toState)?.cgPath
                 
-                let amplitude: CGFloat = paths.boxType == .square ? 0.20 : 0.35
-                let wiggleAnimation = animations.fillAnimation(1, amplitude: amplitude, reverse: false)
+                let strokeAnimation = animations.strokeAnimation(false)
+                let quickOpacityAnimation = animations.quickOpacityAnimation(false)
                 
                 CATransaction.begin()
-                CATransaction.setCompletionBlock({ () -> Void in
+                CATransaction.setCompletionBlock({ [unowned self] () -> Void in
                     self.resetLayersForState(self.state)
-                })
+                    })
                 
-                selectedBoxLayer.add(wiggleAnimation, forKey: "transform")
-                markLayer.add(wiggleAnimation, forKey: "transform")
+                markLayer.add(strokeAnimation, forKey: "strokeEnd")
+                markLayer.add(quickOpacityAnimation, forKey: "opacity")
+                selectedBoxLayer.add(strokeAnimation, forKey: "strokeEnd")
+                selectedBoxLayer.add(quickOpacityAnimation, forKey: "opacity")
                 
                 CATransaction.commit()
             } else {
@@ -190,12 +170,11 @@ internal class M13CheckboxExpandManager: M13CheckboxManager {
                     CATransaction.setCompletionBlock({ [unowned self] () -> Void in
                         self.resetLayersForState(self.state)
                         })
-                    
+
                     markLayer.add(compressionAnimation!, forKey: "path")
                     
                     CATransaction.commit()
                 }
-
             }
         }
     }
@@ -233,30 +212,28 @@ internal class M13CheckboxExpandManager: M13CheckboxManager {
         selectedBoxLayer.strokeColor = tintColor.cgColor
         selectedBoxLayer.lineWidth = paths.boxLineWidth
         
-        if style == .stroke {
-            selectedBoxLayer.fillColor = nil
-            markLayer.strokeColor = tintColor.cgColor
-            if paths.markType == .checkmark {
-                markLayer.fillColor = nil
-            } else {
-                markLayer.fillColor = tintColor.cgColor
-            }
-        } else {
-            selectedBoxLayer.fillColor = tintColor.cgColor
-            markLayer.strokeColor = secondaryCheckmarkTintColor?.cgColor
-        }
-        
+        markLayer.strokeColor = tintColor.cgColor
         markLayer.lineWidth = paths.checkmarkLineWidth
         
         if state == .unchecked {
-            markLayer.transform = CATransform3DMakeScale(0.0, 0.0, 0.0)
-            selectedBoxLayer.transform = CATransform3DMakeScale(0.0, 0.0, 0.0)
+            selectedBoxLayer.opacity = 0.0
+            selectedBoxLayer.strokeEnd = 0.0
+            
+            markLayer.opacity = 0.0
+            markLayer.strokeEnd = 0.0
+            
         } else if state == .checked {
-            markLayer.transform = CATransform3DIdentity
-            selectedBoxLayer.transform = CATransform3DIdentity
+            selectedBoxLayer.opacity = 1.0
+            selectedBoxLayer.strokeEnd = 1.0
+            
+            markLayer.opacity = 1.0
+            markLayer.strokeEnd = 1.0
         } else {
-            markLayer.transform = CATransform3DIdentity
-            selectedBoxLayer.transform = CATransform3DIdentity
+            selectedBoxLayer.opacity = 1.0
+            selectedBoxLayer.strokeEnd = 1.0
+            
+            markLayer.opacity = 1.0
+            markLayer.strokeEnd = 1.0
         }
         
         // Paths
@@ -266,6 +243,3 @@ internal class M13CheckboxExpandManager: M13CheckboxManager {
     }
     
 }
-
-
-

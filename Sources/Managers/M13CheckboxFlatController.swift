@@ -1,5 +1,5 @@
 //
-//  M13CheckboxFadeManager.swift
+//  M13CheckboxFlatController.swift
 //  M13Checkbox
 //
 //  Created by McQuilkin, Brandon on 4/1/16.
@@ -13,7 +13,7 @@
 
 import UIKit
 
-internal class M13CheckboxFadeManager: M13CheckboxManager {
+internal class M13CheckboxFlatController: M13CheckboxController {
     
     //----------------------------
     // MARK: - Properties
@@ -81,8 +81,6 @@ internal class M13CheckboxFadeManager: M13CheckboxManager {
         unselectedBoxLayer.shouldRasterize = true
         unselectedBoxLayer.actions = newActions
         
-        unselectedBoxLayer.opacity = 1.0
-        unselectedBoxLayer.strokeEnd = 1.0
         unselectedBoxLayer.transform = CATransform3DIdentity
         unselectedBoxLayer.fillColor = nil
         
@@ -126,32 +124,51 @@ internal class M13CheckboxFadeManager: M13CheckboxManager {
         super.animate(fromState, toState: toState)
         
         if toState == .unchecked {
-
+            let morphAnimation = animations.morphAnimation(paths.pathForMark(), toPath: paths.pathForMixedMark())
+            morphAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
             let opacityAnimation = animations.opacityAnimation(true)
+            
+            let quickOpacityAnimation = animations.quickOpacityAnimation(true)
+            quickOpacityAnimation.duration = quickOpacityAnimation.duration * 4.0
+            morphAnimation.duration = morphAnimation.duration - quickOpacityAnimation.duration
+            quickOpacityAnimation.beginTime = CACurrentMediaTime() + morphAnimation.duration
             
             CATransaction.begin()
             CATransaction.setCompletionBlock({ () -> Void in
-                self.resetLayersForState(self.state)
+                self.resetLayersForState(toState)
             })
             
             selectedBoxLayer.add(opacityAnimation, forKey: "opacity")
-            markLayer.add(opacityAnimation, forKey: "opacity")
+            if fromState != .mixed {
+                markLayer.add(morphAnimation, forKey: "path")
+            }
+            markLayer.add(quickOpacityAnimation, forKey: "opacity")
             
             CATransaction.commit()
             
         } else {
             if fromState == .unchecked {
-                markLayer.path = paths.path(toState)?.cgPath
+                markLayer.path = paths.pathForMixedMark().cgPath
                 
+                let morphAnimation = animations.morphAnimation(paths.pathForMixedMark(), toPath: paths.pathForMark())
+                morphAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
                 let opacityAnimation = animations.opacityAnimation(false)
+                
+                let quickOpacityAnimation = animations.quickOpacityAnimation(false)
+                quickOpacityAnimation.duration = quickOpacityAnimation.duration * 4.0
+                morphAnimation.beginTime = CACurrentMediaTime() + quickOpacityAnimation.duration
+                morphAnimation.duration = morphAnimation.duration - quickOpacityAnimation.duration
                 
                 CATransaction.begin()
                 CATransaction.setCompletionBlock({ () -> Void in
-                    self.resetLayersForState(self.state)
+                    self.resetLayersForState(toState)
                 })
                 
                 selectedBoxLayer.add(opacityAnimation, forKey: "opacity")
-                markLayer.add(opacityAnimation, forKey: "opacity")
+                if toState != .mixed {
+                    markLayer.add(morphAnimation, forKey: "path")
+                }
+                markLayer.add(quickOpacityAnimation, forKey: "opacity")
                 
                 CATransaction.commit()
             } else {
@@ -212,7 +229,11 @@ internal class M13CheckboxFadeManager: M13CheckboxManager {
         // Paths
         unselectedBoxLayer.path = paths.pathForBox().cgPath
         selectedBoxLayer.path = paths.pathForBox().cgPath
-        markLayer.path = paths.path(state)?.cgPath
+        if state == .unchecked {
+            markLayer.path = paths.pathForMixedMark().cgPath
+        } else {
+            markLayer.path = paths.pathForMixedMark().cgPath
+        }
     }
     
     //----------------------------
@@ -251,12 +272,15 @@ internal class M13CheckboxFadeManager: M13CheckboxManager {
         if state == .unchecked {
             selectedBoxLayer.opacity = 0.0
             markLayer.opacity = 0.0
+            markLayer.path = paths.pathForMixedMark().cgPath
         } else if state == .checked {
-            markLayer.opacity = 1.0
             selectedBoxLayer.opacity = 1.0
+            markLayer.opacity = 1.0
+            markLayer.path = paths.pathForCheckmark().cgPath
         } else {
-            markLayer.opacity = 1.0
             selectedBoxLayer.opacity = 1.0
+            markLayer.opacity = 1.0
+            markLayer.path = paths.pathForMixedMark().cgPath
         }
         
         // Paths
@@ -266,3 +290,4 @@ internal class M13CheckboxFadeManager: M13CheckboxManager {
     }
     
 }
+

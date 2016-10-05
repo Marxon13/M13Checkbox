@@ -1,5 +1,5 @@
 //
-//  M13CheckboxManager.swift
+//  M13CheckboxController.swift
 //  M13Checkbox
 //
 //  Created by McQuilkin, Brandon on 3/18/16.
@@ -13,7 +13,7 @@
 
 import UIKit
 
-internal class M13CheckboxManager {
+internal class M13CheckboxController {
     
     //----------------------------
     // MARK: - Properties
