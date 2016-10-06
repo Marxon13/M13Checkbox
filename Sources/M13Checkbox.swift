@@ -224,7 +224,7 @@ public class M13Checkbox: UIControl {
     
     /// The manager that manages display and animations of the checkbox.
     /// The default animation is a stroke.
-    fileprivate var manager: M13CheckboxController = M13CheckboxStrokeController()
+    fileprivate var controller: M13CheckboxController = M13CheckboxStrokeController()
     
     //----------------------------
     // MARK: - Initalization
@@ -243,11 +243,11 @@ public class M13Checkbox: UIControl {
     /// The setup shared between initalizers.
     fileprivate func sharedSetup() {
         // Set up the inital state.
-        for aLayer in manager.layersToDisplay {
+        for aLayer in controller.layersToDisplay {
             layer.addSublayer(aLayer)
         }
-        manager.tintColor = tintColor
-        manager.resetLayersForState(.unchecked)
+        controller.tintColor = tintColor
+        controller.resetLayersForState(.unchecked)
         
         let longPressGesture = M13CheckboxGestureRecognizer(target: self, action: #selector(M13Checkbox.handleLongPress(_:)))
         addGestureRecognizer(longPressGesture)
@@ -289,7 +289,7 @@ public class M13Checkbox: UIControl {
     /// The current state of the checkbox.
     public var checkState: CheckState {
         get {
-            return manager.state
+            return controller.state
         }
         set {
             setCheckState(newValue, animated: false)
@@ -307,9 +307,9 @@ public class M13Checkbox: UIControl {
         }
         
         if animated {
-            manager.animate(checkState, toState: newState)
+            controller.animate(checkState, toState: newState)
         } else {
-            manager.resetLayersForState(newState)
+            controller.resetLayersForState(newState)
         }
     }
     
@@ -339,10 +339,10 @@ public class M13Checkbox: UIControl {
     /// The duration of the animation that occurs when the checkbox switches states. The default is 0.3 seconds.
     @IBInspectable public var animationDuration: TimeInterval {
         get {
-            return manager.animationGenerator.animationDuration
+            return controller.animationGenerator.animationDuration
         }
         set {
-            manager.animationGenerator.animationDuration = newValue
+            controller.animationGenerator.animationDuration = newValue
         }
     }
     
@@ -365,14 +365,10 @@ public class M13Checkbox: UIControl {
             newManager.secondaryTintColor = secondaryTintColor
             newManager.secondaryCheckmarkTintColor = secondaryCheckmarkTintColor
             newManager.hideBox = hideBox
-            
-            newManager.paths.boxLineWidth = manager.paths.boxLineWidth
-            newManager.paths.boxType = manager.paths.boxType
-            newManager.paths.checkmarkLineWidth = manager.paths.checkmarkLineWidth
-            newManager.paths.cornerRadius = manager.paths.cornerRadius
-            newManager.paths.markType = manager.paths.markType
-            
-            newManager.animationGenerator.animationDuration = manager.animationGenerator.animationDuration
+            newManager.pathGenerator = controller.pathGenerator
+            newManager.animationGenerator.animationDuration = controller.animationGenerator.animationDuration
+            newManager.state = controller.state
+            newManager.setMarkType(type: controller.markType, animated: false)
             
             // Set up the inital state.
             for aLayer in newManager.layersToDisplay {
@@ -381,13 +377,8 @@ public class M13Checkbox: UIControl {
             
             // Layout and reset
             newManager.resetLayersForState(checkState)
-            manager = newManager
-            
-            // TODO: - Add support for missing animations.
-            if markType == .radio && stateChangeAnimation == .spiral {
-                stateChangeAnimation = .stroke
-                print("WARNING: The spiral animation is currently unsupported with a radio mark.")
-            }
+            controller = newManager
+
         }
     }
     
@@ -414,71 +405,68 @@ public class M13Checkbox: UIControl {
     /// The color of the checkbox's tint color when not in the unselected state. The tint color is is the main color used when not in the unselected state.
     @IBInspectable public var secondaryTintColor: UIColor? {
         get {
-            return manager.secondaryTintColor
+            return controller.secondaryTintColor
         }
         set {
-            manager.secondaryTintColor = newValue
+            controller.secondaryTintColor = newValue
         }
     }
     
     /// The color of the checkmark when it is displayed against a filled background.
     @IBInspectable public var secondaryCheckmarkTintColor: UIColor? {
         get {
-            return manager.secondaryCheckmarkTintColor
+            return controller.secondaryCheckmarkTintColor
         }
         set {
-            manager.secondaryCheckmarkTintColor = newValue
+            controller.secondaryCheckmarkTintColor = newValue
         }
     }
     
     /// The stroke width of the checkmark.
     @IBInspectable public var checkmarkLineWidth: CGFloat {
         get {
-            return manager.paths.checkmarkLineWidth
+            return controller.pathGenerator.checkmarkLineWidth
         }
         set {
-            manager.paths.checkmarkLineWidth = newValue
-            manager.resetLayersForState(checkState)
+            controller.pathGenerator.checkmarkLineWidth = newValue
+            controller.resetLayersForState(checkState)
         }
     }
     
-    // The type of mark to display.
+    /// The type of mark to display.
     @IBInspectable public var markType: MarkType {
         get {
-            return manager.paths.markType
+            return controller.markType
         }
         set {
-            manager.paths.markType = newValue
-            
-            // TODO: - Add support for missing animations.
-            if markType == .radio && stateChangeAnimation == .spiral {
-                manager.paths.markType = .checkmark
-                print("WARNING: The spiral animation is currently unsupported with a radio mark.")
-            }
-            
-            manager.resetLayersForState(checkState)
+            controller.markType = newValue
             setNeedsLayout()
         }
+    }
+    
+    /// Set the mark type with the option of animating the change.
+    public func setMarkType(markType: MarkType, animated: Bool) {
+        controller.setMarkType(type: markType, animated: animated)
     }
     
     /// The stroke width of the box.
     @IBInspectable public var boxLineWidth: CGFloat {
         get {
-            return manager.paths.boxLineWidth
+            return controller.pathGenerator.boxLineWidth
         }
         set {
-            manager.paths.boxLineWidth = newValue
-            manager.resetLayersForState(checkState)
+            controller.pathGenerator.boxLineWidth = newValue
+            controller.resetLayersForState(checkState)
         }
     }
     
     /// The corner radius of the box if the box type is square.
     @IBInspectable public var cornerRadius: CGFloat {
         get {
-            return manager.paths.cornerRadius
+            return controller.pathGenerator.cornerRadius
         }
         set {
-            manager.paths.cornerRadius = newValue
+            controller.pathGenerator.cornerRadius = newValue
             setNeedsLayout()
         }
     }
@@ -486,10 +474,10 @@ public class M13Checkbox: UIControl {
     /// The shape of the checkbox.
     public var boxType: BoxType {
         get {
-            return manager.paths.boxType
+            return controller.pathGenerator.boxType
         }
         set {
-            manager.paths.boxType = newValue
+            controller.pathGenerator.boxType = newValue
             setNeedsLayout()
         }
     }
@@ -497,16 +485,16 @@ public class M13Checkbox: UIControl {
     /// Wether or not to hide the checkbox.
     @IBInspectable public var hideBox: Bool {
         get {
-            return manager.hideBox
+            return controller.hideBox
         }
         set {
-            manager.hideBox = newValue
+            controller.hideBox = newValue
         }
     }
     
     public override func tintColorDidChange() {
         super.tintColorDidChange()
-        manager.tintColor = tintColor
+        controller.tintColor = tintColor
     }
     
     //----------------------------
@@ -516,8 +504,8 @@ public class M13Checkbox: UIControl {
     public override func layoutSubviews() {
         super.layoutSubviews()
         // Update size
-        manager.paths.size = min(frame.size.width, frame.size.height)
+        controller.pathGenerator.size = min(frame.size.width, frame.size.height)
         // Layout
-        manager.layoutLayers()
+        controller.layoutLayers()
     }
 }

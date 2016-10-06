@@ -438,9 +438,9 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
     
     func updateMarkType(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
-            checkbox?.markType = .checkmark
+            checkbox?.setMarkType(markType: .checkmark, animated: true)
         } else {
-            checkbox?.markType = .radio
+            checkbox?.setMarkType(markType: .radio, animated: true)
         }
     }
     
