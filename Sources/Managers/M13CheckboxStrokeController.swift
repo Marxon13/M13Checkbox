@@ -101,8 +101,8 @@ internal class M13CheckboxStrokeController: M13CheckboxController {
         super.animate(fromState, toState: toState)
         
         if toState == .unchecked {
-            let strokeAnimation = animations.strokeAnimation(true)
-            let quickOpacityAnimation = animations.quickOpacityAnimation(true)
+            let strokeAnimation = animationGenerator.strokeAnimation(true)
+            let quickOpacityAnimation = animationGenerator.quickOpacityAnimation(true)
             
             CATransaction.begin()
             CATransaction.setCompletionBlock({ [unowned self] () -> Void in
@@ -120,8 +120,8 @@ internal class M13CheckboxStrokeController: M13CheckboxController {
             if fromState == .unchecked {
                 markLayer.path = paths.path(toState)?.cgPath
                 
-                let strokeAnimation = animations.strokeAnimation(false)
-                let quickOpacityAnimation = animations.quickOpacityAnimation(false)
+                let strokeAnimation = animationGenerator.strokeAnimation(false)
+                let quickOpacityAnimation = animationGenerator.quickOpacityAnimation(false)
                 
                 CATransaction.begin()
                 CATransaction.setCompletionBlock({ [unowned self] () -> Void in
@@ -139,7 +139,7 @@ internal class M13CheckboxStrokeController: M13CheckboxController {
                     let fromPath = paths.path(fromState)
                     let toPath = paths.path(toState)
                     
-                    let morphAnimation = animations.morphAnimation(fromPath!, toPath: toPath!)
+                    let morphAnimation = animationGenerator.morphAnimation(fromPath!, toPath: toPath!)
                     
                     CATransaction.begin()
                     CATransaction.setCompletionBlock({ [unowned self] () -> Void in
@@ -157,13 +157,13 @@ internal class M13CheckboxStrokeController: M13CheckboxController {
                         let scale: CGFloat = 0.5 / 0.665
                         toPath?.apply(CGAffineTransform(scaleX: scale, y: 0.002))
                         toPath?.apply(CGAffineTransform(translationX: ((paths.size * 0.665) - (paths.size * 0.5)) * scale, y: (paths.size / 2.0) - (paths.boxLineWidth * 0.5 * scale)))
-                        compressionAnimation = animations.morphAnimation(paths.path(fromState)!, toPath: toPath!)
+                        compressionAnimation = animationGenerator.morphAnimation(paths.path(fromState)!, toPath: toPath!)
                     } else {
                         let fromPath = paths.path(toState)
                         let scale: CGFloat = 0.5 / 0.665
                         fromPath?.apply(CGAffineTransform(scaleX: scale, y: 0.002))
                         fromPath?.apply(CGAffineTransform(translationX: ((paths.size * 0.665) - (paths.size * 0.5)) * scale, y: (paths.size / 2.0) - (paths.boxLineWidth * 0.5 * scale)))
-                        compressionAnimation = animations.morphAnimation(fromPath!, toPath: paths.path(toState)!)
+                        compressionAnimation = animationGenerator.morphAnimation(fromPath!, toPath: paths.path(toState)!)
                     }
                     
                     CATransaction.begin()

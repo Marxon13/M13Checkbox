@@ -108,24 +108,24 @@ internal class M13CheckboxSpiralController: M13CheckboxController {
             // Temporarily set the path of the checkmark to the long checkmark
             markLayer.path = (paths as! M13CheckboxSpiralPathPresets).pathForLongMark(fromState).reversing().cgPath
             
-            let checkMorphAnimation = animations.morphAnimation(paths.path(fromState)!.reversing(), toPath: (paths as! M13CheckboxSpiralPathPresets).pathForLongMark(fromState).reversing())
+            let checkMorphAnimation = animationGenerator.morphAnimation(paths.path(fromState)!.reversing(), toPath: (paths as! M13CheckboxSpiralPathPresets).pathForLongMark(fromState).reversing())
             checkMorphAnimation.fillMode = kCAFillModeBackwards
             checkMorphAnimation.duration = checkMorphAnimation.duration / 4.0
             checkMorphAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
             
-            let checkStrokeAnimation = animations.strokeAnimation(true)
+            let checkStrokeAnimation = animationGenerator.strokeAnimation(true)
             checkStrokeAnimation.beginTime = CACurrentMediaTime() + checkMorphAnimation.duration
             checkStrokeAnimation.duration = checkStrokeAnimation.duration / 4.0
             checkStrokeAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
             
-            let boxStrokeAnimation = animations.strokeAnimation(true)
+            let boxStrokeAnimation = animationGenerator.strokeAnimation(true)
             boxStrokeAnimation.beginTime = CACurrentMediaTime() + checkMorphAnimation.duration + checkStrokeAnimation.duration
             boxStrokeAnimation.duration = boxStrokeAnimation.duration / 2.0
             boxStrokeAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
             
-            let quickOpacityAnimation = animations.quickOpacityAnimation(true)
+            let quickOpacityAnimation = animationGenerator.quickOpacityAnimation(true)
             
-            let checkQuickOpacityAnimation = animations.quickOpacityAnimation(true)
+            let checkQuickOpacityAnimation = animationGenerator.quickOpacityAnimation(true)
             checkQuickOpacityAnimation.duration = 0.001
             checkQuickOpacityAnimation.beginTime = CACurrentMediaTime() + checkMorphAnimation.duration + checkStrokeAnimation.duration
             
@@ -147,23 +147,23 @@ internal class M13CheckboxSpiralController: M13CheckboxController {
                 // Temporarly set to the long mark.
                 markLayer.path = (paths as! M13CheckboxSpiralPathPresets).pathForLongMark(toState).reversing().cgPath
                 
-                let quickOpacityAnimation = animations.quickOpacityAnimation(false)
+                let quickOpacityAnimation = animationGenerator.quickOpacityAnimation(false)
                 
-                let boxStrokeAnimation = animations.strokeAnimation(false)
+                let boxStrokeAnimation = animationGenerator.strokeAnimation(false)
                 boxStrokeAnimation.duration = boxStrokeAnimation.duration / 2.0
                 boxStrokeAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
                 
-                let checkQuickOpacityAnimation = animations.quickOpacityAnimation(false)
+                let checkQuickOpacityAnimation = animationGenerator.quickOpacityAnimation(false)
                 checkQuickOpacityAnimation.duration = 0.001
                 checkQuickOpacityAnimation.beginTime = CACurrentMediaTime() + boxStrokeAnimation.duration
                 
-                let checkStrokeAnimation = animations.strokeAnimation(false)
+                let checkStrokeAnimation = animationGenerator.strokeAnimation(false)
                 checkStrokeAnimation.duration = checkStrokeAnimation.duration / 4.0
                 checkStrokeAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
                 checkStrokeAnimation.fillMode = kCAFillModeForwards
                 checkStrokeAnimation.beginTime = CACurrentMediaTime() + boxStrokeAnimation.duration
                 
-                let checkMorphAnimation = animations.morphAnimation((paths as! M13CheckboxSpiralPathPresets).pathForLongMark(toState).reversing(), toPath: paths.path(toState)!.reversing())
+                let checkMorphAnimation = animationGenerator.morphAnimation((paths as! M13CheckboxSpiralPathPresets).pathForLongMark(toState).reversing(), toPath: paths.path(toState)!.reversing())
                 checkMorphAnimation.duration = checkMorphAnimation.duration / 4.0
                 checkMorphAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
                 checkMorphAnimation.beginTime = CACurrentMediaTime() + boxStrokeAnimation.duration + checkStrokeAnimation.duration
@@ -185,7 +185,7 @@ internal class M13CheckboxSpiralController: M13CheckboxController {
                     let fromPath = paths.path(fromState)
                     let toPath = paths.path(toState)
                     
-                    let morphAnimation = animations.morphAnimation(fromPath!, toPath: toPath!)
+                    let morphAnimation = animationGenerator.morphAnimation(fromPath!, toPath: toPath!)
                     
                     CATransaction.begin()
                     CATransaction.setCompletionBlock({ [unowned self] () -> Void in
@@ -203,13 +203,13 @@ internal class M13CheckboxSpiralController: M13CheckboxController {
                         let scale: CGFloat = 0.5 / 0.665
                         toPath?.apply(CGAffineTransform(scaleX: scale, y: 0.002))
                         toPath?.apply(CGAffineTransform(translationX: ((paths.size * 0.665) - (paths.size * 0.5)) * scale, y: (paths.size / 2.0) - (paths.boxLineWidth * 0.5 * scale)))
-                        compressionAnimation = animations.morphAnimation(paths.path(fromState)!, toPath: toPath!)
+                        compressionAnimation = animationGenerator.morphAnimation(paths.path(fromState)!, toPath: toPath!)
                     } else {
                         let fromPath = paths.path(toState)
                         let scale: CGFloat = 0.5 / 0.665
                         fromPath?.apply(CGAffineTransform(scaleX: scale, y: 0.002))
                         fromPath?.apply(CGAffineTransform(translationX: ((paths.size * 0.665) - (paths.size * 0.5)) * scale, y: (paths.size / 2.0) - (paths.boxLineWidth * 0.5 * scale)))
-                        compressionAnimation = animations.morphAnimation(fromPath!, toPath: paths.path(toState)!)
+                        compressionAnimation = animationGenerator.morphAnimation(fromPath!, toPath: paths.path(toState)!)
                     }
                     
                     CATransaction.begin()

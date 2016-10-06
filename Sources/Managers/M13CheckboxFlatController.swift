@@ -124,11 +124,11 @@ internal class M13CheckboxFlatController: M13CheckboxController {
         super.animate(fromState, toState: toState)
         
         if toState == .unchecked {
-            let morphAnimation = animations.morphAnimation(paths.pathForMark(), toPath: paths.pathForMixedMark())
+            let morphAnimation = animationGenerator.morphAnimation(paths.pathForMark(), toPath: paths.pathForMixedMark())
             morphAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-            let opacityAnimation = animations.opacityAnimation(true)
+            let opacityAnimation = animationGenerator.opacityAnimation(true)
             
-            let quickOpacityAnimation = animations.quickOpacityAnimation(true)
+            let quickOpacityAnimation = animationGenerator.quickOpacityAnimation(true)
             quickOpacityAnimation.duration = quickOpacityAnimation.duration * 4.0
             morphAnimation.duration = morphAnimation.duration - quickOpacityAnimation.duration
             quickOpacityAnimation.beginTime = CACurrentMediaTime() + morphAnimation.duration
@@ -150,11 +150,11 @@ internal class M13CheckboxFlatController: M13CheckboxController {
             if fromState == .unchecked {
                 markLayer.path = paths.pathForMixedMark().cgPath
                 
-                let morphAnimation = animations.morphAnimation(paths.pathForMixedMark(), toPath: paths.pathForMark())
+                let morphAnimation = animationGenerator.morphAnimation(paths.pathForMixedMark(), toPath: paths.pathForMark())
                 morphAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-                let opacityAnimation = animations.opacityAnimation(false)
+                let opacityAnimation = animationGenerator.opacityAnimation(false)
                 
-                let quickOpacityAnimation = animations.quickOpacityAnimation(false)
+                let quickOpacityAnimation = animationGenerator.quickOpacityAnimation(false)
                 quickOpacityAnimation.duration = quickOpacityAnimation.duration * 4.0
                 morphAnimation.beginTime = CACurrentMediaTime() + quickOpacityAnimation.duration
                 morphAnimation.duration = morphAnimation.duration - quickOpacityAnimation.duration
@@ -176,7 +176,7 @@ internal class M13CheckboxFlatController: M13CheckboxController {
                     let fromPath = paths.path(fromState)
                     let toPath = paths.path(toState)
                     
-                    let morphAnimation = animations.morphAnimation(fromPath!, toPath: toPath!)
+                    let morphAnimation = animationGenerator.morphAnimation(fromPath!, toPath: toPath!)
                     
                     CATransaction.begin()
                     CATransaction.setCompletionBlock({ [unowned self] () -> Void in
@@ -194,13 +194,13 @@ internal class M13CheckboxFlatController: M13CheckboxController {
                         let scale: CGFloat = 0.5 / 0.665
                         toPath?.apply(CGAffineTransform(scaleX: scale, y: 0.002))
                         toPath?.apply(CGAffineTransform(translationX: ((paths.size * 0.665) - (paths.size * 0.5)) * scale, y: (paths.size / 2.0) - (paths.boxLineWidth * 0.5 * scale)))
-                        compressionAnimation = animations.morphAnimation(paths.path(fromState)!, toPath: toPath!)
+                        compressionAnimation = animationGenerator.morphAnimation(paths.path(fromState)!, toPath: toPath!)
                     } else {
                         let fromPath = paths.path(toState)
                         let scale: CGFloat = 0.5 / 0.665
                         fromPath?.apply(CGAffineTransform(scaleX: scale, y: 0.002))
                         fromPath?.apply(CGAffineTransform(translationX: ((paths.size * 0.665) - (paths.size * 0.5)) * scale, y: (paths.size / 2.0) - (paths.boxLineWidth * 0.5 * scale)))
-                        compressionAnimation = animations.morphAnimation(fromPath!, toPath: paths.path(toState)!)
+                        compressionAnimation = animationGenerator.morphAnimation(fromPath!, toPath: paths.path(toState)!)
                     }
                     
                     CATransaction.begin()

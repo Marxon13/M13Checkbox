@@ -1,5 +1,5 @@
 //
-//  M13CheckboxAnimationManager.swift
+//  M13CheckboxAnimationGenerator.swift
 //  M13Checkbox
 //
 //  Created by McQuilkin, Brandon on 3/27/16.
@@ -13,7 +13,7 @@
 
 import UIKit
 
-internal class M13CheckboxAnimationPresets {
+internal class M13CheckboxAnimationGenerator {
     
     //----------------------------
     // MARK: - Properties

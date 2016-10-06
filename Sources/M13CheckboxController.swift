@@ -23,7 +23,7 @@ internal class M13CheckboxController {
     var paths: M13CheckboxPathPresets = M13CheckboxPathPresets()
     
     /// The animation presets for the manager.
-    var animations: M13CheckboxAnimationPresets = M13CheckboxAnimationPresets()
+    var animationGenerator: M13CheckboxAnimationGenerator = M13CheckboxAnimationGenerator()
     
     /// The current state of the checkbox.
     var state: M13Checkbox.CheckState = .unchecked

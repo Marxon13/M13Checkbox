@@ -339,10 +339,10 @@ public class M13Checkbox: UIControl {
     /// The duration of the animation that occurs when the checkbox switches states. The default is 0.3 seconds.
     @IBInspectable public var animationDuration: TimeInterval {
         get {
-            return manager.animations.animationDuration
+            return manager.animationGenerator.animationDuration
         }
         set {
-            manager.animations.animationDuration = newValue
+            manager.animationGenerator.animationDuration = newValue
         }
     }
     
@@ -372,7 +372,7 @@ public class M13Checkbox: UIControl {
             newManager.paths.cornerRadius = manager.paths.cornerRadius
             newManager.paths.markType = manager.paths.markType
             
-            newManager.animations.animationDuration = manager.animations.animationDuration
+            newManager.animationGenerator.animationDuration = manager.animationGenerator.animationDuration
             
             // Set up the inital state.
             for aLayer in newManager.layersToDisplay {
