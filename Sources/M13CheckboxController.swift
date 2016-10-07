@@ -77,6 +77,7 @@ internal class M13CheckboxController {
                 let previousState = state
                 animate(state, toState: .unchecked, completion: { [weak self] in
                     self?.pathGenerator = newPathGenerator!
+                    self?.resetLayersForState(previousState)
                     self?.animate(.unchecked, toState: previousState)
                     })
             } else {
