@@ -2,7 +2,7 @@
 //  M13CheckboxCheckPathGenerator.swift
 //  M13Checkbox
 //
-//  Created by McQuilkin, Brandon (NonEmp) on 10/6/16.
+//  Created by McQuilkin, Brandon on 10/6/16.
 //  Copyright © 2016 Brandon McQuilkin. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -175,7 +175,7 @@ internal class M13CheckboxCheckPathGenerator: M13CheckboxPathGenerator {
     // MARK: - Box Paths
     //----------------------------
     
-    override func pathForCircle() -> UIBezierPath {
+    override func pathForCircle() -> UIBezierPath? {
         let radius = (size - boxLineWidth) / 2.0
         // Create a circle that starts in the top right hand corner.
         return UIBezierPath(arcCenter: CGPoint(x: size / 2.0, y: size / 2.0),
@@ -185,7 +185,7 @@ internal class M13CheckboxCheckPathGenerator: M13CheckboxPathGenerator {
                             clockwise: true)
     }
     
-    override func pathForRoundedRect() -> UIBezierPath {
+    override func pathForRoundedRect() -> UIBezierPath? {
         let path = UIBezierPath()
         let lineOffset: CGFloat = boxLineWidth / 2.0
         
@@ -271,7 +271,7 @@ internal class M13CheckboxCheckPathGenerator: M13CheckboxPathGenerator {
     // MARK: - Mark Generation
     //----------------------------
     
-    override func pathForMark() -> UIBezierPath {
+    override func pathForMark() -> UIBezierPath? {
         let path = UIBezierPath()
         
         path.move(to: checkmarkShortArmEndPoint)
@@ -281,7 +281,7 @@ internal class M13CheckboxCheckPathGenerator: M13CheckboxPathGenerator {
         return path
     }
     
-    override func pathForLongMark() -> UIBezierPath {
+    override func pathForLongMark() -> UIBezierPath? {
         let path = UIBezierPath()
         
         path.move(to: checkmarkShortArmEndPoint)
@@ -291,31 +291,31 @@ internal class M13CheckboxCheckPathGenerator: M13CheckboxPathGenerator {
         return path
     }
     
-    override func pathForMixedMark() -> UIBezierPath {
+    override func pathForMixedMark() -> UIBezierPath? {
         let path = UIBezierPath()
         
-        path.move(to: CGPoint(x: size * 0.25, y: size / 2.0))
-        path.addLine(to: CGPoint(x: size * 0.5, y: size / 2.0))
-        path.addLine(to: CGPoint(x: size * 0.75, y: size / 2.0))
+        path.move(to: CGPoint(x: size * 0.25, y: size * 0.5))
+        path.addLine(to: CGPoint(x: size * 0.5, y: size * 0.5))
+        path.addLine(to: CGPoint(x: size * 0.75, y: size * 0.5))
         
         return path
     }
     
-    override func pathForLongMixedMark() -> UIBezierPath {
+    override func pathForLongMixedMark() -> UIBezierPath? {
         let path = UIBezierPath()
         
-        path.move(to: CGPoint(x: size * 0.25, y: size / 2.0))
-        path.addLine(to: CGPoint(x: size * 0.5, y: size / 2.0))
+        path.move(to: CGPoint(x: size * 0.25, y: size * 0.5))
+        path.addLine(to: CGPoint(x: size * 0.5, y: size * 0.5))
         path.addLine(to: CGPoint(x: size - boxLineWidth, y: size * 0.5))
         
         return path
     }
 
-    override func pathForUnselectedMark() -> UIBezierPath {
-        return pathForMark()
+    override func pathForUnselectedMark() -> UIBezierPath? {
+        return nil
     }
 
-    override func pathForLongUnselectedMark() -> UIBezierPath {
-        return pathForLongMark()
+    override func pathForLongUnselectedMark() -> UIBezierPath? {
+        return nil
     }
 }

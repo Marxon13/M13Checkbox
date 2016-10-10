@@ -44,6 +44,9 @@ internal class M13CheckboxController {
     /// - Note: Subclasses should override didSet to update the layers when this value changes.
     var hideBox: Bool = false
     
+    /// Whether or not to allow morphong between states.
+    var enableMorphing: Bool = true
+    
     // The type of mark to display.
     var markType: M13Checkbox.MarkType = .checkmark {
         willSet {
@@ -64,6 +67,12 @@ internal class M13CheckboxController {
             case .radio:
                 newPathGenerator = M13CheckboxRadioPathGenerator()
                 break
+            case .addRemove:
+                newPathGenerator = M13CheckboxAddRemovePathGenerator()
+                break
+            case .disclosure:
+                newPathGenerator = M13CheckboxDisclosurePathGenerator()
+                break
             }
             
             newPathGenerator?.boxLineWidth = pathGenerator.boxLineWidth
@@ -73,13 +82,20 @@ internal class M13CheckboxController {
             newPathGenerator?.size = pathGenerator.size
             
             // Animate the change.
-            if state != .unchecked && animated {
+            if pathGenerator.pathForMark(state) != nil && animated {
                 let previousState = state
-                animate(state, toState: .unchecked, completion: { [weak self] in
+                animate(state, toState: nil, completion: { [weak self] in
                     self?.pathGenerator = newPathGenerator!
                     self?.resetLayersForState(previousState)
-                    self?.animate(.unchecked, toState: previousState)
+                    if self?.pathGenerator.pathForMark(previousState) != nil {
+                        self?.animate(nil, toState: previousState)
+                    }
                     })
+            } else if newPathGenerator?.pathForMark(state) != nil && animated {
+                let previousState = state
+                pathGenerator = newPathGenerator!
+                resetLayersForState(nil)
+                animate(nil, toState: previousState)
             } else {
                 pathGenerator = newPathGenerator!
                 resetLayersForState(state)
@@ -103,12 +119,14 @@ internal class M13CheckboxController {
     //----------------------------
     
     /**
-    Animates the layers between the two states.
-    - parameter fromState: The previous state of the checkbox.
-    - parameter toState: The new state of the checkbox.
-    */
-    func animate(_ fromState: M13Checkbox.CheckState, toState: M13Checkbox.CheckState, completion: (() -> Void)? = nil) {
-        state = toState
+     Animates the layers between the two states.
+     - parameter fromState: The previous state of the checkbox.
+     - parameter toState: The new state of the checkbox.
+     */
+    func animate(_ fromState: M13Checkbox.CheckState?, toState: M13Checkbox.CheckState?, completion: (() -> Void)? = nil) {
+        if let toState = toState {
+            state = toState
+        }
     }
     
     //----------------------------
@@ -125,11 +143,13 @@ internal class M13CheckboxController {
     //----------------------------
     
     /**
-    Reset the layers to be in the given state.
-    - parameter state: The new state of the checkbox.
-    */
-    func resetLayersForState(_ state: M13Checkbox.CheckState) {
-        self.state = state
+     Reset the layers to be in the given state.
+     - parameter state: The new state of the checkbox.
+     */
+    func resetLayersForState(_ state: M13Checkbox.CheckState?) {
+        if let state = state {
+            self.state = state
+        }
         layoutLayers()
     }
     

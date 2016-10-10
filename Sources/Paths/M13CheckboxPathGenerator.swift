@@ -43,7 +43,7 @@ internal class M13CheckboxPathGenerator {
      Creates a path object for the box.
      - returns: A `UIBezierPath` representing the box.
      */
-    final func pathForBox() -> UIBezierPath {
+    final func pathForBox() -> UIBezierPath? {
         switch boxType {
         case .circle:
             return pathForCircle()
@@ -56,7 +56,7 @@ internal class M13CheckboxPathGenerator {
      Creates a circular path for the box. The path starts at the top center point of the box.
      - returns: A `UIBezierPath` representing the box.
     */
-    func pathForCircle() -> UIBezierPath {
+    func pathForCircle() -> UIBezierPath? {
         let radius = (size - boxLineWidth) / 2.0
         // Create a circle that starts in the top right hand corner.
         return UIBezierPath(arcCenter: CGPoint(x: size / 2.0, y: size / 2.0),
@@ -70,7 +70,7 @@ internal class M13CheckboxPathGenerator {
      Creates a rounded rect path for the box. The path starts at the top center point of the box.
      - returns: A `UIBezierPath` representing the box.
      */
-    func pathForRoundedRect() -> UIBezierPath {
+    func pathForRoundedRect() -> UIBezierPath? {
         let path = UIBezierPath()
         let lineOffset: CGFloat = boxLineWidth / 2.0
         
@@ -147,11 +147,11 @@ internal class M13CheckboxPathGenerator {
      Creates a small dot for the box.
      - returns: A `UIBezierPath` representing the dot.
      */
-    func pathForDot() -> UIBezierPath {
+    func pathForDot() -> UIBezierPath? {
         let boxPath = pathForBox()
         let scale: CGFloat = 1.0 / 20.0
-        boxPath.apply(CGAffineTransform(scaleX: scale, y: scale))
-        boxPath.apply(CGAffineTransform(translationX: (size - (size * scale)) / 2.0, y: (size - (size * scale)) / 2.0))
+        boxPath?.apply(CGAffineTransform(scaleX: scale, y: scale))
+        boxPath?.apply(CGAffineTransform(translationX: (size - (size * scale)) / 2.0, y: (size - (size * scale)) / 2.0))
         return boxPath
     }
     
@@ -164,7 +164,12 @@ internal class M13CheckboxPathGenerator {
      - parameter state: The state to generate the mark path for.
      - returns: A `UIBezierPath` representing the mark.
     */
-    final func pathForMark(_ state: M13Checkbox.CheckState) -> UIBezierPath {
+    final func pathForMark(_ state: M13Checkbox.CheckState?) -> UIBezierPath? {
+        
+        guard let state = state else {
+            return nil
+        }
+        
         switch state {
         case .unchecked:
             return pathForUnselectedMark()
@@ -180,7 +185,12 @@ internal class M13CheckboxPathGenerator {
      - parameter state: The state to generate the long mark path for.
      - returns: A `UIBezierPath` representing the long mark.
     */
-    final func pathForLongMark(_ state: M13Checkbox.CheckState) -> UIBezierPath {
+    final func pathForLongMark(_ state: M13Checkbox.CheckState?) -> UIBezierPath? {
+        
+        guard let state = state else {
+            return nil
+        }
+        
         switch state {
         case .unchecked:
             return pathForLongUnselectedMark()
@@ -195,48 +205,48 @@ internal class M13CheckboxPathGenerator {
      Creates a path object for the mark.
      - returns: A `UIBezierPath` representing the mark.
      */
-    func pathForMark() -> UIBezierPath {
-        fatalError("This must be overriden by a subclass")
+    func pathForMark() -> UIBezierPath? {
+        return nil
     }
     
     /**
      Creates a path object for the long mark.
      - returns: A `UIBezierPath` representing the long mark.
      */
-    func pathForLongMark() -> UIBezierPath {
-        fatalError("This must be overriden by a subclass")
+    func pathForLongMark() -> UIBezierPath? {
+        return nil
     }
     
     /**
      Creates a path object for the mixed mark.
      - returns: A `UIBezierPath` representing the mixed mark.
      */
-    func pathForMixedMark() -> UIBezierPath {
-        fatalError("This must be overriden by a subclass")
+    func pathForMixedMark() -> UIBezierPath? {
+        return nil
     }
     
     /**
      Creates a path object for the long mixed mark.
      - returns: A `UIBezierPath` representing the long mixed mark.
      */
-    func pathForLongMixedMark() -> UIBezierPath {
-        fatalError("This must be overriden by a subclass")
+    func pathForLongMixedMark() -> UIBezierPath? {
+        return nil
     }
     
     /**
      Creates a path object for the unselected mark.
      - returns: A `UIBezierPath` representing the unselected mark.
      */
-    func pathForUnselectedMark() -> UIBezierPath {
-        fatalError("This must be overriden by a subclass")
+    func pathForUnselectedMark() -> UIBezierPath? {
+        return nil
     }
     
     /**
      Creates a path object for the long unselected mark.
      - returns: A `UIBezierPath` representing the long unselected mark.
      */
-    func pathForLongUnselectedMark() -> UIBezierPath {
-        fatalError("This must be overriden by a subclass")
+    func pathForLongUnselectedMark() -> UIBezierPath? {
+        return nil
     }
     
 }

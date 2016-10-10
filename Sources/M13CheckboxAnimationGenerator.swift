@@ -124,11 +124,11 @@ internal class M13CheckboxAnimationGenerator {
      - parameter toPath: The end path.
      - returns: A `CABasicAnimation` that animates a path between the `fromPath` and `toPath`.
      */
-    final func morphAnimation(_ fromPath: UIBezierPath, toPath: UIBezierPath) -> CABasicAnimation {
+    final func morphAnimation(_ fromPath: UIBezierPath?, toPath: UIBezierPath?) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: "path")
         // Set the start and end.
-        animation.fromValue = fromPath.cgPath
-        animation.toValue = toPath.cgPath
+        animation.fromValue = fromPath?.cgPath
+        animation.toValue = toPath?.cgPath
         // Set animation properties.
         animation.duration = animationDuration
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)

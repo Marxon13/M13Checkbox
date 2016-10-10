@@ -61,6 +61,10 @@ public class M13Checkbox: UIControl {
         case checkmark = "Checkmark"
         /// The mark is a radio style fill.
         case radio = "Radio"
+        /// The mark is an add/remove icon set.
+        case addRemove = "AddRemove"
+        /// The mark is a disclosure indicator.
+        case disclosure = "Disclosure"
     }
     
     /**
@@ -307,7 +311,14 @@ public class M13Checkbox: UIControl {
         }
         
         if animated {
-            controller.animate(checkState, toState: newState)
+            if enableMorphing {
+                controller.animate(checkState, toState: newState)
+            } else {
+                controller.animate(checkState, toState: nil, completion: { [weak self] in
+                    self?.controller.resetLayersForState(newState)
+                    self?.controller.animate(nil, toState: newState)
+                    })
+            }
         } else {
             controller.resetLayersForState(newState)
         }
@@ -368,6 +379,7 @@ public class M13Checkbox: UIControl {
             newManager.pathGenerator = controller.pathGenerator
             newManager.animationGenerator.animationDuration = controller.animationGenerator.animationDuration
             newManager.state = controller.state
+            newManager.enableMorphing = controller.enableMorphing
             newManager.setMarkType(type: controller.markType, animated: false)
             
             // Set up the inital state.
@@ -379,6 +391,16 @@ public class M13Checkbox: UIControl {
             newManager.resetLayersForState(checkState)
             controller = newManager
 
+        }
+    }
+    
+    /// Whether or not to enable morphing between states.
+    @IBInspectable public var enableMorphing: Bool {
+        get {
+            return controller.enableMorphing
+        }
+        set {
+            controller.enableMorphing = newValue
         }
     }
     

@@ -97,10 +97,10 @@ internal class M13CheckboxStrokeController: M13CheckboxController {
     // MARK: - Animations
     //----------------------------
     
-    override func animate(_ fromState: M13Checkbox.CheckState, toState: M13Checkbox.CheckState, completion: (() -> Void)?) {
+    override func animate(_ fromState: M13Checkbox.CheckState?, toState: M13Checkbox.CheckState?, completion: (() -> Void)?) {
         super.animate(fromState, toState: toState, completion: completion)
         
-        if toState == .unchecked {
+        if pathGenerator.pathForMark(toState) == nil && pathGenerator.pathForMark(fromState) != nil {
             let strokeAnimation = animationGenerator.strokeAnimation(true)
             let quickOpacityAnimation = animationGenerator.quickOpacityAnimation(true)
             
@@ -116,42 +116,39 @@ internal class M13CheckboxStrokeController: M13CheckboxController {
             selectedBoxLayer.add(quickOpacityAnimation, forKey: "opacity")
             
             CATransaction.commit()
+        } else if pathGenerator.pathForMark(toState) != nil && pathGenerator.pathForMark(fromState) == nil {
+            markLayer.path = pathGenerator.pathForMark(toState)?.cgPath
             
+            let strokeAnimation = animationGenerator.strokeAnimation(false)
+            let quickOpacityAnimation = animationGenerator.quickOpacityAnimation(false)
+            
+            CATransaction.begin()
+            CATransaction.setCompletionBlock({ [unowned self] () -> Void in
+                self.resetLayersForState(self.state)
+                completion?()
+                })
+            
+            markLayer.add(strokeAnimation, forKey: "strokeEnd")
+            markLayer.add(quickOpacityAnimation, forKey: "opacity")
+            selectedBoxLayer.add(strokeAnimation, forKey: "strokeEnd")
+            selectedBoxLayer.add(quickOpacityAnimation, forKey: "opacity")
+            
+            CATransaction.commit()
         } else {
-            if fromState == .unchecked {
-                markLayer.path = pathGenerator.pathForMark(toState).cgPath
-                
-                let strokeAnimation = animationGenerator.strokeAnimation(false)
-                let quickOpacityAnimation = animationGenerator.quickOpacityAnimation(false)
-                
-                CATransaction.begin()
-                CATransaction.setCompletionBlock({ [unowned self] () -> Void in
-                    self.resetLayersForState(self.state)
-                    completion?()
-                    })
-                
-                markLayer.add(strokeAnimation, forKey: "strokeEnd")
-                markLayer.add(quickOpacityAnimation, forKey: "opacity")
-                selectedBoxLayer.add(strokeAnimation, forKey: "strokeEnd")
-                selectedBoxLayer.add(quickOpacityAnimation, forKey: "opacity")
-                
-                CATransaction.commit()
-            } else {
-                let fromPath = pathGenerator.pathForMark(fromState)
-                let toPath = pathGenerator.pathForMark(toState)
-                
-                let morphAnimation = animationGenerator.morphAnimation(fromPath, toPath: toPath)
-                
-                CATransaction.begin()
-                CATransaction.setCompletionBlock({ [unowned self] () -> Void in
-                    self.resetLayersForState(self.state)
-                    completion?()
-                    })
-                
-                markLayer.add(morphAnimation, forKey: "path")
-                
-                CATransaction.commit()
-            }
+            let fromPath = pathGenerator.pathForMark(fromState)
+            let toPath = pathGenerator.pathForMark(toState)
+            
+            let morphAnimation = animationGenerator.morphAnimation(fromPath, toPath: toPath)
+            
+            CATransaction.begin()
+            CATransaction.setCompletionBlock({ [unowned self] () -> Void in
+                self.resetLayersForState(self.state)
+                completion?()
+                })
+            
+            markLayer.add(morphAnimation, forKey: "path")
+            
+            CATransaction.commit()
         }
     }
     
@@ -165,16 +162,16 @@ internal class M13CheckboxStrokeController: M13CheckboxController {
         selectedBoxLayer.frame = CGRect(x: 0.0, y: 0.0, width: pathGenerator.size, height: pathGenerator.size)
         markLayer.frame = CGRect(x: 0.0, y: 0.0, width: pathGenerator.size, height: pathGenerator.size)
         // Paths
-        unselectedBoxLayer.path = pathGenerator.pathForBox().cgPath
-        selectedBoxLayer.path = pathGenerator.pathForBox().cgPath
-        markLayer.path = pathGenerator.pathForMark(state).cgPath
+        unselectedBoxLayer.path = pathGenerator.pathForBox()?.cgPath
+        selectedBoxLayer.path = pathGenerator.pathForBox()?.cgPath
+        markLayer.path = pathGenerator.pathForMark(state)?.cgPath
     }
     
     //----------------------------
     // MARK: - Display
     //----------------------------
     
-    override func resetLayersForState(_ state: M13Checkbox.CheckState) {
+    override func resetLayersForState(_ state: M13Checkbox.CheckState?) {
         super.resetLayersForState(state)
         // Remove all remnant animations. They will interfere with each other if they are not removed before a new round of animations start.
         unselectedBoxLayer.removeAllAnimations()
@@ -187,35 +184,30 @@ internal class M13CheckboxStrokeController: M13CheckboxController {
         
         selectedBoxLayer.strokeColor = tintColor.cgColor
         selectedBoxLayer.lineWidth = pathGenerator.boxLineWidth
+        selectedBoxLayer.fillColor = nil
         
         markLayer.strokeColor = tintColor.cgColor
         markLayer.lineWidth = pathGenerator.checkmarkLineWidth
+        markLayer.fillColor = nil
         
-        if state == .unchecked {
-            selectedBoxLayer.opacity = 0.0
-            selectedBoxLayer.strokeEnd = 0.0
-            
-            markLayer.opacity = 0.0
-            markLayer.strokeEnd = 0.0
-            
-        } else if state == .checked {
+        if pathGenerator.pathForMark(state) != nil {
             selectedBoxLayer.opacity = 1.0
             selectedBoxLayer.strokeEnd = 1.0
             
             markLayer.opacity = 1.0
             markLayer.strokeEnd = 1.0
         } else {
-            selectedBoxLayer.opacity = 1.0
-            selectedBoxLayer.strokeEnd = 1.0
+            selectedBoxLayer.opacity = 0.0
+            selectedBoxLayer.strokeEnd = 0.0
             
-            markLayer.opacity = 1.0
-            markLayer.strokeEnd = 1.0
+            markLayer.opacity = 0.0
+            markLayer.strokeEnd = 0.0
         }
         
         // Paths
-        unselectedBoxLayer.path = pathGenerator.pathForBox().cgPath
-        selectedBoxLayer.path = pathGenerator.pathForBox().cgPath
-        markLayer.path = pathGenerator.pathForMark(state).cgPath
+        unselectedBoxLayer.path = pathGenerator.pathForBox()?.cgPath
+        selectedBoxLayer.path = pathGenerator.pathForBox()?.cgPath
+        markLayer.path = pathGenerator.pathForMark(state)?.cgPath
     }
     
 }

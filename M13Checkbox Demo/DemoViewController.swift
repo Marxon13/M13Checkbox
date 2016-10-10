@@ -42,7 +42,7 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 9
+        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -187,15 +187,42 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
             guard let cell = cell as? SegmentedControlCollectionViewCell else {
                 fatalError()
             }
+            cell.iconView?.image = UIImage(named: "Morph")
+            cell.titleLabel?.text = "Morphing"
+            cell.bodyLabel?.text = "The checkbox can either morph between states with marks, or it can animate the old mark out, and the new mark in."
+            cell.bodyLabel?.sizeToFit()
+            cell.setNeedsLayout()
+            
+            cell.segmentedControl?.removeAllSegments()
+            cell.segmentedControl?.insertSegment(withTitle: "Enabled", at: 0, animated: false)
+            cell.segmentedControl?.insertSegment(withTitle: "Disabled", at: 1, animated: false)
+            
+            if checkbox?.enableMorphing == true {
+                cell.segmentedControl?.selectedSegmentIndex = 0
+            } else {
+                cell.segmentedControl?.selectedSegmentIndex = 1
+            }
+            cell.segmentedControl?.isEnabled = true
+
+            cell.segmentedControl?.addTarget(self, action: #selector(DemoViewController.updateMorphEnabled(_:)), for: .valueChanged)
+            
+        } else if (indexPath as NSIndexPath).item == 5 {
+            // States cell
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "segmentedControlCell", for: indexPath)
+            guard let cell = cell as? SegmentedControlCollectionViewCell else {
+                fatalError()
+            }
             cell.iconView?.image = UIImage(named: "MarkType")
             cell.titleLabel?.text = "Mark Type"
-            cell.bodyLabel?.text = "The checkbox can double as a radio by switching the mark type to \"Radio\""
+            cell.bodyLabel?.text = "The checkbox supports several mark combinations, including a radio style checkbox."
             cell.bodyLabel?.sizeToFit()
             cell.setNeedsLayout()
             
             cell.segmentedControl?.removeAllSegments()
             cell.segmentedControl?.insertSegment(withTitle: "Checkmark", at: 0, animated: false)
             cell.segmentedControl?.insertSegment(withTitle: "Radio", at: 1, animated: false)
+            cell.segmentedControl?.insertSegment(withTitle: "+/-", at: 2, animated: false)
+            cell.segmentedControl?.insertSegment(withTitle: "Disclosure", at: 3, animated: false)
             
             if let state = checkbox?.markType {
                 switch state {
@@ -205,13 +232,19 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
                 case .radio:
                     cell.segmentedControl?.selectedSegmentIndex = 1
                     break
+                case .addRemove:
+                    cell.segmentedControl?.selectedSegmentIndex = 2
+                    break
+                case .disclosure:
+                    cell.segmentedControl?.selectedSegmentIndex = 3
+                    break
                 }
             }
             cell.segmentedControl?.isEnabled = true
             
             cell.segmentedControl?.addTarget(self, action: #selector(DemoViewController.updateMarkType(_:)), for: .valueChanged)
             
-        }  else if (indexPath as NSIndexPath).item == 5 {
+        } else if (indexPath as NSIndexPath).item == 6 {
             // States cell
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "segmentedControlCell", for: indexPath)
             guard let cell = cell as? SegmentedControlCollectionViewCell else {
@@ -241,7 +274,7 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
             
             cell.segmentedControl?.addTarget(self, action: #selector(DemoViewController.updateBoxShape(_:)), for: .valueChanged)
             
-        } else if (indexPath as NSIndexPath).item == 6 {
+        } else if (indexPath as NSIndexPath).item == 7 {
             // Animated cell
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sliderCell", for: indexPath)
             guard let cell = cell as? SliderCollectionViewCell else {
@@ -259,7 +292,7 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
                 cell.slider?.value = Float(lineWidth)
             }
             cell.slider?.addTarget(self, action: #selector(DemoViewController.updateMarkLineWidth(_:)), for: .valueChanged)
-        } else if (indexPath as NSIndexPath).item == 7 {
+        } else if (indexPath as NSIndexPath).item == 8 {
             // Animated cell
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sliderCell", for: indexPath)
             guard let cell = cell as? SliderCollectionViewCell else {
@@ -277,7 +310,7 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
                 cell.slider?.value = Float(lineWidth)
             }
             cell.slider?.addTarget(self, action: #selector(DemoViewController.updateBoxLineWidth(_:)), for: .valueChanged)
-        } else if (indexPath as NSIndexPath).item == 8 {
+        } else if (indexPath as NSIndexPath).item == 9 {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "colorCell", for: indexPath)
             guard let cell = cell as? ColorCollectionViewCell else {
                 fatalError()
@@ -420,6 +453,14 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
         checkbox?.animationDuration = TimeInterval(sender.value)
     }
     
+    func updateMorphEnabled(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            checkbox?.enableMorphing = true
+        } else {
+            checkbox?.enableMorphing = false
+        }
+    }
+    
     func updateMarkLineWidth(_ sender: UISlider) {
         checkbox?.checkmarkLineWidth = CGFloat(sender.value)
     }
@@ -439,8 +480,12 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
     func updateMarkType(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             checkbox?.setMarkType(markType: .checkmark, animated: true)
-        } else {
+        } else if sender.selectedSegmentIndex == 1 {
             checkbox?.setMarkType(markType: .radio, animated: true)
+        } else if sender.selectedSegmentIndex == 2 {
+            checkbox?.setMarkType(markType: .addRemove, animated: true)
+        } else if sender.selectedSegmentIndex == 3 {
+            checkbox?.setMarkType(markType: .disclosure, animated: true)
         }
     }
     
