@@ -104,8 +104,8 @@ internal class M13CheckboxCheckPathGenerator: M13CheckboxPathGenerator {
     }
     
     var checkmarkLongArmEndPoint: CGPoint {
-        let s: CGFloat = size
-        let bLW: CGFloat = boxLineWidth
+        let size: CGFloat = self.size
+        let boxLineWidth: CGFloat = self.boxLineWidth
         
         // Known variables
         let boxEndPoint: CGPoint = checkmarkLongArmBoxIntersectionPoint
@@ -114,43 +114,45 @@ internal class M13CheckboxCheckPathGenerator: M13CheckboxPathGenerator {
         let midPoint: CGPoint = checkmarkMiddlePoint
         let x1: CGFloat = midPoint.x
         let y1: CGFloat = midPoint.y
-        let r: CGFloat = boxType == .circle ? s * checkmarkProperties.longArmRadius.circle : s * checkmarkProperties.longArmRadius.box
+        let r: CGFloat = boxType == .circle ? size * checkmarkProperties.longArmRadius.circle : size * checkmarkProperties.longArmRadius.box
         
-        let a1: CGFloat = (s * pow(x1, 2.0)) - (2.0 * s * x1 * x2) + (s * pow(x2, 2.0)) + (s * x1 * y1) - (s * x2 * y1)
-        let a2: CGFloat = (2.0 * x2 * pow(y1, 2.0)) - (s * x1 * y2) + (s * x2 * y2) - (2.0 * x1 * y1 * y2) - (2.0 * x2 * y1 * y2) + (2.0 * x1 * pow(y2, 2.0))
+        let a1: CGFloat = (size * pow(x1, 2.0)) - (2.0 * size * x1 * x2) + (size * pow(x2, 2.0)) + (size * x1 * y1) - (size * x2 * y1)
+        let a2: CGFloat = (2.0 * x2 * pow(y1, 2.0)) - (size * x1 * y2) + (size * x2 * y2) - (2.0 * x1 * y1 * y2) - (2.0 * x2 * y1 * y2) + (2.0 * x1 * pow(y2, 2.0))
         
         let b: CGFloat = -16.0 * (pow(x1, 2.0) - (2.0 * x1 * x2) + pow(x2, 2.0) + pow(y1, 2.0) - (2.0 * y1 * y2) + pow(y2, 2.0))
         
         let c1: CGFloat = pow(r, 2.0) * ((-pow(x1, 2.0)) + (2.0 * x1 * x2) - pow(x2, 2.0))
-        let c2: CGFloat = pow(s, 2.0) * ((0.5 * pow(x1, 2.0)) - (x1 * x2) + (0.5 * pow(x2, 2.0)))
+        let c2: CGFloat = pow(size, 2.0) * ((0.5 * pow(x1, 2.0)) - (x1 * x2) + (0.5 * pow(x2, 2.0)))
         
         let d1: CGFloat = (pow(x2, 2.0) * pow(y1, 2.0)) - (2.0 * x1 * x2 * y1 * y2) + (pow(x1, 2.0) * pow(y2, 2.0))
-        let d2: CGFloat = s * ((x1 * x2 * y1) - (pow(x2, 2.0) * y1) - (pow(x1, 2.0) * y2) + (x1 * x2 * y2))
+        let d2: CGFloat = size * ((x1 * x2 * y1) - (pow(x2, 2.0) * y1) - (pow(x1, 2.0) * y2) + (x1 * x2 * y2))
         
         let cd: CGFloat = c1 + c2 + d1 + d2
         
         let e1: CGFloat = (x1 * ((4.0 * y1) - (4.0 * y2)) * y2) + (x2 * y1 * ((-4.0 * y1) + (4.0 * y2)))
-        let e2: CGFloat = s * ((-2.0 * pow(x1, 2.0)) + (x2 * ((-2.0 * x2) + (2.0 * y1) - (2.0 * y2))) + (x1 * (4.0 * x2 - (2.0 * y1) + (2.0 * y2))))
+        let e2: CGFloat = size * ((-2.0 * pow(x1, 2.0)) + (x2 * ((-2.0 * x2) + (2.0 * y1) - (2.0 * y2))) + (x1 * (4.0 * x2 - (2.0 * y1) + (2.0 * y2))))
         
         let f: CGFloat = pow(x1, 2.0) - (2.0 * x1 * x2) + pow(x2, 2.0) + pow(y1, 2.0) - (2.0 * y1 * y2) + pow(y2, 2)
         
-        let g1: CGFloat = (0.5 * s * x1 * y1) - (0.5 * s * x2 * y1) - (x1 * x2 * y1) + (pow(x2, 2.0) * y1) + (0.5 * s * pow(y1, 2.0))
-        let g2: CGFloat = (-0.5 * s * x1 * y2) + (pow(x1, 2.0) * y2) + (0.5 * s * x2 * y2) - (x1 * x2 * y2) - (s * y1 * y2) + (0.5 * s * pow(y2, 2.0))
+        let g1: CGFloat = (0.5 * size * x1 * y1) - (0.5 * size * x2 * y1) - (x1 * x2 * y1) + (pow(x2, 2.0) * y1) + (0.5 * size * pow(y1, 2.0))
+        let g2: CGFloat = (-0.5 * size * x1 * y2) + (pow(x1, 2.0) * y2) + (0.5 * size * x2 * y2) - (x1 * x2 * y2) - (size * y1 * y2) + (0.5 * size * pow(y2, 2.0))
         
         let h1: CGFloat = (-4.0 * pow(x2, 2.0) * y1) - (4.0 * pow(x1, 2.0) * y2) + (x1 * x2 * ((4.0 * y1) + (4.0 * y2)))
-        let h2: CGFloat = s * ((-2.0 * x1 * y1) + (2.0 * x2 * y1) - (2.0 * pow(y1, 2.0)) + (2.0 * x1 * y2) - (2.0 * x2 * y2) + (4.0 * y1 * y2) - (2.0 * pow(y2, 2.0)))
+        let h2: CGFloat = size * ((-2.0 * x1 * y1) + (2.0 * x2 * y1) - (2.0 * pow(y1, 2.0)) + (2.0 * x1 * y2) - (2.0 * x2 * y2) + (4.0 * y1 * y2) - (2.0 * pow(y2, 2.0)))
         
-        let i: CGFloat = (pow(r, 2.0) * (-pow(y1, 2.0) + (2.0 * y1 * y2) - pow(y2, 2.0))) + (pow(s, 2.0) * ((0.5 * pow(y1, 2.0)) - (y1 * y2) + (0.5 * pow(y2, 2.0))))
-        let j: CGFloat = s * ((x1 * (y1 - y2) * y2) + (x2 * y1 * (-y1 + y2)))
+        let i: CGFloat = (pow(r, 2.0) * (-pow(y1, 2.0) + (2.0 * y1 * y2) - pow(y2, 2.0))) + (pow(size, 2.0) * ((0.5 * pow(y1, 2.0)) - (y1 * y2) + (0.5 * pow(y2, 2.0))))
+        let j: CGFloat = size * ((x1 * (y1 - y2) * y2) + (x2 * y1 * (-y1 + y2)))
         
         let powE1E2: CGFloat = pow(e1 + e2, 2.0)
         let subX1: CGFloat = (b * cd) + powE1E2
+        let subX2: CGFloat = (a1 + a2 + (0.5 * sqrt(subX1)))
         
         let powH1H2: CGFloat = pow(h1 + h2, 2.0)
         let subY1: CGFloat = powH1H2 + (b * (d1 + i + j))
+        let subY2: CGFloat = (0.25 * sqrt(subY1))
         
-        let x: CGFloat = (0.5 * (a1 + a2 + (0.5 * sqrt(subX1))) + (bLW / 2.0)) / f
-        let y: CGFloat = (g1 + g2 - (0.25 * sqrt(subY1)) + (bLW / 2.0)) / f
+        let x: CGFloat = (0.5 * subX2 + (boxLineWidth / 2.0)) / f
+        let y: CGFloat = (g1 + g2 - subY2 + (boxLineWidth / 2.0)) / f
         
         return CGPoint(x: x, y: y)
     }
