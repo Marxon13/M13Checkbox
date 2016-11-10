@@ -139,9 +139,9 @@ internal class M13CheckboxSpiralController: M13CheckboxController {
             markLayer.add(checkQuickOpacityAnimation, forKey: "opacity")
             selectedBoxLayer.add(boxStrokeAnimation, forKey: "strokeEnd")
             
-            markLayer.strokeEnd = checkStrokeAnimation.fromValue as! CGFloat
-            markLayer.opacity = checkQuickOpacityAnimation.fromValue as! Float
-            selectedBoxLayer.strokeEnd = boxStrokeAnimation.fromValue as! CGFloat
+            markLayer.strokeEnd = CGFloat((checkStrokeAnimation.fromValue as! NSNumber).floatValue)
+            markLayer.opacity = (checkQuickOpacityAnimation.fromValue as! NSNumber).floatValue
+            selectedBoxLayer.strokeEnd = CGFloat((checkStrokeAnimation.fromValue as! NSNumber).floatValue)
             
             CATransaction.commit()
         } else if pathGenerator.pathForMark(toState) != nil && pathGenerator.pathForMark(fromState) == nil {
@@ -180,9 +180,9 @@ internal class M13CheckboxSpiralController: M13CheckboxController {
             markLayer.add(checkQuickOpacityAnimation, forKey: "opacity")
             markLayer.add(checkStrokeAnimation, forKey: "strokeEnd")
             markLayer.add(checkMorphAnimation, forKey: "path")
-            
-            markLayer.opacity = checkQuickOpacityAnimation.fromValue as! Float
-            markLayer.strokeEnd = checkStrokeAnimation.fromValue as! CGFloat
+
+            markLayer.strokeEnd = CGFloat((checkStrokeAnimation.fromValue as! NSNumber).floatValue)
+            markLayer.opacity = (checkQuickOpacityAnimation.fromValue as! NSNumber).floatValue
             markLayer.path = pathGenerator.pathForLongMark(toState)?.reversing().cgPath
             
             CATransaction.commit()
