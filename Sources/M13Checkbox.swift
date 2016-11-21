@@ -28,7 +28,7 @@ open class M13Checkbox: UIControl {
     - Checked: A checkmark is shown.
     - Mixed: A dash is shown.
     */
-    public enum CheckState: String, RawRepresentable {
+    open enum CheckState: String, RawRepresentable {
         /// No check is shown.
         case unchecked = "Unchecked"
         /// A checkmark is shown.
@@ -43,7 +43,7 @@ open class M13Checkbox: UIControl {
      - Square: The box is square with optional rounded corners.
      - Circle: The box is a circle.
      */
-    public enum BoxType: String, RawRepresentable {
+    open enum BoxType: String, RawRepresentable {
         /// The box is a circle.
         case circle = "Circle"
         /// The box is square with optional rounded corners.
@@ -56,7 +56,7 @@ open class M13Checkbox: UIControl {
      - Checkmark: The mark is a standard checkmark.
      - Radio: The mark is a radio style fill.
      */
-    public enum MarkType: String, RawRepresentable {
+    open enum MarkType: String, RawRepresentable {
         /// The mark is a standard checkmark.
         case checkmark = "Checkmark"
         /// The mark is a radio style fill.
@@ -70,7 +70,7 @@ open class M13Checkbox: UIControl {
     /**
      The possible animations for switching to and from the unchecked state.
      */
-    public enum Animation: RawRepresentable, Hashable {
+    open enum Animation: RawRepresentable, Hashable {
         /// Animates the stroke of the box and the check as if they were drawn.
         case stroke
         /// Animates the checkbox with a bouncey fill effect.
@@ -88,7 +88,7 @@ open class M13Checkbox: UIControl {
         /// Start the box as a dot, and expand the box.
         case dot(AnimationStyle)
         
-        public init?(rawValue: String) {
+        open init?(rawValue: String) {
             // Map the integer values to the animation types.
             // This is only for interface builder support. I would like this to be removed eventually.
             switch rawValue {
@@ -136,7 +136,7 @@ open class M13Checkbox: UIControl {
             }
         }
         
-        public var rawValue: String {
+        open var rawValue: String {
             // Map the animation types to integer values.
             // This is only for interface builder support. I would like this to be removed eventually.
             switch self {
@@ -206,7 +206,7 @@ open class M13Checkbox: UIControl {
             }
         }
         
-        public var hashValue: Int {
+        open var hashValue: Int {
             return self.rawValue.hashValue
         }
     }
@@ -215,7 +215,7 @@ open class M13Checkbox: UIControl {
      The possible animation styles.
      - Note: Not all animations support all styles.
      */
-    public enum AnimationStyle: String {
+    open enum AnimationStyle: String {
         // The animation will focus on the stroke.
         case stroke = "Stroke"
         // The animation will focus on the fill.
@@ -234,12 +234,12 @@ open class M13Checkbox: UIControl {
     // MARK: - Initalization
     //----------------------------
     
-    override public init(frame: CGRect) {
+    override open init(frame: CGRect) {
         super.init(frame: frame)
         sharedSetup()
     }
     
-    required public init?(coder aDecoder: NSCoder) {
+    required open init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         sharedSetup()
     }
