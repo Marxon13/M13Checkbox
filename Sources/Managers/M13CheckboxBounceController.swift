@@ -68,8 +68,13 @@ internal class M13CheckboxBounceController: M13CheckboxController {
     }
     
     fileprivate func sharedSetup() {
-        // Disable som implicit animations.
-        let newActions = [
+
+        
+        // Setup the unselected box layer
+        unselectedBoxLayer.lineCap = kCALineCapRound
+        unselectedBoxLayer.rasterizationScale = UIScreen.main.scale
+        unselectedBoxLayer.shouldRasterize = true
+        unselectedBoxLayer.actions = [
             "opacity": NSNull(),
             "strokeEnd": NSNull(),
             "transform": NSNull(),
@@ -77,12 +82,7 @@ internal class M13CheckboxBounceController: M13CheckboxController {
             "path": NSNull(),
             "lineWidth": NSNull()
         ]
-        
-        // Setup the unselected box layer
-        unselectedBoxLayer.lineCap = kCALineCapRound
-        unselectedBoxLayer.rasterizationScale = UIScreen.main.scale
-        unselectedBoxLayer.shouldRasterize = true
-        unselectedBoxLayer.actions = newActions
+
         
         unselectedBoxLayer.opacity = 1.0
         unselectedBoxLayer.strokeEnd = 1.0
@@ -93,7 +93,15 @@ internal class M13CheckboxBounceController: M13CheckboxController {
         selectedBoxLayer.lineCap = kCALineCapRound
         selectedBoxLayer.rasterizationScale = UIScreen.main.scale
         selectedBoxLayer.shouldRasterize = true
-        selectedBoxLayer.actions = newActions
+        selectedBoxLayer.actions = [
+            "opacity": NSNull(),
+            "strokeEnd": NSNull(),
+            "transform": NSNull(),
+            "fillColor": NSNull(),
+            "path": NSNull(),
+            "lineWidth": NSNull()
+        ]
+
         
         selectedBoxLayer.fillColor = nil
         selectedBoxLayer.transform = CATransform3DIdentity
@@ -103,7 +111,15 @@ internal class M13CheckboxBounceController: M13CheckboxController {
         markLayer.lineJoin = kCALineJoinRound
         markLayer.rasterizationScale = UIScreen.main.scale
         markLayer.shouldRasterize = true
-        markLayer.actions = newActions
+        markLayer.actions = [
+            "opacity": NSNull(),
+            "strokeEnd": NSNull(),
+            "transform": NSNull(),
+            "fillColor": NSNull(),
+            "path": NSNull(),
+            "lineWidth": NSNull()
+        ]
+
         
         markLayer.transform = CATransform3DIdentity
         markLayer.fillColor = nil

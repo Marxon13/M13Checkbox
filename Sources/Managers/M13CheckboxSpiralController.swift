@@ -42,21 +42,20 @@ internal class M13CheckboxSpiralController: M13CheckboxController {
     override init() {
         super.init()
         
-        // Disable som implicit animations.
-        let newActions = [
-            "opacity": NSNull(),
-            "strokeEnd": NSNull(),
-            "transform": NSNull(),
-            "fillColor": NSNull(),
-            "path": NSNull(),
-            "lineWidth": NSNull()
-        ]
         
         // Setup the unselected box layer
         unselectedBoxLayer.lineCap = kCALineCapRound
         unselectedBoxLayer.rasterizationScale = UIScreen.main.scale
         unselectedBoxLayer.shouldRasterize = true
-        unselectedBoxLayer.actions = newActions
+        
+        // Disable som implicit animations.
+        
+        unselectedBoxLayer.actions = [  "opacity": NSNull(),
+                                        "strokeEnd": NSNull(),
+                                        "transform": NSNull(),
+                                        "fillColor": NSNull(),
+                                        "path": NSNull(),
+                                        "lineWidth": NSNull()]
         
         unselectedBoxLayer.opacity = 1.0
         unselectedBoxLayer.strokeEnd = 1.0
@@ -67,7 +66,12 @@ internal class M13CheckboxSpiralController: M13CheckboxController {
         selectedBoxLayer.lineCap = kCALineCapRound
         selectedBoxLayer.rasterizationScale = UIScreen.main.scale
         selectedBoxLayer.shouldRasterize = true
-        selectedBoxLayer.actions = newActions
+        selectedBoxLayer.actions = [  "opacity": NSNull(),
+                                      "strokeEnd": NSNull(),
+                                      "transform": NSNull(),
+                                      "fillColor": NSNull(),
+                                      "path": NSNull(),
+                                      "lineWidth": NSNull()]
         
         selectedBoxLayer.transform = CATransform3DIdentity
         selectedBoxLayer.fillColor = nil
@@ -77,7 +81,12 @@ internal class M13CheckboxSpiralController: M13CheckboxController {
         markLayer.lineJoin = kCALineJoinRound
         markLayer.rasterizationScale = UIScreen.main.scale
         markLayer.shouldRasterize = true
-        markLayer.actions = newActions
+        markLayer.actions = [  "opacity": NSNull(),
+                               "strokeEnd": NSNull(),
+                               "transform": NSNull(),
+                               "fillColor": NSNull(),
+                               "path": NSNull(),
+                               "lineWidth": NSNull()]
         
         markLayer.transform = CATransform3DIdentity
         markLayer.fillColor = nil
