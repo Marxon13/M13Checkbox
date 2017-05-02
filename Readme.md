@@ -6,7 +6,7 @@
 
 Create beautiful, customizable, extendable, animated checkboxes on iOS. Completely configurable through interface builder. It has several built in animations, custom value support, a mixed state, checkmark and radio styles, circular and rounded rectangle box shapes, as well as full color customization. See the demo app to play with all the features. 
 
-##Table of Contents
+## Table of Contents
 
 * [**Recent Changes**](#recent-changes)
 * [**Documentation**](#documentation) 
@@ -28,7 +28,7 @@ Create beautiful, customizable, extendable, animated checkboxes on iOS. Complete
     * [License](license)
 
 
-##Recent Changes
+## Recent Changes
 
 - **2.2.0:** M13Checkbox has been converted to Swift 3.
 
