@@ -6,7 +6,7 @@
 
 Create beautiful, customizable, extendable, animated checkboxes on iOS. Completely configurable through interface builder. It has several built in animations, custom value support, a mixed state, checkmark and radio styles, circular and rounded rectangle box shapes, as well as full color customization. See the demo app to play with all the features. 
 
-##Table of Contents
+## Table of Contents
 
 * [**Recent Changes**](#recent-changes)
 * [**Documentation**](#documentation) 
@@ -28,56 +28,69 @@ Create beautiful, customizable, extendable, animated checkboxes on iOS. Complete
     * [License](license)
 
 
-##Recent Changes
+## Recent Changes
 
 - **2.2.0:** M13Checkbox has been converted to Swift 3.
 
-##Documentation
+## Documentation
 
 Check out the demo app to change the properties of the checkbox and see the changes in real time.
 
 ### Animations
 
 - **Animation `enum`:** The possible animations for switching to and from the unchecked state.
+
     - **Stroke:**
     
-        ![Stroke Sample](Resources/Samples/Stroke Sample.gif)
+        ![Stroke Sample](Resources/Samples/Stroke%20Sample.gif)
+        
     - **Fill:**
     
-        ![Fill Sample](Resources/Samples/Fill Sample.gif)
+        ![Fill Sample](Resources/Samples/Fill%20Sample.gif)
     - **Bounce (Stroke):**
     
-        ![Bounce Stroke Sample](Resources/Samples/Bounce Stroke Sample.gif)
+        ![Bounce Stroke Sample](Resources/Samples/Bounce%20Stroke%20Sample.gif)
+        
     - **Bounce (Fill):**
     
-        ![Bounce Fill Sample](Resources/Samples/Bounce Fill Sample.gif)
+        ![Bounce Fill Sample](Resources/Samples/Bounce%20Fill%20Sample.gif)
+        
     - **Expand (Stroke):**
     
-        ![Expand Stroke Sample](Resources/Samples/Expand Stroke Sample.gif)
+        ![Expand Stroke Sample](Resources/Samples/Expand%20Stroke%20Sample.gif)
+        
     - **Expand (Fill):**
     
-        ![Expand Fill Sample](Resources/Samples/Expand Fill Sample.gif)
+        ![Expand Fill Sample](Resources/Samples/Expand%20Fill%20Sample.gif)
+        
     - **Flat (Stroke):**
     
-        ![Flat Stroke Sample](Resources/Samples/Flat Stroke Sample.gif)
+        ![Flat Stroke Sample](Resources/Samples/Flat%20Stroke%20Sample.gif)
+        
     - **Flat (Fill):**
     
-        ![Flat Fill Sample](Resources/Samples/Flat Fill Sample.gif)
+        ![Flat Fill Sample](Resources/Samples/Flat%20Fill%20Sample.gif)
+        
     - **Spiral:**
     
-        ![Spiral Sample](Resources/Samples/Spiral Sample.gif)
+        ![Spiral Sample](Resources/Samples/Spiral%20Sample.gif)
+        
     - **Fade (Stroke):**
     
-        ![Fade Stroke Sample](Resources/Samples/Fade Stroke Sample.gif)
+        ![Fade Stroke Sample](Resources/Samples/Fade%20Stroke%20Sample.gif)
+        
     - **Fade (Fill):**
     
-        ![Fade Fill Sample](Resources/Samples/Fade Fill Sample.gif)
+        ![Fade Fill Sample](Resources/Samples/Fade%20Fill%20Sample.gif)
+        
     - **Dot (Stroke):**
     
-        ![Dot Stroke Sample](Resources/Samples/Dot Stroke Sample.gif)
+        ![Dot Stroke Sample](Resources/Samples/Dot%20Stroke%20Sample.gif)
+        
     - **Dot (Fill):**
     
-        ![Dot Fill Sample](Resources/Samples/Dot Fill Sample.gif)
+        ![Dot Fill Sample](Resources/Samples/Dot%20Fill%20Sample.gif)
+        
 - **stateChangeAnimation `Animation`:** The type of animation to preform when changing from the unchecked state to any other state.
 - **animationDuration `NSTimeInterval`:** The duration of the animation that occurs when the checkbox switches states. The default is 0.3 seconds.
 
@@ -183,7 +196,7 @@ view.addSubview(checkbox)
 <br>
 
 
-##Project Structure
+## Project Structure
 
 **M13Checkbox**
 The main interface for M13Checkbox is the `M13Checkbox` class. It is a subclass of `UIControl` and handles the configurable properties, as well as touch events. 
@@ -204,7 +217,7 @@ A shim that gives the ability to set the enum values of `M13Checkbox` in Interfa
 
 <br>
 
-##Project Details
+## Project Details
 
 ### Requirements
 
