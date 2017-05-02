@@ -32,13 +32,14 @@ Create beautiful, customizable, extendable, animated checkboxes on iOS. Complete
 
 - **2.2.0:** M13Checkbox has been converted to Swift 3.
 
-##Documentation
+## Documentation
 
 Check out the demo app to change the properties of the checkbox and see the changes in real time.
 
 ### Animations
 
 - **Animation `enum`:** The possible animations for switching to and from the unchecked state.
+
     - **Stroke:**
     
         ![Stroke Sample](Resources/Samples/Stroke%20Sample.gif)
@@ -195,7 +196,7 @@ view.addSubview(checkbox)
 <br>
 
 
-##Project Structure
+## Project Structure
 
 **M13Checkbox**
 The main interface for M13Checkbox is the `M13Checkbox` class. It is a subclass of `UIControl` and handles the configurable properties, as well as touch events. 
@@ -216,7 +217,7 @@ A shim that gives the ability to set the enum values of `M13Checkbox` in Interfa
 
 <br>
 
-##Project Details
+## Project Details
 
 ### Requirements
 
