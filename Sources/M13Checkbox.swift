@@ -28,7 +28,7 @@ open class M13Checkbox: UIControl {
     - Checked: A checkmark is shown.
     - Mixed: A dash is shown.
     */
-    public enum CheckState: String, RawRepresentable {
+    public enum CheckState: String {
         /// No check is shown.
         case unchecked = "Unchecked"
         /// A checkmark is shown.
@@ -43,7 +43,7 @@ open class M13Checkbox: UIControl {
      - Square: The box is square with optional rounded corners.
      - Circle: The box is a circle.
      */
-    public enum BoxType: String, RawRepresentable {
+    public enum BoxType: String {
         /// The box is a circle.
         case circle = "Circle"
         /// The box is square with optional rounded corners.
@@ -56,7 +56,7 @@ open class M13Checkbox: UIControl {
      - Checkmark: The mark is a standard checkmark.
      - Radio: The mark is a radio style fill.
      */
-    public enum MarkType: String, RawRepresentable {
+    public enum MarkType: String {
         /// The mark is a standard checkmark.
         case checkmark = "Checkmark"
         /// The mark is a radio style fill.
