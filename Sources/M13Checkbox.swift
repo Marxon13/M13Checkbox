@@ -94,43 +94,30 @@ open class M13Checkbox: UIControl {
             switch rawValue {
             case "Stroke":
                 self = .stroke
-                break
             case "Fill":
                 self = .fill
-                break
             case "BounceStroke":
                 self = .bounce(.stroke)
-                break
             case "BounceFill":
                 self = .bounce(.fill)
-                break
             case "ExpandStroke":
                 self = .expand(.stroke)
-                break
             case "ExpandFill":
                 self = .expand(.fill)
-                break
             case "FlatStroke":
                 self = .flat(.stroke)
-                break
             case "FlatFill":
                 self = .flat(.fill)
-                break
             case "Spiral":
                 self = .spiral
-                break
             case "FadeStroke":
                 self = .fade(.stroke)
-                break
             case "FadeFill":
                 self = .fade(.fill)
-                break
             case "DotStroke":
                 self = .dot(.stroke)
-                break
             case "DotFill":
                 self = .dot(.fill)
-                break
             default:
                 return nil
             }
