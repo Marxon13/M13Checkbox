@@ -26,7 +26,7 @@ internal class M13CheckboxController {
     var animationGenerator: M13CheckboxAnimationGenerator = M13CheckboxAnimationGenerator()
     
     /// The current state of the checkbox.
-    var state: M13Checkbox.CheckState = .unchecked
+    var state: M13Checkbox.CheckState = DefaultValues.checkState
     
     /// The current tint color.
     /// - Note: Subclasses should override didSet to update the layers when this value changes.
@@ -48,7 +48,7 @@ internal class M13CheckboxController {
     var enableMorphing: Bool = true
     
     // The type of mark to display.
-    var markType: M13Checkbox.MarkType = .checkmark {
+    var markType: M13Checkbox.MarkType = DefaultValues.markType {
         willSet {
             if markType == newValue {
                 return

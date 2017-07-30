@@ -215,7 +215,7 @@ open class M13Checkbox: UIControl {
     
     /// The manager that manages display and animations of the checkbox.
     /// The default animation is a stroke.
-    fileprivate var controller: M13CheckboxController = ConstantValues.defaultController
+    fileprivate var controller: M13CheckboxController = DefaultValues.controller
     
     //----------------------------
     // MARK: - Initalization
@@ -238,7 +238,7 @@ open class M13Checkbox: UIControl {
             layer.addSublayer(aLayer)
         }
         controller.tintColor = tintColor
-        controller.resetLayersForState(ConstantValues.defaultCheckState)
+        controller.resetLayersForState(DefaultValues.checkState)
         
         let longPressGesture = M13CheckboxGestureRecognizer(target: self, action: #selector(M13Checkbox.handleLongPress(_:)))
         addGestureRecognizer(longPressGesture)
@@ -345,7 +345,7 @@ open class M13Checkbox: UIControl {
     }
     
     /// The type of animation to preform when changing from the unchecked state to any other state.
-    open var stateChangeAnimation: Animation = ConstantValues.defaultAnimation {
+    open var stateChangeAnimation: Animation = DefaultValues.animation {
         didSet {
             
             // Remove the sublayers

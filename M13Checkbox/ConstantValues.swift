@@ -14,12 +14,12 @@
 import Foundation
 
 // A set of default values used to initialize the object
-struct ConstantValues {
+struct DefaultValues {
     
-    static let defaultAnimation: M13Checkbox.Animation = .stroke
-    static let defaultMarkType: M13Checkbox.MarkType = .checkmark
-    static let defaultBoxType: M13Checkbox.BoxType = .circle
-    static let defaultCheckState: M13Checkbox.CheckState = .unchecked
-    static let defaultController: M13CheckboxController = M13CheckboxStrokeController()
+    static let animation: M13Checkbox.Animation = .stroke
+    static let markType: M13Checkbox.MarkType = .checkmark
+    static let boxType: M13Checkbox.BoxType = .circle
+    static let checkState: M13Checkbox.CheckState = .unchecked
+    static let controller: M13CheckboxController = M13CheckboxStrokeController()
     
 }
