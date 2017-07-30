@@ -215,7 +215,7 @@ open class M13Checkbox: UIControl {
     
     /// The manager that manages display and animations of the checkbox.
     /// The default animation is a stroke.
-    fileprivate var controller: M13CheckboxController = M13CheckboxStrokeController()
+    fileprivate var controller: M13CheckboxController = ConstantValues.defaultController
     
     //----------------------------
     // MARK: - Initalization
