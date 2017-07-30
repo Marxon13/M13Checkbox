@@ -238,7 +238,7 @@ open class M13Checkbox: UIControl {
             layer.addSublayer(aLayer)
         }
         controller.tintColor = tintColor
-        controller.resetLayersForState(.unchecked)
+        controller.resetLayersForState(ConstantValues.defaultCheckState)
         
         let longPressGesture = M13CheckboxGestureRecognizer(target: self, action: #selector(M13Checkbox.handleLongPress(_:)))
         addGestureRecognizer(longPressGesture)
@@ -345,7 +345,7 @@ open class M13Checkbox: UIControl {
     }
     
     /// The type of animation to preform when changing from the unchecked state to any other state.
-    open var stateChangeAnimation: Animation = .stroke {
+    open var stateChangeAnimation: Animation = ConstantValues.defaultAnimation {
         didSet {
             
             // Remove the sublayers
