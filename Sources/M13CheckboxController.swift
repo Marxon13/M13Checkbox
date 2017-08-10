@@ -47,6 +47,9 @@ internal class M13CheckboxController {
     /// Whether or not to allow morphong between states.
     var enableMorphing: Bool = true
     
+    // Whether the checkbox animates on touch
+    var animatesOnTouch: Bool = true
+    
     // The type of mark to display.
     var markType: M13Checkbox.MarkType = .checkmark {
         willSet {
@@ -124,9 +127,11 @@ internal class M13CheckboxController {
      - parameter toState: The new state of the checkbox.
      */
     func animate(_ fromState: M13Checkbox.CheckState?, toState: M13Checkbox.CheckState?, completion: (() -> Void)? = nil) {
-        if let toState = toState {
-            state = toState
-        }
+        if animatesOnTouch == true {
+            if let toState = toState {
+                state = toState
+            }
+        } 
     }
     
     //----------------------------
