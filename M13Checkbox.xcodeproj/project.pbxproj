@@ -81,6 +81,7 @@
 		43BDF4E41DA6751C005476B2 /* M13CheckboxRadioPathGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = M13CheckboxRadioPathGenerator.swift; path = Sources/Paths/M13CheckboxRadioPathGenerator.swift; sourceTree = SOURCE_ROOT; };
 		6F39FC0C5AAE259FA99C8348 /* Pods-M13Checkbox Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-M13Checkbox Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-M13Checkbox Demo/Pods-M13Checkbox Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		792FB031E2B87AC7363ACC0A /* Pods_M13Checkbox_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_M13Checkbox_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E82741C1F7EA929002FE5DC /* M13Checkbox.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = M13Checkbox.podspec; sourceTree = "<group>"; };
 		986098FE8EE9379B59F2A8C0 /* Pods-M13Checkbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-M13Checkbox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-M13Checkbox/Pods-M13Checkbox.debug.xcconfig"; sourceTree = "<group>"; };
 		9CD5E1DB8F346AB79E3C6430 /* Pods-M13Checkbox Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-M13Checkbox Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-M13Checkbox Demo/Pods-M13Checkbox Demo.release.xcconfig"; sourceTree = "<group>"; };
 		EA1528981C90653D00EE5115 /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorCollectionViewCell.swift; path = "../M13Checkbox Demo/ColorCollectionViewCell.swift"; sourceTree = "<group>"; };
@@ -185,6 +186,7 @@
 		EA67200D1C7D0296008054BA = {
 			isa = PBXGroup;
 			children = (
+				8E82741C1F7EA929002FE5DC /* M13Checkbox.podspec */,
 				EA67202D1C7D02F8008054BA /* Source */,
 				EA96F8FC1CBEB4CC0066C6B7 /* M13Checkbox */,
 				EA6720181C7D0296008054BA /* M13Checkbox Demo */,
