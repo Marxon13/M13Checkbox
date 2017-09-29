@@ -188,16 +188,16 @@ view.addSubview(checkbox)
 **M13Checkbox**
 The main interface for M13Checkbox is the `M13Checkbox` class. It is a subclass of `UIControl` and handles the configurable properties, as well as touch events. 
 
-**M13CheckboxManager**
-Each `M13Checkbox` references an instance of `M13CheckboxManager`, which controls the appearance and animations of its layers. The manager passes a set of layers to the `M13Checkbox`, which adds the layers to its layer hierarchy. The checkbox then asks the manager to perform the necessary animations on the layers to animate between states. Each animation type has its own subclass of `M13CheckboxManager`. To add an animation, subclass `M13CheckboxManager`, and add the animation type to the `Animation` enum, supporting the animation `Style` if applicable. Take a look at the existing managers to see what variables and functions to override.
+**M13CheckboxController**
+Each `M13Checkbox` references an instance of `M13CheckboxController`, which controls the appearance and animations of its layers. The controller passes a set of layers to the `M13Checkbox`, which adds the layers to its layer hierarchy. The checkbox then asks the controller to perform the necessary animations on the layers to animate between states. Each animation type has its own subclass of `M13CheckboxController`. To add an animation, subclass `M13CheckboxController`, and add the animation type to the `Animation` enum, supporting `AnimationStyle` if applicable. Take a look at the existing controllers to see what variables and functions to override.
 
-**M13CheckboxAnimationPresets**
-Each `M13CheckboxManager` references an instance of `M13CheckboxAnimationPresets`, which generates the animations that will be applied to layers during state transitions. The base class contains animations that are shared between multiple animation styles. An animation can subclass `M13CheckboxAnimationPresets` to generate new animations specific to the animation type.
+**M13CheckboxAnimationGenerator**
+Each `M13CheckboxController` references an instance of `M13CheckboxAnimationGenerator`, which generates the animations that will be applied to layers during state transitions. The base class contains animations that are shared between multiple animation styles. An animation can subclass `M13CheckboxAnimationGenerator` to generate new animations specific to the animation type.
 
-**M13CheckboxPathPresets**
-Each `M13CheckboxManager` references an instance of `M13CheckboxPathPresets`, which generates the paths that will be displayed by the layers. The base class contains paths that are shared between multiple animation styles, as well as some boilerplate code to determine which path to use. Some animations have a subclass of `M13CheckboxPathPresets` to add new paths specific to the animation type, or override existing paths to customize the look.
+**M13CheckboxPathGenerator**
+Each `M13CheckboxManager` references an instance of `M13CheckboxPathGenerator`, which generates the paths that will be displayed by the layers. The base class contains paths that are shared between multiple animation styles, as well as some boilerplate code to determine which path to use. Some animations have a subclass of `M13CheckboxPathGenerator` to add new paths specific to the animation type, or override existing paths to customize the look.
 
-`M13CheckboxPathPresets` calculates the positions of the points of the checkmark with more than just a basic scaled offset. This allows the checkmark to always look the same, not matter what size the checkbox is. The math contained in the `checkmarkLongArmBoxIntersectionPoint` and `checkmarkLongArmEndPoint` are a simplified version of a human readable solution. To see the math that went into creating these equations, check out the "Math.nb" or the "Math.pdf" in the "Other" folder.
+`M13CheckboxPathGenerator` calculates the positions of the points of the checkmark with more than just a basic scaled offset. This allows the checkmark to always look the same, not matter what size the checkbox is. The math contained in the `checkmarkLongArmBoxIntersectionPoint` and `checkmarkLongArmEndPoint` are a simplified version of a human readable solution. To see the math that went into creating these equations, check out the "Math.nb" or the "Math.pdf" in the "Other" folder.
 
 **M13Checkbox+IB**
 A shim that gives the ability to set the enum values of `M13Checkbox` in Interface Builder.

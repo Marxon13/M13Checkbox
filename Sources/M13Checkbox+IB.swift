@@ -24,7 +24,7 @@ public extension M13Checkbox {
             if let type = Animation(rawValue: newValue) {
                 stateChangeAnimation = type
             } else {
-                stateChangeAnimation = .stroke
+                stateChangeAnimation = DefaultValues.animation
             }
         }
     }
@@ -38,7 +38,7 @@ public extension M13Checkbox {
             if let type = MarkType(rawValue: newValue) {
                 markType = type
             } else {
-                markType = .checkmark
+                markType = DefaultValues.markType
             }
         }
     }
@@ -52,7 +52,7 @@ public extension M13Checkbox {
             if let type = BoxType(rawValue: newValue) {
                 boxType = type
             } else {
-                boxType = .circle
+                boxType = DefaultValues.boxType
             }
         }
     }
@@ -66,7 +66,7 @@ public extension M13Checkbox {
             if let temp = CheckState(rawValue: newValue) {
                 checkState = temp
             } else {
-                checkState = .unchecked
+                checkState = DefaultValues.checkState
             }
         }
     }

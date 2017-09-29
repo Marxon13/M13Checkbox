@@ -26,7 +26,7 @@ internal class M13CheckboxController {
     var animationGenerator: M13CheckboxAnimationGenerator = M13CheckboxAnimationGenerator()
     
     /// The current state of the checkbox.
-    var state: M13Checkbox.CheckState = .unchecked
+    var state: M13Checkbox.CheckState = DefaultValues.checkState
     
     /// The current tint color.
     /// - Note: Subclasses should override didSet to update the layers when this value changes.
@@ -48,60 +48,62 @@ internal class M13CheckboxController {
     var enableMorphing: Bool = true
     
     // The type of mark to display.
-    var markType: M13Checkbox.MarkType = .checkmark {
-        willSet {
-            if markType == newValue {
-                return
-            }
-            setMarkType(type: markType, animated: false)
+    var markType: M13Checkbox.MarkType {
+        get {
+            return _markType
+        }
+        set {
+            setMarkType(type: newValue, animated: false)
         }
     }
     
+    private var _markType: M13Checkbox.MarkType = DefaultValues.markType
+    
     func setMarkType(type: M13Checkbox.MarkType, animated: Bool) {
-        var newPathGenerator: M13CheckboxPathGenerator? = nil
-        if type != markType {
-            switch type {
-            case .checkmark:
-                newPathGenerator = M13CheckboxCheckPathGenerator()
-                break
-            case .radio:
-                newPathGenerator = M13CheckboxRadioPathGenerator()
-                break
-            case .addRemove:
-                newPathGenerator = M13CheckboxAddRemovePathGenerator()
-                break
-            case .disclosure:
-                newPathGenerator = M13CheckboxDisclosurePathGenerator()
-                break
-            }
-            
-            newPathGenerator?.boxLineWidth = pathGenerator.boxLineWidth
-            newPathGenerator?.boxType = pathGenerator.boxType
-            newPathGenerator?.checkmarkLineWidth = pathGenerator.checkmarkLineWidth
-            newPathGenerator?.cornerRadius = pathGenerator.cornerRadius
-            newPathGenerator?.size = pathGenerator.size
-            
-            // Animate the change.
-            if pathGenerator.pathForMark(state) != nil && animated {
-                let previousState = state
-                animate(state, toState: nil, completion: { [weak self] in
-                    self?.pathGenerator = newPathGenerator!
-                    self?.resetLayersForState(previousState)
-                    if self?.pathGenerator.pathForMark(previousState) != nil {
-                        self?.animate(nil, toState: previousState)
-                    }
-                    })
-            } else if newPathGenerator?.pathForMark(state) != nil && animated {
-                let previousState = state
-                pathGenerator = newPathGenerator!
-                resetLayersForState(nil)
-                animate(nil, toState: previousState)
-            } else {
-                pathGenerator = newPathGenerator!
-                resetLayersForState(state)
-            }
-            
-            markType = type
+        guard type != _markType else {
+            return
+        }
+        _setMarkType(type: type, animated: animated)
+        _markType = type
+    }
+    
+    private func _setMarkType(type: M13Checkbox.MarkType, animated: Bool) {
+        var newPathGenerator: M13CheckboxPathGenerator
+        switch type {
+        case .checkmark:
+            newPathGenerator = M13CheckboxCheckPathGenerator()
+        case .radio:
+            newPathGenerator = M13CheckboxRadioPathGenerator()
+        case .addRemove:
+            newPathGenerator = M13CheckboxAddRemovePathGenerator()
+        case .disclosure:
+            newPathGenerator = M13CheckboxDisclosurePathGenerator()
+        }
+        
+        newPathGenerator.boxLineWidth = pathGenerator.boxLineWidth
+        newPathGenerator.boxType = pathGenerator.boxType
+        newPathGenerator.checkmarkLineWidth = pathGenerator.checkmarkLineWidth
+        newPathGenerator.cornerRadius = pathGenerator.cornerRadius
+        newPathGenerator.size = pathGenerator.size
+        
+        // Animate the change.
+        if pathGenerator.pathForMark(state) != nil && animated {
+            let previousState = state
+            animate(state, toState: nil, completion: { [weak self] in
+                self?.pathGenerator = newPathGenerator
+                self?.resetLayersForState(previousState)
+                if self?.pathGenerator.pathForMark(previousState) != nil {
+                    self?.animate(nil, toState: previousState)
+                }
+            })
+        } else if newPathGenerator.pathForMark(state) != nil && animated {
+            let previousState = state
+            pathGenerator = newPathGenerator
+            resetLayersForState(nil)
+            animate(nil, toState: previousState)
+        } else {
+            pathGenerator = newPathGenerator
+            resetLayersForState(state)
         }
     }
     

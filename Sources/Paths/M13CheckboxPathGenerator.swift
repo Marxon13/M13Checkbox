@@ -33,7 +33,7 @@ internal class M13CheckboxPathGenerator {
     var cornerRadius: CGFloat = 3.0
     
     /// The box type to create.
-    var boxType: M13Checkbox.BoxType = .circle
+    var boxType: M13Checkbox.BoxType = DefaultValues.boxType
     
     //----------------------------
     // MARK: - Box Paths
