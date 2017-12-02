@@ -177,7 +177,7 @@ Add a custom view to the storyboard and set its class to "M13Checkbox". Customiz
 Just initialize the checkbox like one would initialize a UIView, and add it as a subview to your view hierarchy. 
 
 ```
-let checkbox = M13Checkbox(frame: CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
+let checkbox = M13Checkbox(frame: CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0))
 view.addSubview(checkbox)
 ```
 
