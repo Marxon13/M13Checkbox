@@ -21,6 +21,7 @@
 		43BDF4E31DA67304005476B2 /* M13CheckboxPathGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BDF4DE1DA67211005476B2 /* M13CheckboxPathGenerator.swift */; };
 		43BDF4E51DA6751C005476B2 /* M13CheckboxRadioPathGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BDF4E41DA6751C005476B2 /* M13CheckboxRadioPathGenerator.swift */; };
 		C8A9C7D6B9A456341E134B9F /* Pods_M13Checkbox_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792FB031E2B87AC7363ACC0A /* Pods_M13Checkbox_Demo.framework */; };
+		CEAFCBF6201FC46900178C16 /* Readme.md in Resources */ = {isa = PBXBuildFile; fileRef = CEAFCBF5201FC46900178C16 /* Readme.md */; };
 		EA1528991C90653D00EE5115 /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1528981C90653D00EE5115 /* ColorCollectionViewCell.swift */; };
 		EA1528A01C907B1200EE5115 /* CollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA15289F1C907B1200EE5115 /* CollectionViewLayout.swift */; };
 		EA67201A1C7D0296008054BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6720191C7D0296008054BA /* AppDelegate.swift */; };
@@ -84,6 +85,7 @@
 		8E82741C1F7EA929002FE5DC /* M13Checkbox.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = M13Checkbox.podspec; sourceTree = "<group>"; };
 		986098FE8EE9379B59F2A8C0 /* Pods-M13Checkbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-M13Checkbox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-M13Checkbox/Pods-M13Checkbox.debug.xcconfig"; sourceTree = "<group>"; };
 		9CD5E1DB8F346AB79E3C6430 /* Pods-M13Checkbox Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-M13Checkbox Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-M13Checkbox Demo/Pods-M13Checkbox Demo.release.xcconfig"; sourceTree = "<group>"; };
+		CEAFCBF5201FC46900178C16 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 		EA1528981C90653D00EE5115 /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorCollectionViewCell.swift; path = "../M13Checkbox Demo/ColorCollectionViewCell.swift"; sourceTree = "<group>"; };
 		EA15289F1C907B1200EE5115 /* CollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewLayout.swift; path = "../M13Checkbox Demo/CollectionViewLayout.swift"; sourceTree = "<group>"; };
 		EA26E1E41CAC66F000ACB4F4 /* M13CheckboxBounceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = M13CheckboxBounceController.swift; path = ../Sources/Managers/M13CheckboxBounceController.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 		EA67200D1C7D0296008054BA = {
 			isa = PBXGroup;
 			children = (
+				CEAFCBF5201FC46900178C16 /* Readme.md */,
 				8E82741C1F7EA929002FE5DC /* M13Checkbox.podspec */,
 				EA67202D1C7D02F8008054BA /* Source */,
 				EA96F8FC1CBEB4CC0066C6B7 /* M13Checkbox */,
@@ -375,6 +378,7 @@
 			files = (
 				EA6720261C7D0296008054BA /* LaunchScreen.storyboard in Resources */,
 				EA6720231C7D0296008054BA /* Assets.xcassets in Resources */,
+				CEAFCBF6201FC46900178C16 /* Readme.md in Resources */,
 				EA6720211C7D0296008054BA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,13 +399,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-M13Checkbox Demo-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3AE30ADBBC1FF6B62D2D7432 /* [CP] Embed Pods Frameworks */ = {
@@ -410,9 +417,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-M13Checkbox Demo/Pods-M13Checkbox Demo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Color-Picker-for-iOS/Color_Picker_for_iOS.framework",
+				"${BUILT_PRODUCTS_DIR}/PBDCarouselCollectionViewLayout/PBDCarouselCollectionViewLayout.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Color_Picker_for_iOS.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PBDCarouselCollectionViewLayout.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -657,7 +669,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.brandonMcQuilkin.M13Checkbox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -682,7 +694,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.brandonMcQuilkin.M13Checkbox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
