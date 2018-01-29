@@ -439,7 +439,7 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
         }
     }
     
-    func updateCheckboxState(_ sender: UISegmentedControl) {
+    @objc func updateCheckboxState(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             checkbox?.setCheckState(.unchecked, animated: true)
         } else if sender.selectedSegmentIndex == 1 {
@@ -449,11 +449,11 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
         }
     }
     
-    func updateAnimationDuration(_ sender: UISlider) {
+    @objc func updateAnimationDuration(_ sender: UISlider) {
         checkbox?.animationDuration = TimeInterval(sender.value)
     }
     
-    func updateMorphEnabled(_ sender: UISegmentedControl) {
+    @objc func updateMorphEnabled(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             checkbox?.enableMorphing = true
         } else {
@@ -461,15 +461,15 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
         }
     }
     
-    func updateMarkLineWidth(_ sender: UISlider) {
+    @objc func updateMarkLineWidth(_ sender: UISlider) {
         checkbox?.checkmarkLineWidth = CGFloat(sender.value)
     }
     
-    func updateBoxLineWidth(_ sender: UISlider) {
+    @objc func updateBoxLineWidth(_ sender: UISlider) {
         checkbox?.boxLineWidth = CGFloat(sender.value)
     }
     
-    func updateBoxShape(_ sender: UISegmentedControl) {
+    @objc func updateBoxShape(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             checkbox?.boxType = .circle
         } else {
@@ -477,7 +477,7 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
         }
     }
     
-    func updateMarkType(_ sender: UISegmentedControl) {
+    @objc func updateMarkType(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             checkbox?.setMarkType(markType: .checkmark, animated: true)
         } else if sender.selectedSegmentIndex == 1 {
@@ -489,7 +489,7 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
         }
     }
     
-    func updateAnimation(_ sender: UIButton) {
+    @objc func updateAnimation(_ sender: UIButton) {
         performSegue(withIdentifier: "animaitonPickerPopover", sender: sender)
     }
     
@@ -520,7 +520,7 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
         collectionView?.reloadItems(at: [IndexPath(item: 2, section: 0)])
     }
     
-    func updateAnimationStyle(_ sender: UISegmentedControl) {
+    @objc func updateAnimationStyle(_ sender: UISegmentedControl) {
         if let animation = checkbox?.stateChangeAnimation {
             switch animation {
             case .bounce:
@@ -544,11 +544,11 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
         }
     }
     
-    func updateColorPopover(_ sender: UIButton) {
+    @objc func updateColorPopover(_ sender: UIButton) {
         performSegue(withIdentifier: "colorPickerPopover", sender: sender)
     }
     
-    func updateColor(_ sender: HRColorPickerView) {
+    @objc func updateColor(_ sender: HRColorPickerView) {
         currentColorButton?.backgroundColor = sender.color
         if sender.tag == 0 {
             checkbox?.tintColor = sender.color
