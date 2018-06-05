@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
                     }
 
 
-  s.author             = { "Brandon McQuilkin" => "brandon.mcquilkin@gmail.com" }
+  s.authors             = { "Brandon McQuilkin" => "brandon.mcquilkin@gmail.com", "Andrea Antonioni" => "andreaantonioni97@gmail.com" }
 
   s.platform     = :ios, '8.0'
 
