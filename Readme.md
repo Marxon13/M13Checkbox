@@ -206,6 +206,8 @@ A shim that gives the ability to set the enum values of `M13Checkbox` in Interfa
 - Xcode 9.0+
 - Swift 4.0
 
+> To try the Swift 4.2 version, use the branch `swift_4_2`
+
 ### Todo
 
 - Fix the animations between the checked and mixed states when the mark is a radio. When the circle is close to being flat, the left and right edges are not rounded, as well as render some artifacts. 
