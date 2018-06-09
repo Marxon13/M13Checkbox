@@ -215,7 +215,7 @@ A shim that gives the ability to set the enum values of `M13Checkbox` in Interfa
 - Add support for interrupting animations mid-animation. So that if the checkbox is tapped multiple times in quick succession, it animates from the current values, instead of resetting the checkbox and restarting the animations. This might involve replacing CAAnimations with manually done animations using a CADisplayLink. Or the new UIViewPropertyAnimator.
 - tvOS support.
 - watchOS support.
-- Mac OS X support.
+- macOS support.
 - Checkbox cells (Re-add label support)
 - Checkbox groups (single / multiple selection)
 
