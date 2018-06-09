@@ -35,17 +35,17 @@ internal class M13CheckboxAnimationGenerator {
         if !reverse {
             animation.fromValue = 0.0
             animation.toValue = 1.0
-            animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+            animation.timingFunction = CAMediaTimingFunction(name: .easeIn)
         } else {
             animation.fromValue = 1.0
             animation.toValue = 0.0
             animation.beginTime = CACurrentMediaTime() + (animationDuration * 0.9)
-            animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            animation.timingFunction = CAMediaTimingFunction(name: .easeOut)
         }
         // Set animation properties.
         animation.duration = animationDuration / 10.0
         animation.isRemovedOnCompletion = false
-        animation.fillMode = kCAFillModeForwards
+        animation.fillMode = CAMediaTimingFillMode.forwards
         
         return animation
     }
@@ -94,8 +94,8 @@ internal class M13CheckboxAnimationGenerator {
         // Set animation properties.
         animation.duration = animationDuration
         animation.isRemovedOnCompletion = false
-        animation.fillMode = kCAFillModeForwards
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.fillMode = CAMediaTimingFillMode.forwards
+        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         
         return animation
     }
@@ -131,8 +131,8 @@ internal class M13CheckboxAnimationGenerator {
         animation.toValue = toPath?.cgPath
         // Set animation properties.
         animation.duration = animationDuration
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        animation.fillMode = kCAFillModeForwards
+        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        animation.fillMode = CAMediaTimingFillMode.forwards
         animation.isRemovedOnCompletion = false
         
         return animation
@@ -181,9 +181,9 @@ internal class M13CheckboxAnimationGenerator {
         animation.values = values.map({ NSValue(caTransform3D: $0) })
         animation.keyTimes = keyTimes.map({ NSNumber(value: $0 as Float) })
         animation.isRemovedOnCompletion = false
-        animation.fillMode = kCAFillModeForwards
+        animation.fillMode = CAMediaTimingFillMode.forwards
         animation.duration = animationDuration
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         
         return animation
     }

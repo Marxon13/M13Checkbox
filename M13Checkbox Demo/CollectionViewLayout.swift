@@ -63,7 +63,7 @@ class CollectionViewLayout: UICollectionViewFlowLayout {
         
         
         
-        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
+        collectionView.decelerationRate = .fast
     } 
     
     //----------------------------
