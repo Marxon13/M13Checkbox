@@ -35,12 +35,12 @@ internal class M13CheckboxAnimationGenerator {
         if !reverse {
             animation.fromValue = 0.0
             animation.toValue = 1.0
-            animation.timingFunction = CAMediaTimingFunction(name: .easeIn)
+            animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)
         } else {
             animation.fromValue = 1.0
             animation.toValue = 0.0
             animation.beginTime = CACurrentMediaTime() + (animationDuration * 0.9)
-            animation.timingFunction = CAMediaTimingFunction(name: .easeOut)
+            animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
         }
         // Set animation properties.
         animation.duration = animationDuration / 10.0
@@ -95,7 +95,7 @@ internal class M13CheckboxAnimationGenerator {
         animation.duration = animationDuration
         animation.isRemovedOnCompletion = false
         animation.fillMode = CAMediaTimingFillMode.forwards
-        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         
         return animation
     }
@@ -131,7 +131,7 @@ internal class M13CheckboxAnimationGenerator {
         animation.toValue = toPath?.cgPath
         // Set animation properties.
         animation.duration = animationDuration
-        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         animation.fillMode = CAMediaTimingFillMode.forwards
         animation.isRemovedOnCompletion = false
         
@@ -183,7 +183,7 @@ internal class M13CheckboxAnimationGenerator {
         animation.isRemovedOnCompletion = false
         animation.fillMode = CAMediaTimingFillMode.forwards
         animation.duration = animationDuration
-        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         
         return animation
     }

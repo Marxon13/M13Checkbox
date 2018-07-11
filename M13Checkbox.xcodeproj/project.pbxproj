@@ -22,6 +22,7 @@
 		43BDF4E51DA6751C005476B2 /* M13CheckboxRadioPathGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BDF4E41DA6751C005476B2 /* M13CheckboxRadioPathGenerator.swift */; };
 		C8A9C7D6B9A456341E134B9F /* Pods_M13Checkbox_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792FB031E2B87AC7363ACC0A /* Pods_M13Checkbox_Demo.framework */; };
 		CEAFCBF6201FC46900178C16 /* Readme.md in Resources */ = {isa = PBXBuildFile; fileRef = CEAFCBF5201FC46900178C16 /* Readme.md */; };
+		DD0DA83320F60978005720C0 /* SwiftSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0DA83220F60978005720C0 /* SwiftSupport.swift */; };
 		EA1528991C90653D00EE5115 /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA1528981C90653D00EE5115 /* ColorCollectionViewCell.swift */; };
 		EA1528A01C907B1200EE5115 /* CollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA15289F1C907B1200EE5115 /* CollectionViewLayout.swift */; };
 		EA67201A1C7D0296008054BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6720191C7D0296008054BA /* AppDelegate.swift */; };
@@ -86,6 +87,7 @@
 		986098FE8EE9379B59F2A8C0 /* Pods-M13Checkbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-M13Checkbox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-M13Checkbox/Pods-M13Checkbox.debug.xcconfig"; sourceTree = "<group>"; };
 		9CD5E1DB8F346AB79E3C6430 /* Pods-M13Checkbox Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-M13Checkbox Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-M13Checkbox Demo/Pods-M13Checkbox Demo.release.xcconfig"; sourceTree = "<group>"; };
 		CEAFCBF5201FC46900178C16 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
+		DD0DA83220F60978005720C0 /* SwiftSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftSupport.swift; path = Sources/SwiftSupport.swift; sourceTree = SOURCE_ROOT; };
 		EA1528981C90653D00EE5115 /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorCollectionViewCell.swift; path = "../M13Checkbox Demo/ColorCollectionViewCell.swift"; sourceTree = "<group>"; };
 		EA15289F1C907B1200EE5115 /* CollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewLayout.swift; path = "../M13Checkbox Demo/CollectionViewLayout.swift"; sourceTree = "<group>"; };
 		EA26E1E41CAC66F000ACB4F4 /* M13CheckboxBounceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = M13CheckboxBounceController.swift; path = ../Sources/Managers/M13CheckboxBounceController.swift; sourceTree = "<group>"; };
@@ -229,13 +231,14 @@
 		EA67202D1C7D02F8008054BA /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				EA67202E1C7D0349008054BA /* M13Checkbox.swift */,
-				EAD2FDA41CBD2FA400086119 /* M13CheckboxGestureRecognizer.swift */,
 				43BDF4E01DA67222005476B2 /* Animation Generator */,
 				EA26E1EC1CAEDD0800ACB4F4 /* Path Generators */,
 				EAA0983C1CA8BE7F001AAF6E /* Controllers */,
-				EA6720301C7DFC3D008054BA /* M13Checkbox+IB.swift */,
 				1746F2191F30C9D7005060B9 /* DefaultValues.swift */,
+				EA67202E1C7D0349008054BA /* M13Checkbox.swift */,
+				EA6720301C7DFC3D008054BA /* M13Checkbox+IB.swift */,
+				EAD2FDA41CBD2FA400086119 /* M13CheckboxGestureRecognizer.swift */,
+				DD0DA83220F60978005720C0 /* SwiftSupport.swift */,
 			);
 			name = Source;
 			path = M13Checkbox;
@@ -480,6 +483,7 @@
 				43242B571DA7C3CA00C6AF91 /* M13CheckboxBounceController.swift in Sources */,
 				EA96F90E1CBEB5190066C6B7 /* M13CheckboxStrokeController.swift in Sources */,
 				43242B561DA7C2CC00C6AF91 /* M13CheckboxFillController.swift in Sources */,
+				DD0DA83320F60978005720C0 /* SwiftSupport.swift in Sources */,
 				43BDF4E51DA6751C005476B2 /* M13CheckboxRadioPathGenerator.swift in Sources */,
 				434D1FF61DABB52300F5A8C8 /* M13CheckboxDisclosurePathGenerator.swift in Sources */,
 				EA96F90B1CBEB5190066C6B7 /* M13CheckboxGestureRecognizer.swift in Sources */,
