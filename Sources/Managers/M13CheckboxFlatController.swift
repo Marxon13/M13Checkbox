@@ -79,7 +79,7 @@ internal class M13CheckboxFlatController: M13CheckboxController {
         ]
         
         // Setup the unselected box layer
-        unselectedBoxLayer.lineCap = kCALineCapRound
+        unselectedBoxLayer.lineCap = .round
         unselectedBoxLayer.rasterizationScale = UIScreen.main.scale
         unselectedBoxLayer.shouldRasterize = true
         unselectedBoxLayer.actions = newActions
@@ -88,7 +88,7 @@ internal class M13CheckboxFlatController: M13CheckboxController {
         unselectedBoxLayer.fillColor = nil
         
         // Setup the selected box layer.
-        selectedBoxLayer.lineCap = kCALineCapRound
+        selectedBoxLayer.lineCap = .round
         selectedBoxLayer.rasterizationScale = UIScreen.main.scale
         selectedBoxLayer.shouldRasterize = true
         selectedBoxLayer.actions = newActions
@@ -97,8 +97,8 @@ internal class M13CheckboxFlatController: M13CheckboxController {
         selectedBoxLayer.transform = CATransform3DIdentity
         
         // Setup the checkmark layer.
-        markLayer.lineCap = kCALineCapRound
-        markLayer.lineJoin = kCALineJoinRound
+        markLayer.lineCap = .round
+        markLayer.lineJoin = .round
         markLayer.rasterizationScale = UIScreen.main.scale
         markLayer.shouldRasterize = true
         markLayer.actions = newActions
@@ -128,7 +128,7 @@ internal class M13CheckboxFlatController: M13CheckboxController {
         
         if pathGenerator.pathForMark(toState) == nil && pathGenerator.pathForMark(fromState) != nil {
             let morphAnimation = animationGenerator.morphAnimation(pathGenerator.pathForMark(), toPath: pathGenerator.pathForMixedMark())
-            morphAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+            morphAnimation.timingFunction = CAMediaTimingFunction(name: .easeIn)
             let opacityAnimation = animationGenerator.opacityAnimation(true)
             
             let quickOpacityAnimation = animationGenerator.quickOpacityAnimation(true)
@@ -153,7 +153,7 @@ internal class M13CheckboxFlatController: M13CheckboxController {
             markLayer.path = pathGenerator.pathForMixedMark()?.cgPath
             
             let morphAnimation = animationGenerator.morphAnimation(pathGenerator.pathForMixedMark(), toPath: pathGenerator.pathForMark())
-            morphAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            morphAnimation.timingFunction = CAMediaTimingFunction(name: .easeOut)
             let opacityAnimation = animationGenerator.opacityAnimation(false)
             
             let quickOpacityAnimation = animationGenerator.quickOpacityAnimation(false)

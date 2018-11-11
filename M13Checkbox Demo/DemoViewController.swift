@@ -97,21 +97,21 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
             
             switch checkbox!.stateChangeAnimation {
             case .stroke:
-                cell.selectionButton?.setTitle("Stroke", for: UIControlState())
+                cell.selectionButton?.setTitle("Stroke", for: UIControl.State())
             case .fill:
-                cell.selectionButton?.setTitle("Fill", for: UIControlState())
+                cell.selectionButton?.setTitle("Fill", for: UIControl.State())
             case .bounce:
-                cell.selectionButton?.setTitle("Bounce", for: UIControlState())
+                cell.selectionButton?.setTitle("Bounce", for: UIControl.State())
             case .expand:
-                cell.selectionButton?.setTitle("Expand", for: UIControlState())
+                cell.selectionButton?.setTitle("Expand", for: UIControl.State())
             case .flat:
-                cell.selectionButton?.setTitle("Flat", for: UIControlState())
+                cell.selectionButton?.setTitle("Flat", for: UIControl.State())
             case .spiral:
-                cell.selectionButton?.setTitle("Spiral", for: UIControlState())
+                cell.selectionButton?.setTitle("Spiral", for: UIControl.State())
             case .fade:
-                cell.selectionButton?.setTitle("Fade", for: UIControlState())
+                cell.selectionButton?.setTitle("Fade", for: UIControl.State())
             case .dot:
-                cell.selectionButton?.setTitle("Dot", for: UIControlState())
+                cell.selectionButton?.setTitle("Dot", for: UIControl.State())
             }
             
             cell.selectionButton?.addTarget(self, action: #selector(DemoViewController.updateAnimation(_:)), for: .touchUpInside)
@@ -368,7 +368,7 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
         
         
         
-        let position: UICollectionViewScrollPosition = layout.scrollDirection == .horizontal ? .centeredHorizontally : .centeredVertically
+        let position: UICollectionView.ScrollPosition = layout.scrollDirection == .horizontal ? .centeredHorizontally : .centeredVertically
         collectionView.scrollToItem(at: indexPath, at: position, animated: true)
     }
     
@@ -499,21 +499,21 @@ class DemoViewController: UIViewController, UICollectionViewDataSource, UIPopove
         if let cell = collectionView?.cellForItem(at: IndexPath(item: 1, section: 0)) as? SelectionCollectionViewCell {
             switch animation {
             case .stroke:
-                cell.selectionButton?.setTitle("Stroke", for: UIControlState())
+                cell.selectionButton?.setTitle("Stroke", for: UIControl.State())
             case .fill:
-                cell.selectionButton?.setTitle("Fill", for: UIControlState())
+                cell.selectionButton?.setTitle("Fill", for: UIControl.State())
             case .bounce:
-                cell.selectionButton?.setTitle("Bounce", for: UIControlState())
+                cell.selectionButton?.setTitle("Bounce", for: UIControl.State())
             case .expand:
-                cell.selectionButton?.setTitle("Expand", for: UIControlState())
+                cell.selectionButton?.setTitle("Expand", for: UIControl.State())
             case .flat:
-                cell.selectionButton?.setTitle("Flat", for: UIControlState())
+                cell.selectionButton?.setTitle("Flat", for: UIControl.State())
             case .spiral:
-                cell.selectionButton?.setTitle("Spiral", for: UIControlState())
+                cell.selectionButton?.setTitle("Spiral", for: UIControl.State())
             case .fade:
-                cell.selectionButton?.setTitle("Fade", for: UIControlState())
+                cell.selectionButton?.setTitle("Fade", for: UIControl.State())
             case .dot:
-                cell.selectionButton?.setTitle("Dot", for: UIControlState())
+                cell.selectionButton?.setTitle("Dot", for: UIControl.State())
             }
         }
         

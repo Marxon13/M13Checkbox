@@ -51,7 +51,7 @@ internal class M13CheckboxStrokeController: M13CheckboxController {
         ]
         
         // Setup the unselected box layer
-        unselectedBoxLayer.lineCap = kCALineCapRound
+        unselectedBoxLayer.lineCap = .round
         unselectedBoxLayer.rasterizationScale = UIScreen.main.scale
         unselectedBoxLayer.shouldRasterize = true
         unselectedBoxLayer.actions = newActions
@@ -62,7 +62,7 @@ internal class M13CheckboxStrokeController: M13CheckboxController {
         unselectedBoxLayer.fillColor = nil
         
         // Setup the selected box layer.
-        selectedBoxLayer.lineCap = kCALineCapRound
+        selectedBoxLayer.lineCap = .round
         selectedBoxLayer.rasterizationScale = UIScreen.main.scale
         selectedBoxLayer.shouldRasterize = true
         selectedBoxLayer.actions = newActions
@@ -71,8 +71,8 @@ internal class M13CheckboxStrokeController: M13CheckboxController {
         selectedBoxLayer.fillColor = nil
         
         // Setup the checkmark layer.
-        markLayer.lineCap = kCALineCapRound
-        markLayer.lineJoin = kCALineJoinRound
+        markLayer.lineCap = .round
+        markLayer.lineJoin = .round
         markLayer.rasterizationScale = UIScreen.main.scale
         markLayer.shouldRasterize = true
         markLayer.actions = newActions
