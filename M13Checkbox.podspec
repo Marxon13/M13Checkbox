@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "M13Checkbox"
-  s.version      = "3.3.1"
+  s.version      = "3.3.2"
   s.summary      = "A beautiful, customizable, extendable, animated checkbox for iOS."
 
   s.description  = <<-DESC
