@@ -123,8 +123,8 @@ internal class M13CheckboxStrokeController: M13CheckboxController {
             let quickOpacityAnimation = animationGenerator.quickOpacityAnimation(false)
             
             CATransaction.begin()
-            CATransaction.setCompletionBlock({ [unowned self] () -> Void in
-                self.resetLayersForState(self.state)
+            CATransaction.setCompletionBlock({ [weak self] () -> Void in
+                self?.resetLayersForState(self?.state)
                 completion?()
                 })
             
