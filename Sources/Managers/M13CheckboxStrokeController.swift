@@ -105,7 +105,7 @@ internal class M13CheckboxStrokeController: M13CheckboxController {
             let quickOpacityAnimation = animationGenerator.quickOpacityAnimation(true)
             
             CATransaction.begin()
-            CATransaction.setCompletionBlock({ [unowned self] () -> Void in
+            CATransaction.setCompletionBlock({ [weak self] () -> Void in
                 self.resetLayersForState(self.state)
                 completion?()
                 })
@@ -141,7 +141,7 @@ internal class M13CheckboxStrokeController: M13CheckboxController {
             let morphAnimation = animationGenerator.morphAnimation(fromPath, toPath: toPath)
             
             CATransaction.begin()
-            CATransaction.setCompletionBlock({ [unowned self] () -> Void in
+            CATransaction.setCompletionBlock({ [weak self] () -> Void in
                 self.resetLayersForState(self.state)
                 completion?()
                 })
