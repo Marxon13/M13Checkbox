@@ -106,7 +106,7 @@ internal class M13CheckboxStrokeController: M13CheckboxController {
             
             CATransaction.begin()
             CATransaction.setCompletionBlock({ [weak self] () -> Void in
-                self.resetLayersForState(self.state)
+                self?.resetLayersForState(self?.state)
                 completion?()
                 })
             
@@ -142,7 +142,7 @@ internal class M13CheckboxStrokeController: M13CheckboxController {
             
             CATransaction.begin()
             CATransaction.setCompletionBlock({ [weak self] () -> Void in
-                self.resetLayersForState(self.state)
+                self?.resetLayersForState(self?.state)
                 completion?()
                 })
             
