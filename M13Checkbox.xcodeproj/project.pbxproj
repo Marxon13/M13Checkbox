@@ -301,7 +301,6 @@
 				EA6720131C7D0296008054BA /* Frameworks */,
 				EA6720141C7D0296008054BA /* Resources */,
 				3AE30ADBBC1FF6B62D2D7432 /* [CP] Embed Pods Frameworks */,
-				7D35D6D2E4983E7515358555 /* [CP] Copy Pods Resources */,
 				EA9F61E91D9BFF3D0015D68E /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -344,7 +343,7 @@
 				TargetAttributes = {
 					EA6720151C7D0296008054BA = {
 						CreatedOnToolsVersion = 7.2.1;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1020;
 					};
 					EA96F8FA1CBEB4CC0066C6B7 = {
 						CreatedOnToolsVersion = 7.3;
@@ -417,7 +416,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-M13Checkbox Demo/Pods-M13Checkbox Demo-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-M13Checkbox Demo/Pods-M13Checkbox Demo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Color-Picker-for-iOS/Color_Picker_for_iOS.framework",
 				"${BUILT_PRODUCTS_DIR}/PBDCarouselCollectionViewLayout/PBDCarouselCollectionViewLayout.framework",
 			);
@@ -428,22 +427,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-M13Checkbox Demo/Pods-M13Checkbox Demo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7D35D6D2E4983E7515358555 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-M13Checkbox Demo/Pods-M13Checkbox Demo-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-M13Checkbox Demo/Pods-M13Checkbox Demo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -639,8 +623,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brandonMcQuilkin.M13CheckboxDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -654,8 +637,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.brandonMcQuilkin.M13CheckboxDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
