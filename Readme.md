@@ -203,8 +203,8 @@ A shim that gives the ability to set the enum values of `M13Checkbox` in Interfa
 ### Requirements
 
 - iOS 8+
-- Xcode 10.0+
-- Swift 4.2
+- Xcode 10.2+
+- Swift 5
 
 ### Todo
 
