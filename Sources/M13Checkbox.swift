@@ -316,7 +316,7 @@ open class M13Checkbox: UIControl {
      - parameter animated: Whether or not to animate the change. Defaults to false.
      - note: If the checkbox is mixed, it will return to the unchecked state.
      */
-    open func toggleCheckState(_ animated: Bool = false) {
+    @objc open func toggleCheckState(_ animated: Bool = false) {
         switch checkState {
         case .checked:
             setCheckState(.unchecked, animated: animated)
