@@ -15,6 +15,7 @@ import UIKit
 
 /// A customizable checkbox control for iOS.
 @IBDesignable
+@objcMembers
 open class M13Checkbox: UIControl {
     
     //----------------------------
@@ -316,7 +317,7 @@ open class M13Checkbox: UIControl {
      - parameter animated: Whether or not to animate the change. Defaults to false.
      - note: If the checkbox is mixed, it will return to the unchecked state.
      */
-    @objc open func toggleCheckState(_ animated: Bool = false) {
+    open func toggleCheckState(_ animated: Bool = false) {
         switch checkState {
         case .checked:
             setCheckState(.unchecked, animated: animated)
