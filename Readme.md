@@ -148,10 +148,19 @@ github "Marxon13/M13Checkbox"
 
 #### Swift Package Manager
 
-To install via Swift Package Manager, add the following as a dependency to your Package.swift file:
+M13Checkbox supports SPM versions 5.1.0 and above. To use SPM, you should use Xcode 11 to open your project. Click `File` -> `Swift Packages` -> `Add Package Dependency`, enter `https://github.com/Marxon13/M13Checkbox`. Select the version you’d like to use.
 
+You can also manually add the package to your Package.swift file:
+
+```swift
+.package(url: "https://github.com/Marxon13/M13Checkbox.git", from: "3.4.0")
 ```
-.Package(url: "git@github.com:Marxon13/M13Checkbox.git", versions: Version(2,2,0)..<Version(2,2,3)),
+Note: IBDesignables and IBInspectables will not work in interface builder.
+
+Workaround: Create IBDesignable subclass of M13Checkbox, Use this subclass as custom class in interface builder. Example:
+```swift
+@IBDesignable
+class M13CheckboxView : M13Checkbox {}    
 ```
 
 #### Manual
