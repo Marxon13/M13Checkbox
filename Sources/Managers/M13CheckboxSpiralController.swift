@@ -193,8 +193,8 @@ internal class M13CheckboxSpiralController: M13CheckboxController {
             let morphAnimation = animationGenerator.morphAnimation(fromPath, toPath: toPath)
             
             CATransaction.begin()
-            CATransaction.setCompletionBlock({ [unowned self] () -> Void in
-                self.resetLayersForState(self.state)
+            CATransaction.setCompletionBlock({ [weak self] () -> Void in
+                self?.resetLayersForState(self?.state)
                 completion?()
                 })
             
