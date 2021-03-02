@@ -15,6 +15,7 @@ import UIKit
 
 /// A customizable checkbox control for iOS.
 @IBDesignable
+@objcMembers
 open class M13Checkbox: UIControl {
     
     //----------------------------
